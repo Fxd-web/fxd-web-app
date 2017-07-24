@@ -1,0 +1,19 @@
+@font-face {font-family: "iconfont";
+  src: url('../assets/font/iconfont.ttf?t=1483606207042') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shezhi:before { content: "\343e"; }
+
+.icon-jiantou:before { content: "\e655"; }
+
+.icon-shouye:before { content: "\e63a"; }
+
+.icon-iconwo:before { content: "\e692"; }
