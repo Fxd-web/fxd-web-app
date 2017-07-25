@@ -98,7 +98,7 @@
       ]),
       submit() {
         this.$store.dispatch('user_login', this.user);
-        if (this.showLoginCode) {
+        if(this.showLoginCode) {
           this.$store.commit('TOGGLE_LOGIN_CODE', {
             flag: 0
           })
@@ -109,11 +109,11 @@
         // })
         // console.log('121')
       },
-      register() {
+      register(){
         this.NEXT_PAGE('register');
       },
       forgetPwd() {
-        this.NEXT_PAGE('forgerPwd');
+        this.NEXT_PAGE('forgetPwd');
       },
       sendCode() {
 

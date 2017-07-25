@@ -54,7 +54,7 @@ export default {
       }
     },
     {
-      path: '/forgerPwd',
+      path: '/forgetPwd',
       component: require('./views/user/forgetPwd'),
       meta: {
         title: '找回密码',
