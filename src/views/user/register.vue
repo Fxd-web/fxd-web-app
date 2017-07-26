@@ -26,6 +26,7 @@
     <fxd-cell  v-model="item.mobile_phone_" type="imgText" :placeholder="item.placeholder2" class="reg_">
       <img width="150%" src="../../assets/img/yaoqingma.png" alt="" slot="imgText">
     </fxd-cell>
+
     <fxd-radio-tip agreeText="同意发薪贷" :tipList="tipList" class="reg_"></fxd-radio-tip>
     <fxd-button class="affirmRegister">确认注册</fxd-button>
     <!--<p><img width="29" src="../../assets/img/mobile.png" alt=""><input type="phone" placeholder="输入手机号" v-model='data.mobile_phone_'></p>-->
@@ -135,7 +136,6 @@
           pageTokenVal: this.$store.state.pageToken.pageTokenVal || '',
           pageTokenKey: this.$store.state.pageToken.pageTokenKey || '',
         }
-
       }
     },
     watch: {

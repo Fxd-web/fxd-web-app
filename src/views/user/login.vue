@@ -97,7 +97,6 @@
         'NEXT_PAGE',
       ]),
       submit() {
-
         this.$store.dispatch('user_login', this.user);
         if(this.showLoginCode) {
           this.$store.commit('TOGGLE_LOGIN_CODE', {
