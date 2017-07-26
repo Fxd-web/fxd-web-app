@@ -103,7 +103,7 @@
             placeholder:'请先输入图片验证码',
             placeholder2:'邀请码或邀请人手机号',
             mobile_phone_:'',
-            val4:'',
+            val4:'hahahhahhah',
         }
       }
     },
