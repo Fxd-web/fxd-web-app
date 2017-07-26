@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="more">
     <ul>
       <li v-for="(i,index) in list" @click='linkto(i.link,index)'>
-        <img :src="i.icon" width="27">
+        <img :src="i.icon" width="27"/>
         {{ i.title }}
+        <img :src="i.icon1" width="27" class="rightArrow"/>
       </li>
     </ul>
     <div class="logout" @click="$store.commit('TOGGLE_DIALOG','alert')">
@@ -12,18 +13,25 @@
   </div>
 </template>
 <style  lang="scss" scoped>
+  .more{
+    height:100%;
+    background-color: #f5f5f5;
+  }
+  ul{
+   margin-bottom: .8rem;
+  }
  li{
     background: #fff;
-    padding-left:15px;
-    font-size: 16px;
-    line-height: 50px;
+    padding-left:.3rem;
+    font-size: .32rem;
+    line-height: 1rem;
     vertical-align: middle;
     position: relative;
     &:after{
       display: inline-block;
       position: absolute;
       bottom:0;
-      left: 15px;
+      left: .3rem;
       content: '';
       height: 1px;
       background: #e7e7e7;
@@ -36,15 +44,26 @@
       content: none;
     }
     img{
-      margin-right: 12px;
+      width:.5rem;
+      height:.54rem;
+      float: left;
+      margin-top:.3rem;
+      margin-right: .24rem;
+    }
+    .rightArrow{
+      float: right;
+      width:.3rem;
+      height:.3rem;
     }
   }
   .logout{
     background: #fff;
-    margin-top: 25px;
-    font-size: 16px;
-    line-height: 50px;
+    margin-top: .5rem;
+    font-size: .32rem;
+    line-height: 1rem;
+    height:1rem;
     text-align: center;
+    margin-bottom: 8rem;
   }
 </style>
 <script type="text/ecmascript-6">
@@ -55,21 +74,31 @@
             list:[{
               title:'关于我们',
               icon:require('../assets/img/7_gd_icon_05.png'),
+              icon1:require('../assets/img/rightArrow.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/about.html'
             },
             {
               title:'常见问题',
               icon:require('../assets/img/7_gd_icon_06.png'),
+              icon1:require('../assets/img/rightArrow.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/question.html'
             },
             {
               title:'意见反馈',
               icon:require('../assets/img/7_gd_icon_07.png'),
+              icon1:require('../assets/img/rightArrow.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/feedBack.html'
             },
             {
               title:'客服热线',
-              icon:require('../assets/img/7_gd_icon_09.png'),
+              icon1:require('../assets/img/rightArrow.png'),
+              icon:require('../assets/img/7_gd_icon_10.png'),
+            },
+            {
+              title:'修改密码',
+              icon1:require('../assets/img/rightArrow.png'),
+              icon:require('../assets/img/7_gd_icon_07.png'),
+              link:'https://h5.faxindai.com:8028/fxd-h5/page/more/feedBack.html'
             }],
           }
         },
