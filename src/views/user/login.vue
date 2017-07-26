@@ -9,7 +9,7 @@
     <fxd-cell  v-model="item.password_" type="imgText" inputType="password" class="login-fxd-cell">
       <img width="100%" src="../../assets/img/password.png" alt="" slot="imgText">
     </fxd-cell>
-    <fxd-button class="login-fxd-button">登录</fxd-button>
+    <fxd-button class="login-fxd-button" @click.native="submit">登录</fxd-button>
     <div class="login-footer">
       <span @click="forgetPwd">忘记密码</span>
       <span>|</span>
@@ -97,12 +97,13 @@
         'NEXT_PAGE',
       ]),
       submit() {
-        this.$store.dispatch('user_login', this.user);
-        if (this.showLoginCode) {
-          this.$store.commit('TOGGLE_LOGIN_CODE', {
-            flag: 0
-          })
-        }
+        this.NEXT_PAGE('home');
+//        this.$store.dispatch('user_login', this.user);
+//        if (this.showLoginCode) {
+//          this.$store.commit('TOGGLE_LOGIN_CODE', {
+//            flag: 0
+//          })
+//        }
         // user_login(this.user).then((data)=>{
         //   this.USER_LOGIN(data.result);
         //   this.NEXT_PAGE('home');

@@ -104,7 +104,7 @@
       }
     },
     mounted() {
-      this.picCode();
+//      this.picCode();
     },
     methods: {
       picCode() {

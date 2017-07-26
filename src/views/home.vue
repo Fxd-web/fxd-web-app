@@ -1,141 +1,390 @@
 <template>
-  <div  id="main" style='height:calc(100vh - 50px)'>
-    <div class="main-banner">
-      <cSwiper :list='data'></cSwiper>
+  <div  class="home">
+    <div class="main-header">
+      <div class="banner">
+
+      </div>
+      <div class="dialog">
+        <img src="../assets/img/home_dialog_icon.png" alt="">
+        <ul><li>2017-08-20 **骅 130****56 借款1,000 元</li><li>2017-07-26 **磊 156****19 借款500 元</li><li>2017-07-26 **磊 156****19 借款1,000 元</li><li>2017-07-26 **磊 156****19 借款500 元</li><li>2017-07-26 **端 156****19 借款500 元</li><li>2017-07-26 **磊 156****19 借款1,000 元</li><li>2017-07-25 **源 133****86 借款500 元</li><li>2017-07-25 **磊 156****19 借款500 元</li><li>2017-07-25 **波 145****00 借款1,000 元</li><li>2017-07-25 **丽 183****00 借款1,000 元</li></ul>
+      </div>
+      <img src="../assets/img/main_qr_code.png" class="wx">
     </div>
-    <div class="main-borrow" @click="linkCase('P001002')">
-      <div>
-        <img src="../assets/img/home_01.png" alt="" width = '38' >
-      </div>
-      <div class="main-borrow-center">
-        <p>最高<span>5000元</span> <span>灵活还款</span></p>
-        <p>周期：5~50周<img src="../assets/img/home_03.png" alt="" width="17" class="main-costdes"></p>
-      </div>
-      <div>
-        <h2>我要借款</h2>
-        <img src="../assets/img/home_08.png" alt="" width="13" class="main-borrow-img">
-      </div>
+    <div class="main-con">
+      <!--主产品-->
+        <div class="product-normal">
+            <img src="http://192.168.6.137/fxd/M00/00/00/wKgGiVlxnnaEW81EAAAAAKYuGXo782.png" alt="" class="product-normal-left">
+            <div class="product-normal-center">
+                <h2>工薪贷 <span>灵活还款</span></h2>
+                <p>1000-5000元</p>
+            </div>
+            <div class="product-normal-right">
+                <p class="arrow-right">我要借款</p>
+            </div>
+        </div>
+      <!--拒绝导流部分-->
+        <div class="product-reject">
+          <h2  class="product-reject-header"><div class="crying-face"><span></span></div>很抱歉，您的借款申请审核失败</h2>
+            <div class="product-reject-con">
+              <p class="product-reject-tip">
+                为您匹配其他第三方平台，通过率高达80%
+              </p>
+              <div class="product-reject-list">
+                <img src="/" alt="" class="product-reject-list-left">
+                <div class="product-reject-list-con">
+                    <h2>野狗金融</h2>
+                    <p>额度：至少1毛钱</p>
+                    <div>
+                      <p>期限：<span>1-6个月</span></p>
+                      <p>费用：<span>1.08%</span>/日</p>
+                    </div>
+                    <p><span>贵</span><span>通过率低</span><span>跑路快</span></p>
+                </div>
+                <span class="product-reject-right arrow-right"></span>
+              </div>
+              <p class="product-reject-more">更多<span class="">>></span></p>
+            </div>
+        </div>
     </div>
-    <div class="main-borrow" @click="linkCase('P001004')">
-      <div>
-        <img src="../assets/img/home_02.png" alt="" width="38" ></div>
-      <div class="main-borrow-center">
-        <p>最高<span>5000元</span><span class="main-borrow-yellow">极速审核</span></p>
-        <p>周期：5~50周</p>
-      </div>
-      <div>
-        <h2>我要借款</h2>
-        <img src="../assets/img/home_08.png" alt="" width="13" class="main-borrow-img">
-      </div>
+    <div class="main-footer">
+        <ul>
+          <li>
+            <img src="../assets/img/home_footer_borrow.png" alt="">
+            <p>我要还款</p>
+          </li>
+          <li>
+            <img src="../assets/img/home_footer_load_progress.png" alt="">
+            <p>借款进度</p>
+          </li>
+          <li>
+            <img src="../assets/img/home_footer_loan_detial.png" alt="">
+            <p>费用说明</p>
+          </li>
+        </ul>
     </div>
-    <div class="main-my">
-      <div class="main-my--refund">
-        <img src="../assets/img/home_06.png" alt="" width="28">
-        <span>我要还款</span>
+
+    <!--************* 微信弹出层 *************-->
+    <fxd-mask v-if="false">
+      <div class="wx-con" v-if="false">
+        <div class="wx-cancel">+</div>
+        <div class="wx-top">
+          <img src="../assets/img/wx.png" alt="">
+          <div>
+            <p>关注发薪贷微信</p>
+            <p>公众号: <span>急速发薪</span></p>
+          </div>
+        </div>
+        <div class="wx-img">
+          <img src="../assets/img/qr_code.png" alt="">
+        </div>
+        <div class="wx-tip">
+          <p>微信扫一扫 即可关注</p>
+          <p>精彩活动 不容错过</p>
+        </div>
+        <div class="wx-btn">
+          <fxd-button type="inset">复制微信号</fxd-button>
+          <fxd-button type="inset">保存图片</fxd-button>
+        </div>
       </div>
-      <div class="main-my--borrow">
-        <img src="../assets/img/home_07.png" alt="" width="28">
-        <span>我的借款</span>
-      </div>
-    </div>
+    </fxd-mask>
   </div>
 </template>
 <style lang="scss" scoped>
-  #main{
-    z-index: 9;
-    overflow: hidden;
-    width:100%;
-  }
-  .main-banner{
-    max-width: 600px;
-  }
-  .main-borrow{
-    height: 110px;
-    background: #fff;
-    display: flex;
-    margin-bottom: 5px;
-    align-items: center;
-    justify-content: space-around;
-  }
-  .main-borrow:active{
-    background: rgba(255,255,255,.4)
-  }
-  .main-borrow img,.main-borrow h2{
-    display: inline-block;
-  }
-  .main-borrow h2{
-    color: #1da9ff;
-    font-weight: normal;
-    font-size: 12px;
-  }
-  .main-borrow>div{
-    box-sizing: border-box;
-    display: inline-block;
-  }
-  .main-borrow .main-costdes{
-    margin-left: 10px;
-    vertical-align: middle;
-  }
-  .main-borrow .main-borrow-img{
-    vertical-align: middle;
-  }
-  .main-borrow .main-borrow-center p{
-    font-size: 14px;
-    line-height: 28px;
-    color: #7e878e;
-  }
-  .main-borrow .main-borrow-center span:first-child{
-    color: #1da9ff;
-    font-size:20px;
-    padding-left: 10px;
-    padding-right: 20px;
-  }
-  .main-borrow .main-borrow-center span:last-child{
-    color: #1da9ff;
-    border-radius: 20px;
-    border:1px solid #1da9ff;
-    padding: 2px 10px;
-    font-size: 12px;
-  }
-  .main-borrow .main-borrow-center span.main-borrow-yellow{
-    color: #ffb43c;
-    border: 1px solid #ffb43c;
-  }
-  .main-my{
-    color: #7e878e;
-    margin-top: 15px;
-    background: #fff;
-    height: 60px;
-    margin-bottom: 60px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 16px;
-    position: relative;
-  }
-  .main-my:after{
-    content: '';
-    position: absolute;
-    height: 30px;
-    top: 15px;
-    left: 50%;
-    border-left:1px solid rgba(126,135,142,.2);
+  .home{
+    background: #f5f5f5;
+    .main-header{
+      position: relative;
+      .banner{
+        background: red;
+        height: 3.76rem;
+      }
+      .dialog{
+        background: #fff;
+        height:.84rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 .3rem;
+        img{
+          width: .36rem;
+          position: relative;
+          left: -.35rem;
+        }
+        ul{
+          overflow: hidden;
+          height: 50%;
+          color: #8c8c8c;
+          li{
+            line-height: 1.5;
+            font-size: .28rem;
+          }
+        }
+      }
+      .wx{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 1.6rem;
+      }
+    }
+    .main-con{
+
+      /*主产品*/
+        .product-normal{
+          &:active{
+            background: rgba(255,255,255,.4);
+          }
+          margin-top: .1rem;
+          background: #fff;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: .5rem .3rem;
+          line-height: 1.5;
+          #{&}-left{
+            width: .76rem;
+            img{
+              background: #c8c8cd;
+              padding-right: .8rem;
+            }
+          }
+          #{&}-center{
+            h2{
+              display: flex;
+              align-items: center;
+              color: #666;
+              span{
+                font-size: .24rem;
+                color: #1da9ff;
+                border-radius: .4rem;
+                border: 1px solid #1da9ff;
+                padding: .02rem .2rem;
+                margin-left:.3rem;
+              }
+            }
+            p{
+              color: #8c8c8c;
+            }
+          }
+          #{&}-right{
+            color: #1da9ff;
+            font-size: .24rem!important;
+            .arrow-right{
+              padding-right: .5rem;
+            }
+          }
+        }
+      /*拒绝导流产品*/
+      .product-reject{
+        #{&}-header{
+          padding: .2rem 0;
+          overflow: hidden;
+          text-align: center;
+          color: #09adef;
+          font-weight: normal;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: .32rem;
+          /*  哭脸 >_<  */
+          .crying-face{
+            margin-right: .5rem;
+            overflow: hidden;
+            position: relative;
+            top:-.08rem;
+            span{
+              display: inline-block;
+              border:3px solid #09adef;
+              border-radius: 50%;
+              transform: translateY(90%);
+              width: .32rem;
+              height: .32rem;
+              position: relative;
+              &:after,&:before{
+                content: '';
+                position: absolute;
+                width: .1rem;
+                height: .1rem;
+                background: #09adef;
+                border-radius: 50%;
+                top:-.2rem;
+              }
+              &:after{
+                left: 0;
+              }
+              &:before{
+                right: 0;
+              }
+            }
+          }
+        }
+        #{&}-con{
+          background: #fff;
+          border-radius: 15px;
+          width: calc(100% - 1rem);
+          padding: .1rem;
+          margin:0 auto .3rem;
+          height: 300px;
+          overflow-y: auto;
+        }
+        #{&}-tip{
+          font-size: .3rem;
+          padding: .2rem 0 .1rem;
+          text-align: center;
+          color: #4d4d4d;
+        }
+        #{&}-more{
+          padding:.1rem 0 .3rem;
+          text-align: center;
+          color: #09adef;
+          font-size: .32rem;
+          span{
+            padding-left: .1rem;
+          }
+        }
+        #{&}-list{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &:active{
+            background: #f5f5f5;
+          }
+          #{&}-left{
+              background: #c8c8cd;
+            width: 1.28rem;
+            height: 1.28rem;
+          }
+          #{&}-con{
+            flex: 1 auto;
+            padding:.3rem .5rem;
+            line-height: 1.5;
+            h2{
+              color: #1a1a1a;
+              font-size: .36rem;
+              font-weight: normal;
+            }
+            p{
+              font-size: .24rem;
+              color: #8c8c8c;
+              span{
+                color: #00aaee;
+              }
+            }
+            &>p:nth-child(2){
+              font-size: .3rem;
+            }
+            div{
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: .2rem;
+            }
+            &>p:last-child{
+              &>span{
+                color: #c8c8cd;
+                border:1px solid #8c8c8c;
+                border-radius: .1rem;
+                padding:0 .1rem;
+                margin-right: .2rem;
+              }
+            }
+          }
+          #{&}-right{
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .main-footer{
+      background: #fff;
+        ul{
+          display: flex;
+          text-align: center;
+          align-items: center;
+          justify-content: space-between;
+          color: #7e878e;
+          li{
+            flex: 1;
+            padding-bottom: .3rem;
+            &:active{
+              background: rgba(0,0,0,.04);
+            }
+          }
+          img{
+            height:.56rem;
+            width: .56rem;
+          }
+        }
+    }
+
+
+    /**********微信弹出框样式**********/
+    .wx-con{
+      @media only screen and (max-device-width: 320px) {
+        .wx-con{
+          padding: .5rem!important;
+        }
+      }
+      padding:1rem;
+      background: #fff;
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform: translate( -50%, -50%);
+      .wx-cancel{
+        position: absolute;
+        right: .2rem;
+        top:.4rem;
+        display: inline-block;
+        transform: rotate(45deg);
+        font-size: .7rem;
+        line-height: 0;
+      }
+      .wx-img{
+        img{
+          width: 4.8rem;
+        }
+      }
+      .wx-top{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        img{
+          width: 1.08rem;
+        }
+        p{
+          line-height:.6;
+        }
+        span{
+          color: #1da9ff;
+        }
+      }
+      .wx-tip{
+        p{
+          text-align: center;
+          font-size: .24rem;
+          line-height: .5;
+        }
+      }
+      .wx-btn{
+        margin-top: .5rem;
+        display: flex;
+        div{
+          border-radius: 15px;
+          padding: .2rem;
+          width: 42%;
+        }
+        div:last-child{
+          margin-left: .3rem;
+          background: #f49332;
+          &:active{
+            background: rgba(255, 127, 0, 0.53);
+          }
+        }
+      }
+    }
+
 
   }
-  .main-my>div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-  .main-my>div:active{
-    background: rgb(249, 249, 249)
-  }
-  .main-my img{
-    padding-right: 10px;
-  }
-
 </style>
 <script type="text/ecmascript-6">
   import cSwiper from '../components/ui/swiper';
