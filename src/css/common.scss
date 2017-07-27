@@ -2,6 +2,12 @@ body,html,#app,.view {
   height: 100%;
   width: 100%;
 }
+html,body{
+  -webkit-user-select: none;   /* 禁止选中文本（如无文本选中需求，此为必选项） */
+  user-select: none;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi,"黑体", sans-serif;	/*使用无衬线字体*/
+  /* overflow: auto;*/
+  /*height: 100%;*/}
 p{
   font-size: .32rem;
   -webkit-margin-before: 0;

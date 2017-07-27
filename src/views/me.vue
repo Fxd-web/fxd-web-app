@@ -18,7 +18,7 @@
   li {
     background: #fff;
     padding-left: .3rem;
-    font-size: .32rem;
+    font-size: .34rem;
     line-height: 1rem;
     vertical-align: middle;
     position: relative;
@@ -57,9 +57,9 @@
   }
   }
   li:nth-child(5), li:nth-child(6) {
-                      border-top: none;
-                      margin-top: .46rem;
-                    }
+    border-top: none;
+    margin-top: .46rem;
+  }
 </style>
 <script>
   /*eslint-disable*/
