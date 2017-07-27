@@ -1,20 +1,12 @@
 <template>
   <div class="reg">
-    <fxd-cell  v-model="item.mobile_phone_"  type="imgText" inputType="mobile" class="reg_">
-      <img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText">
-    </fxd-cell>
 
-    <fxd-cell  v-model="item.val4" type="all" :placeholder="item.placeholder" class="reg_">
-      <img width="250%" src="../../assets/img/1_Signin_icon_02.png" alt="" slot="imgText" class="imgCode"/>
-      <div slot="btnText">
-        <img width="250%" src="../../assets/img/1_Signin_icon_02.png"  class="img_ picCode"/>
-      </div>
-    </fxd-cell>
-
-    <fxd-cell  v-model="item.val4" type="all" inputType="code" class="reg_">
-      <img width="250%" src="../../assets/img/1_Signin_icon_02.png" alt="" slot="imgText" class="imgCode"/>
-      <fxd-button slot="btnText" type="inset" id="sendCode">发送验证码</fxd-button>
-    </fxd-cell>
+    <fxd-mobileVerify
+      type="imgCode"
+      :data="item"
+      @mobile_verify_change_pic_cb="mobile_verify_change_pic_cb"
+      @mobile_verify_send_code_cb="mobile_verify_send_code_cb"
+      @mobile_verify_submit_cb="mobile_verify_submit_cb"></fxd-mobileVerify>
 
     <fxd-cell  v-model="item.password_" type="all" inputType="password" class="reg_">
       <img width="150%" src="../../assets/img/1_Signin_icon_03.png" alt="" slot="imgText" class="imgCode">
@@ -104,7 +96,17 @@
             placeholder:'请先输入图片验证码',
             placeholder2:'邀请码或邀请人手机号',
             mobile_phone_:'',
-            val4:'',
+            val4:'hahahhahhah',
+            mobile:{
+              val:'',
+            },
+            imgCode:{   // 此数据对象不存在则不现实图形验证码
+              iconUrl:'',
+              val:'',
+            },
+            code:{
+              val:'',
+            },
         }
       }
     },
@@ -112,6 +114,15 @@
 //      this.picCode();
     },
     methods: {
+      mobile_verify_change_pic_cb(){
+//        console.log('切换图片的操作')
+      },
+      mobile_verify_send_code_cb(){
+//        console.log('发送验证码的操作')
+      },
+      mobile_verify_submit_cb(){
+//        console.log('提交按钮的操作')
+      },
       picCode() {
         this.$store.dispatch('user_picCode');
       },

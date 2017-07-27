@@ -10,7 +10,8 @@
 </template>
 
 <style lang="scss">
-  #app {
+  #app{
+    height:100%;
   }
 </style>
 
