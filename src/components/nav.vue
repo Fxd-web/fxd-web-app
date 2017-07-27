@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="navOutline">
     <ul id="nav">
       <li v-for="i in list">
         <router-link :to="i.link">
-          <img :src="i.link === $route.path?i.icon2:i.icon1" width="25">
+          <img :src="i.link === $route.path?i.icon2:i.icon1">
           <span>{{ i.title }}</span>
         </router-link>
         <span class="circle"></span>
@@ -12,17 +12,21 @@
   </div>
 </template>
 <style lang="scss" scoped>
+  .navOutline{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
   ul {
-    padding-left: 0;
+    border-top: 1px solid #dbdcdc;
+    background: #fff;
     display: flex;
     li {
-      &:active{
-        background:#fff;
-      }
       position: relative;
       overflow: hidden;
       flex: 1;
-      font-size: 14px;
+      font-size: .28rem;
       list-style: none;
       a {
         display: flex;
@@ -30,16 +34,18 @@
         justify-content: center;
         align-items: center;
         color: #9fa0a0;
+        text-decoration: none;
         &.router-link-active {
           transition: all .5s;
           color: #00aaee;
         }
         img {
           margin-top: 2px;
+          height: .5rem;
         }
         span {
-          height: 23px;
-          line-height: 23px;
+          height: 48px;
+          line-height: 48px;
         }
       }
     }

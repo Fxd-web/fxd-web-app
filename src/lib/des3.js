@@ -54,20 +54,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports) {
 
-	/** 
-	 * DES 加密算法 
-	 * 
-	 * 该函数接受一个 8 字节字符串作为普通 DES 算法的密钥（也就是 64 位，但是算法只使用 56 位），或者接受一个 24 字节字符串作为 3DES 
-	 * 算法的密钥；第二个参数是要加密或解密的信息字符串；第三个布尔值参数用来说明信息是加密还是解密；接下来的可选参数 mode 如果是 0 表示 ECB 
-	 * 模式，1 表示 CBC 模式，默认是 ECB 模式；最后一个可选项是一个 8 字节的输入向量字符串（在 ECB 模式下不使用）。返回的密文是字符串。 
-	 * 
-	 * 参数： <br> 
-	 * key: 8字节字符串作为普通 DES 算法的密钥,或 24 字节字符串作为 3DES <br> 
-	 * message： 加密或解密的信息字符串<br> 
-	 * encrypt: 布尔值参数用来说明信息是加密还是解密<br> 
-	 * mode: 1:CBC模式，0:ECB模式(默认)<br> 
-	 * iv:<br> 
-	 * padding: 可选项, 8字节的输入向量字符串（在 ECB 模式下不使用） 
+	/**
+	 * DES 加密算法
+	 *
+	 * 该函数接受一个 8 字节字符串作为普通 DES 算法的密钥（也就是 64 位，但是算法只使用 56 位），或者接受一个 24 字节字符串作为 3DES
+	 * 算法的密钥；第二个参数是要加密或解密的信息字符串；第三个布尔值参数用来说明信息是加密还是解密；接下来的可选参数 mode 如果是 0 表示 ECB
+	 * 模式，1 表示 CBC 模式，默认是 ECB 模式；最后一个可选项是一个 8 字节的输入向量字符串（在 ECB 模式下不使用）。返回的密文是字符串。
+	 *
+	 * 参数： <br>
+	 * key: 8字节字符串作为普通 DES 算法的密钥,或 24 字节字符串作为 3DES <br>
+	 * message： 加密或解密的信息字符串<br>
+	 * encrypt: 布尔值参数用来说明信息是加密还是解密<br>
+	 * mode: 1:CBC模式，0:ECB模式(默认)<br>
+	 * iv:<br>
+	 * padding: 可选项, 8字节的输入向量字符串（在 ECB 模式下不使用）
 	 */
 	//des http://www.cnblogs.com/bullub/archive/2013/05/02/3054798.html
 	//this takes the key, the message, and whether to encrypt or decrypt
@@ -83,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var spfunction6 = new Array(0x20000010, 0x20400000, 0x4000, 0x20404010, 0x20400000, 0x10, 0x20404010, 0x400000, 0x20004000, 0x404010, 0x400000, 0x20000010, 0x400010, 0x20004000, 0x20000000, 0x4010, 0, 0x400010, 0x20004010, 0x4000, 0x404000, 0x20004010, 0x10, 0x20400010, 0x20400010, 0, 0x404010, 0x20404000, 0x4010, 0x404000, 0x20404000, 0x20000000, 0x20004000, 0x10, 0x20400010, 0x404000, 0x20404010, 0x400000, 0x4010, 0x20000010, 0x400000, 0x20004000, 0x20000000, 0x4010, 0x20000010, 0x20404010, 0x404000, 0x20400000, 0x404010, 0x20404000, 0, 0x20400010, 0x10, 0x4000, 0x20400000, 0x404010, 0x4000, 0x400010, 0x20004010, 0, 0x20404000, 0x20000000, 0x400010, 0x20004010);
 		var spfunction7 = new Array(0x200000, 0x4200002, 0x4000802, 0, 0x800, 0x4000802, 0x200802, 0x4200800, 0x4200802, 0x200000, 0, 0x4000002, 0x2, 0x4000000, 0x4200002, 0x802, 0x4000800, 0x200802, 0x200002, 0x4000800, 0x4000002, 0x4200000, 0x4200800, 0x200002, 0x4200000, 0x800, 0x802, 0x4200802, 0x200800, 0x2, 0x4000000, 0x200800, 0x4000000, 0x200800, 0x200000, 0x4000802, 0x4000802, 0x4200002, 0x4200002, 0x2, 0x200002, 0x4000000, 0x4000800, 0x200000, 0x4200800, 0x802, 0x200802, 0x4200800, 0x802, 0x4000002, 0x4200802, 0x4200000, 0x200800, 0, 0x2, 0x4200802, 0, 0x200802, 0x4200000, 0x800, 0x4000002, 0x4000800, 0x800, 0x200002);
 		var spfunction8 = new Array(0x10001040, 0x1000, 0x40000, 0x10041040, 0x10000000, 0x10001040, 0x40, 0x10000000, 0x40040, 0x10040000, 0x10041040, 0x41000, 0x10041000, 0x41040, 0x1000, 0x40, 0x10040000, 0x10000040, 0x10001000, 0x1040, 0x41000, 0x40040, 0x10040040, 0x10041000, 0x1040, 0, 0, 0x10040040, 0x10000040, 0x10001000, 0x41040, 0x40000, 0x41040, 0x40000, 0x10041000, 0x1000, 0x40, 0x10040040, 0x1000, 0x41040, 0x10001000, 0x40, 0x10000040, 0x10040000, 0x10040040, 0x10000000, 0x40000, 0x10001040, 0, 0x10041040, 0x40040, 0x10000040, 0x10040000, 0x10001000, 0x10001040, 0, 0x10041040, 0x41000, 0x41000, 0x1040, 0x1040, 0x40040, 0x10000000, 0x10041000);
-	
+
 		//create the 16 or 48 subkeys we will need
 		var keys = des_createKeys(key);
 		var m = 0,
@@ -99,7 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		} else {
 			looping = encrypt ? new Array(0, 32, 2, 62, 30, -2, 64, 96, 2) : new Array(94, 62, -2, 32, 64, 2, 30, -2, -2);
 		}
-	
+
 		//pad the message depending on the padding parameter
 		if (padding == 2) message += "        "; //pad the message with spaces
 		else if (padding == 1) {
@@ -110,22 +110,22 @@ return /******/ (function(modules) { // webpackBootstrap
 			}
 		} //PKCS7 padding
 		else if (!padding) message += "\0\0\0\0\0\0\0\0"; //pad the message out with null bytes
-	
+
 		//store the result here
 		var result = "";
 		var tempresult = "";
-	
+
 		if (mode == 1) { //CBC mode
 			cbcleft = (iv.charCodeAt(m++) << 24) | (iv.charCodeAt(m++) << 16) | (iv.charCodeAt(m++) << 8) | iv.charCodeAt(m++);
 			cbcright = (iv.charCodeAt(m++) << 24) | (iv.charCodeAt(m++) << 16) | (iv.charCodeAt(m++) << 8) | iv.charCodeAt(m++);
 			m = 0;
 		}
-	
+
 		//loop through each 64 bit chunk of the message
 		while (m < len) {
 			left = (message.charCodeAt(m++) << 24) | (message.charCodeAt(m++) << 16) | (message.charCodeAt(m++) << 8) | message.charCodeAt(m++);
 			right = (message.charCodeAt(m++) << 24) | (message.charCodeAt(m++) << 16) | (message.charCodeAt(m++) << 8) | message.charCodeAt(m++);
-	
+
 			//for Cipher Block Chaining mode, xor the message with the previous result
 			if (mode == 1) {
 				if (encrypt) {
@@ -138,7 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					cbcright = right;
 				}
 			}
-	
+
 			//first each 64 but chunk of the message must be permuted according to IP
 			temp = ((left >>> 4) ^ right) & 0x0f0f0f0f;
 			right ^= temp;
@@ -155,10 +155,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			temp = ((left >>> 1) ^ right) & 0x55555555;
 			right ^= temp;
 			left ^= (temp << 1);
-	
+
 			left = ((left << 1) | (left >>> 31));
 			right = ((right << 1) | (right >>> 31));
-	
+
 			//do this either 1 or 3 times for each chunk of the message
 			for (j = 0; j < iterations; j += 3) {
 				endloop = looping[j + 1];
@@ -176,11 +176,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				left = right;
 				right = temp; //unreverse left and right
 			} //for either 1 or 3 iterations
-	
+
 			//move then each one bit to the right
 			left = ((left >>> 1) | (left << 31));
 			right = ((right >>> 1) | (right << 31));
-	
+
 			//now perform IP-1, which is IP in the opposite direction
 			temp = ((left >>> 1) ^ right) & 0x55555555;
 			right ^= temp;
@@ -197,7 +197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			temp = ((left >>> 4) ^ right) & 0x0f0f0f0f;
 			right ^= temp;
 			left ^= (temp << 4);
-	
+
 			//for Cipher Block Chaining mode, xor the message with the previous result
 			if (mode == 1) {
 				if (encrypt) {
@@ -209,7 +209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 			}
 			tempresult += String.fromCharCode((left >>> 24), ((left >>> 16) & 0xff), ((left >>> 8) & 0xff), (left & 0xff), (right >>> 24), ((right >>> 16) & 0xff), ((right >>> 8) & 0xff), (right & 0xff));
-	
+
 			chunk += 8;
 			if (chunk == 512) {
 				result += tempresult;
@@ -217,11 +217,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				chunk = 0;
 			}
 		} //for every 8 characters, or 64 bits in the message
-	
+
 		//return the result as an array
 		result += tempresult;
 		result = result.replace(/\0*$/g, "");
-	
+
 		if (!encrypt) { //如果是解密的话，解密结束后对PKCS7 padding进行解码，并转换成utf-8编码
 			if (padding === 1) { //PKCS7 padding解码
 				var len = result.length,
@@ -232,10 +232,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			//转换成UTF-8编码
 			result = decodeURIComponent(escape(result));
 		}
-	
+
 		return result;
 	} //end of des
-	
+
 	//des_createKeys
 	//this takes as input a 64 bit key (even though only 56 bits are used)
 	//as an array of 2 integers, and returns 16 48 bit keys
@@ -255,7 +255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		var pc2bytes11 = new Array(0, 0x1000000, 0x200, 0x1000200, 0x200000, 0x1200000, 0x200200, 0x1200200, 0x4000000, 0x5000000, 0x4000200, 0x5000200, 0x4200000, 0x5200000, 0x4200200, 0x5200200);
 		var pc2bytes12 = new Array(0, 0x1000, 0x8000000, 0x8001000, 0x80000, 0x81000, 0x8080000, 0x8081000, 0x10, 0x1010, 0x8000010, 0x8001010, 0x80010, 0x81010, 0x8080010, 0x8081010);
 		var pc2bytes13 = new Array(0, 0x4, 0x100, 0x104, 0, 0x4, 0x100, 0x104, 0x1, 0x5, 0x101, 0x105, 0x1, 0x5, 0x101, 0x105);
-	
+
 		//how many iterations (1 for des, 3 for triple des)
 		var iterations = key.length > 8 ? 3 : 1; //changed by Paul 16/6/2007 to use Triple DES for 9+ byte keys
 		//stores the return keys
@@ -266,11 +266,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		var lefttemp, righttemp, m = 0,
 			n = 0,
 			temp;
-	
+
 		for (var j = 0; j < iterations; j++) { //either 1 or 3 iterations
 			var left = (key.charCodeAt(m++) << 24) | (key.charCodeAt(m++) << 16) | (key.charCodeAt(m++) << 8) | key.charCodeAt(m++);
 			var right = (key.charCodeAt(m++) << 24) | (key.charCodeAt(m++) << 16) | (key.charCodeAt(m++) << 8) | key.charCodeAt(m++);
-	
+
 			temp = ((left >>> 4) ^ right) & 0x0f0f0f0f;
 			right ^= temp;
 			left ^= (temp << 4);
@@ -292,13 +292,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			temp = ((left >>> 1) ^ right) & 0x55555555;
 			right ^= temp;
 			left ^= (temp << 1);
-	
+
 			//the right side needs to be shifted and to get the last four bits of the left side
 			temp = (left << 8) | ((right >>> 20) & 0x000000f0);
 			//left needs to be put upside down
 			left = (right << 24) | ((right << 8) & 0xff0000) | ((right >>> 8) & 0xff00) | ((right >>> 24) & 0xf0);
 			right = temp;
-	
+
 			//now go through and perform these shifts on the left and right keys
 			for (var i = 0; i < shifts.length; i++) {
 				//shift the keys either one or two bits to the left
@@ -311,7 +311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				}
 				left &= -0xf;
 				right &= -0xf;
-	
+
 				//now apply PC-2, in such a way that E is easier when encrypting or decrypting
 				//this conversion will look like PC-2 except only the last 6 bits of each byte are used
 				//rather than 48 consecutive bits and the order of lines will be according to
@@ -333,7 +333,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			vector: 1
 		};
 	}
-	
+
 	function pad(key) {
 		for (var i = key.length; i < 24; i++) {
 			key += "0";
@@ -341,7 +341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		return key;
 	}
 	var encryptKey="secretKeyforfxdsecretKeyforfxd";
-	var des3iv = '1qaz2wsxZ';
+	var des3iv = '1qaz2wsx';
 	var DES3 = {
 		//3DES加密，CBC/PKCS5Padding
 		encrypt: function(input) {
@@ -354,8 +354,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			return des(genKey.key, atob(input), 0, 1, des3iv, 1);
 		}
 	};
-	
-	
+
+
 	module.exports = {
 		DES3
 	}

@@ -48,15 +48,17 @@
 </style>
 
 <script>
+  /* eslint-disable */
   import {
     user_login
   } from '../../service/';
+  /* eslint-enable */
   import {
     mapMutations
-  } from 'vuex'
+  } from 'vuex';
 
   export default {
-     data() {
+    data() {
       return {
         showLoginCode: false,
         user: {
@@ -72,13 +74,14 @@
           mobile_phone_:'',
           password_:''
         }
-      }
+      };
     },
     computed: {
 
     },
     mounted() {},
     methods: {
+      /* eslint-disable */
 //      mobile_verify_change_pic_cb(){
 //        console.log('切换图片的操作')
 //      },
@@ -92,16 +95,17 @@
 //        this.$store.dispatch('user_login', this.user);
 //        console.log('提交按钮的操作')
 //      },
+      /* eslint-enable */
       ...mapMutations([
         'USER_LOGIN',
         'NEXT_PAGE',
       ]),
       submit() {
         this.$store.dispatch('user_login', this.user);
-        if(this.showLoginCode) {
+        if (this.showLoginCode) {
           this.$store.commit('TOGGLE_LOGIN_CODE', {
             flag: 0
-          })
+          });
         }
         // user_login(this.user).then((data)=>{
         //   this.USER_LOGIN(data.result);
@@ -109,7 +113,7 @@
         // })
         // console.log('121')
       },
-      register(){
+      register() {
         this.NEXT_PAGE('register');
       },
       forgetPwd() {
@@ -120,9 +124,9 @@
       }
     },
     watch: {
-      '$store.state.user.user_login_verify_code' (bool) {
+      '$store.state.user.user_login_verify_code'(bool) {
         this.showLoginCode = bool;
       }
     },
-  }
+  };
 </script>

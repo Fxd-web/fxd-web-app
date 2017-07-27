@@ -56,6 +56,7 @@
   }
 </style>
 <script>
+  /* eslint-disable */
     export default{
       data(){
 //        return {
