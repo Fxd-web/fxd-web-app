@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>
+    <div class="TEM">
       <transition :name="transitionName">
         <!--<keep-alive>-->
         <router-view></router-view>
@@ -12,6 +12,9 @@
 
 <style lang="scss">
   #app{
+    height:100%;
+  }
+  #app .TEM{
     height:100%;
   }
 </style>

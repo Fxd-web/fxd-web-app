@@ -63,7 +63,7 @@
     line-height: 1rem;
     height:1rem;
     text-align: center;
-    margin-bottom: 8rem;
+    /*margin-bottom: 8rem;*/
   }
 </style>
 <script type="text/ecmascript-6">
