@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li v-for="i in list">
-        <router-link :to="i.link">
+        <router-link :to="i.link" class="item">
           <img :src="i.icon" width="27">
           <span>{{ i.title }}</span>
         </router-link>
@@ -13,39 +13,46 @@
 <style lang="scss" scoped>
   li {
     background: #fff;
-    padding-left: 15px;
-    font-size: 16px;
-    line-height: 50px;
+    padding-left: .3rem;
+    font-size: .32rem;
+    line-height: 1rem;
     vertical-align: middle;
     position: relative;
+    .item{
+      color:#333;
+
+    }
     &:after {
       display: inline-block;
       position: absolute;
       bottom: 0;
-      left: 15px;
+      left: .3rem;
       content: '';
       height: 1px;
       background: #e7e7e7;
       width: 100%;
     }
-    &:first-child {
-      border-top: none;
-    }
-    &:nth-child(5), &:nth-child(6) {
-      border-top: none;
-      margin-top: 23px;
-    }
-    &:nth-child(4):after,&:nth-child(5):after, &:nth-child(6):after{
-      content: none;
-    }
+    /*&:first-child {*/
+      /*border-top: none;*/
+    /*}*/
+    /*&:nth-child(5), &:nth-child(6) {*/
+      /*border-top: none;*/
+      /*margin-top: .46rem;*/
+    /*}*/
+    /*&:nth-child(4):after,&:nth-child(5):after, &:nth-child(6):after{*/
+      /*!*content: none;*!*/
+    /*}*/
     img {
-      margin-right: 12px;
+      float:left;
+      margin-top:.25rem;
+      width:.5rem;
+      height:.5rem;
+      margin-right: .24rem;
     }
   }
-
 </style>
 <script>
-  /* eslint-disable */
+  /*eslint-disable*/
     export default{
         data(){
           return {

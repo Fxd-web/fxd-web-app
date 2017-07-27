@@ -19,6 +19,7 @@
 </template>
 
 <style lang="scss" scoped>
+  /*eslint-disable*/
   .login {
     .login-logo{
       text-align: center;

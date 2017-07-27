@@ -383,6 +383,7 @@
   }
 </style>
 <script type="text/ecmascript-6">
+  /*eslint-disable*/
   import swiper from '../components/ui/swiper';
   export default{
     data() {

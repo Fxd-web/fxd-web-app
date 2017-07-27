@@ -29,6 +29,7 @@
   </div>
 </template>
 <style  lang="scss" scoped>
+  /*eslint-disable*/
   .forgetPwd {
     .phoneNumber {
       margin: 0.35rem auto;

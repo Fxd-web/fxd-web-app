@@ -38,6 +38,7 @@
 </template>
 
 <style lang="scss" scoped>
+  /*eslint-disable*/
   .reg{
     .reg_ {
       margin-top:.35rem;

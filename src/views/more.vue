@@ -67,7 +67,7 @@
   }
 </style>
 <script type="text/ecmascript-6">
-  /* eslint-disable */
+  /*eslint-disable*/
     export default{
         data(){
           return {
