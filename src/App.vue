@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <div class="TEM">
-      <transition :name="transitionName">
+      <!--<transition :name="transitionName">-->
         <!--<keep-alive>-->
-        <router-view></router-view>
+        <router-view class="view"></router-view>
         <!--</keep-alive>-->
-      </transition>
-    </div>
+      <!--</transition>-->
+      <fxd-nav v-if='navSwitch'/>
   </div>
 </template>
 
@@ -14,65 +13,68 @@
   #app{
     height:100%;
   }
-  #app .TEM{
-    height:100%;
-  }
 </style>
 
 <script>
   import 'normalize.css';
   import './css/common.scss';
-  import {
-    isEmptyObj
-  } from './util';
-  import cNav from './components/nav';
+  import nav from './components/nav';
+  import vconsole from './mixins/vconsole';
+
   export default {
     name: 'app',
     data() {
       return {
         transitionName: 'slide-left',
-      }
+        navSwitch: false,
+      };
     },
+    mixins: [vconsole],
     components: {
-      cNav,
+      'fxd-nav': nav,
     },
     mounted() {
-      this.$nextTick(function() {
+      this.$nextTick(() => {
         this.interceptLogin();
-      })
+        if (~['', 'home', 'me', 'more'].indexOf(this.$route.path.slice(1))) { // eslint-disable-line no-bitwise
+          this.navSwitch = true;
+        }
+      });
     },
     watch: {
-      '$store.state.nextPage' (path) {
-        if (!!path) {
-          this.$router.push(__dirname + path);
+      '$store.state.nextPage'(path) {
+        if (path) {
+          this.$router.push(__dirname + path); // eslint-disable-line no-path-concat
           this.$store.commit('CLEAR_NEXT_PAGE');
         }
       },
-      '$route' (to, from) {
-        !!this.$store.state.dialog.toast && this.$store.commit('TOGGLE_MASK');
-        if (to.meta.lv == from.meta.lv) {
+      '$route'(to, from) {
+        this.$store.state.dialog.toast && this.$store.commit('TOGGLE_MASK');
+        if (to.meta.lv === from.meta.lv) {
           this.transitionName = 'fade';
-          return
+          return;
         }
-        this.transitionName = to.meta.lv > from.meta.lv ? 'slide-right' : 'slide-left'
+        this.transitionName = to.meta.lv > from.meta.lv ? 'slide-right' : 'slide-left';
       },
     },
     methods: {
-      interceptLogin() { //登录拦截
-//        if (this.$route.path == '/login') {
-//          return
+      /* eslint-disable */
+      interceptLogin() { // 登录拦截
+//        if (this.$route.path === '/login') {
+//          return;
 //        }
-//        if (localStorage.user == 'undefined' || !localStorage.user) {
+//        if (localStorage.user === 'undefined' || !localStorage.user) {
 //          delete localStorage.user;
 //          this.$store.commit('NEXT_PAGE', 'login');
-//          return
+//          return;
 //        }
 //        this.$store.commit('USER_LOGIN', JSON.parse(localStorage.user));
       },
+      /* eslint-enable */
       pickerCb() {
         this.$store.dispatch('toggle_mask');
       }
     }
-  }
+  };
 </script>
 

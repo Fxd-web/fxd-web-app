@@ -11,7 +11,6 @@ for(let i of Object.keys(FxdUi).filter((t,i)=>i>1)){ //给所有组件加上fxd�
   Vue.component('fxd'+i, FxdUi[i])
 }
 
-
 //注册过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 

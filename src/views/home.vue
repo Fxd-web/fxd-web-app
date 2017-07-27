@@ -2,11 +2,11 @@
   <div  class="home">
     <div class="main-header">
       <div class="banner">
-
       </div>
       <div class="dialog">
         <img src="../assets/img/home_dialog_icon.png" alt="">
         <ul><li>2017-08-20 **骅 130****56 借款1,000 元</li><li>2017-07-26 **磊 156****19 借款500 元</li><li>2017-07-26 **磊 156****19 借款1,000 元</li><li>2017-07-26 **磊 156****19 借款500 元</li><li>2017-07-26 **端 156****19 借款500 元</li><li>2017-07-26 **磊 156****19 借款1,000 元</li><li>2017-07-25 **源 133****86 借款500 元</li><li>2017-07-25 **磊 156****19 借款500 元</li><li>2017-07-25 **波 145****00 借款1,000 元</li><li>2017-07-25 **丽 183****00 借款1,000 元</li></ul>
+        <span></span>
       </div>
       <img src="../assets/img/main_qr_code.png" class="wx">
     </div>
@@ -23,7 +23,7 @@
             </div>
         </div>
       <!--拒绝导流部分-->
-        <div class="product-reject">
+        <div class="product-reject" v-if="false">
           <h2  class="product-reject-header"><div class="crying-face"><span></span></div>很抱歉，您的借款申请审核失败</h2>
             <div class="product-reject-con">
               <p class="product-reject-tip">
@@ -62,7 +62,6 @@
           </li>
         </ul>
     </div>
-
     <!--************* 微信弹出层 *************-->
     <fxd-mask v-if="false">
       <div class="wx-con" v-if="false">
@@ -103,12 +102,10 @@
         height:.84rem;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
         padding: 0 .3rem;
         img{
           width: .36rem;
-          position: relative;
-          left: -.35rem;
         }
         ul{
           overflow: hidden;
@@ -295,6 +292,7 @@
       }
     }
     .main-footer{
+      margin-top: .1rem;
       background: #fff;
         ul{
           display: flex;
@@ -304,7 +302,7 @@
           color: #7e878e;
           li{
             flex: 1;
-            padding-bottom: .3rem;
+            padding: .3rem 0;
             &:active{
               background: rgba(0,0,0,.04);
             }
@@ -382,49 +380,43 @@
         }
       }
     }
-
-
   }
 </style>
 <script type="text/ecmascript-6">
-  import cSwiper from '../components/ui/swiper';
-  import { product_process } from '../util';
-
+  import swiper from '../components/ui/swiper';
   export default{
-    data(){
-      return{
-        data:{
-          list:[{
+    data() {
+      return {
+        data: {
+          list: [{
             img: require('../assets/img/banner_01.png'),
-            link:'home',
-          },{
+            link: 'home',
+          }, {
             img: require('../assets/img/0107.jpg'),
-            link:'coupon',
-          },{
+            link: 'coupon',
+          }, {
             img: require('../assets/img/banner_01.png'),
-            link:'home',
-          },{
+            link: 'home',
+          }, {
             img: require('../assets/img/0107.jpg'),
-            link:'coupon',
+            link: 'coupon',
           }],
-          interval:false
+          interval: false
         }
-
-      }
+      };
     },
     mounted() {
-
     },
     components:{
-      cSwiper,
+      'fxd-swiper':swiper,
     },
     methods:{
-      linkCase(pid){
-        this.$store.dispatch('get_applyStatus',{
+      linkCase(pid) {
+        this.$store.dispatch('get_applyStatus', {
           pid,
-          linkto:true
+          linkto: true
         });
       },
     }
-  }
+  };
 </script>
