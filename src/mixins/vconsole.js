@@ -31,6 +31,7 @@ export default {
      * 扩大到1，显示正常。之后的取消操作再将缩放比例还原。
      */
     tap_console() {
+      console.log(this.vconsole.isReady)
       try {
         if (this.vconsole.isReady) {
           this.vconsole.$.bind(document.querySelector('.vc-switch'), 'click', function() {
