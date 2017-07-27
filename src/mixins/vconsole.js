@@ -9,11 +9,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.init_vconsole();
-      setTimeout(()=> {
-        document.getElementById('app').click();
-        this.tap_console();
-      },0)
+      if (process.env.NODE_ENV === 'development') {
+        this.init_vconsole();
+      }
     });
   },
   methods:{
@@ -21,10 +19,11 @@ export default {
      * 初始化加载vconsole，如果是生产默认则不加载
      */
     init_vconsole() {
-      if (process.env.NODE_ENV === 'development') {
-        this.vconsole = require('vconsole');
-
-      }
+      this.vconsole = require('vconsole');
+      setTimeout(()=> {
+        document.getElementById('app').click();
+        this.tap_console();
+      },0)
     },
     /***
      * 不知道什么原因vconsole初始化之后获取不到dom元素，所以只能通过点击屏幕来唤醒vconsole实例
