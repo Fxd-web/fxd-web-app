@@ -4,7 +4,7 @@
       <li v-for="(i,index) in list" @click='linkto(i.link,index)'>
         <img :src="i.icon" width="27"/>
         {{ i.title }}
-        <img :src="i.icon1" width="27" class="rightArrow"/>
+        <span class="arrow-right"></span>
       </li>
     </ul>
     <div class="logout" @click="$store.commit('TOGGLE_DIALOG','alert')">
@@ -13,6 +13,7 @@
   </div>
 </template>
 <style  lang="scss" scoped>
+  @import  "../css/common.scss";
   .more{
     height:100%;
     background-color: #f5f5f5;
@@ -50,11 +51,12 @@
       margin-top:.3rem;
       margin-right: .24rem;
     }
-    .rightArrow{
-      float: right;
-      width:.3rem;
-      height:.3rem;
-    }
+  .arrow-right{
+    right:0px;
+    margin-right:0.3rem;
+    float: right;
+    margin-top:.45rem;
+  }
   }
   .logout{
     background: #fff;
@@ -75,29 +77,24 @@
             list:[{
               title:'关于我们',
               icon:require('../assets/img/7_gd_icon_05.png'),
-              icon1:require('../assets/img/rightArrow.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/about.html'
             },
             {
               title:'常见问题',
               icon:require('../assets/img/7_gd_icon_06.png'),
-              icon1:require('../assets/img/rightArrow.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/question.html'
             },
             {
               title:'意见反馈',
               icon:require('../assets/img/7_gd_icon_07.png'),
-              icon1:require('../assets/img/rightArrow.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/feedBack.html'
             },
             {
               title:'客服热线',
-              icon1:require('../assets/img/rightArrow.png'),
               icon:require('../assets/img/7_gd_icon_10.png'),
             },
             {
               title:'修改密码',
-              icon1:require('../assets/img/rightArrow.png'),
               icon:require('../assets/img/7_gd_icon_07.png'),
               link:'https://h5.faxindai.com:8028/fxd-h5/page/more/feedBack.html'
             }],
