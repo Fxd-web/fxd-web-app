@@ -94,7 +94,7 @@
     .main-header{
       position: relative;
       .banner{
-        background: red;
+        /*background: red;*/
         height: 3.76rem;
       }
       .dialog{
@@ -125,7 +125,6 @@
       }
     }
     .main-con{
-
       /*主产品*/
         .product-normal{
           &:active{

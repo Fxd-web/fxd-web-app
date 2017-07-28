@@ -14,14 +14,20 @@
 <style lang="scss" scoped>
   @import  "../css/common.scss";
   .me{
+    width:100%;
     background-color: #f5f5f5;
   }
+  ul{
+     display: flex;
+     flex-direction: column;
+    /*align-items: center;*/
+  }
   li {
+    width:97%;
     background: #fff;
     padding-left: .3rem;
     font-size: .34rem;
     line-height: 1rem;
-    vertical-align: middle;
     position: relative;
     .item{
       color:#333;
@@ -45,7 +51,6 @@
       margin-right: .24rem;
     }
   .arrow-right{
-    right:0px;
     margin-right:0.3rem;
     float: right;
     margin-top:.45rem;

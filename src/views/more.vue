@@ -19,14 +19,18 @@
     background-color: #f5f5f5;
   }
   ul{
-   margin-bottom: .8rem;
+    margin-bottom: .8rem;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
  li{
+    width:97%;
     background: #fff;
     padding-left:.3rem;
     font-size: .32rem;
     line-height: 1rem;
-    vertical-align: middle;
     position: relative;
     &:after{
       display: inline-block;
@@ -52,7 +56,6 @@
       margin-right: .24rem;
     }
   .arrow-right{
-    right:0px;
     margin-right:0.3rem;
     float: right;
     margin-top:.45rem;
@@ -65,7 +68,6 @@
     line-height: 1rem;
     height:1rem;
     text-align: center;
-    /*margin-bottom: 8rem;*/
   }
 </style>
 <script type="text/ecmascript-6">

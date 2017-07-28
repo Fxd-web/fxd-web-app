@@ -77,5 +77,13 @@ export default {
         name: '404'
       }
     },
+    {
+      path: '/loan_record',
+      component: require('./views/mine/loan_record'),
+      meta: {
+        title: '借款记录',
+        name: '404'
+      }
+    },
   ],
 };

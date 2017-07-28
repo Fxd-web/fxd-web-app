@@ -36,11 +36,19 @@ ul{
     border-left-width: 0;
     content: " ";
     top: 50%;
-    right: 20px;
+    right: .14rem;
     position: absolute;
     width: .2rem;
     height: .2rem;
     transform: translateY(-50%) rotate(45deg);
+  }
+}
+.wrap_head{
+  margin-top: 1.5rem;
+  text-align: center;
+  color:#b4b4b5;
+  .change{
+    margin-top: .5rem;
   }
 }
 
