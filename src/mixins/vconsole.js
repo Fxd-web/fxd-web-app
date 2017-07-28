@@ -23,7 +23,7 @@ export default {
       setTimeout(()=> {
         document.getElementById('app').click();
         this.tap_console();
-      },0)
+      },1000);
     },
     /***
      * 不知道什么原因vconsole初始化之后获取不到dom元素，所以只能通过点击屏幕来唤醒vconsole实例
@@ -31,7 +31,6 @@ export default {
      * 扩大到1，显示正常。之后的取消操作再将缩放比例还原。
      */
     tap_console() {
-      console.log(this.vconsole.isReady)
       try {
         if (this.vconsole.isReady) {
           this.vconsole.$.bind(document.querySelector('.vc-switch'), 'click', function() {
