@@ -2,7 +2,7 @@
    <div>
      <div class="wrap_head" style="display: none" >
        <div >
-         <img src="../../assets/img/6_my_logo.png" alt="" />
+         <img src="../../assets/img/faxindai_logo.png" alt="" />
          <p class="change">您当前暂无借款记录</p>
        </div>
      </div>

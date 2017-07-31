@@ -90,5 +90,21 @@ export default {
         name: '404'
       }
     },
+    {
+      path: '/repay_record',
+      component: require('./views/mine/repay_record'),
+      meta: {
+        title: '还款记录',
+        name: '404'
+      }
+    },
+    {
+      path: '/my_load_progress',
+      component: require('./views/protocol/my_load_progress'),
+      meta: {
+        title: '借款进度',
+        name: '404'
+      }
+    },
   ],
 };
