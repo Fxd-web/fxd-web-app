@@ -6,7 +6,8 @@ export default {
       component: require('./views/home'),
       meta: {
         title: '首页',
-        showNav: true,
+        navSwitch: true,
+        backSwitch: true,
         lv: 1,
       }
     },
@@ -15,7 +16,8 @@ export default {
       component: require('./views/home'),
       meta: {
         title: '首页',
-        showNav: true,
+        navSwitch: true,
+        backSwitch: true,
         lv: 1,
       }
     },
@@ -24,7 +26,8 @@ export default {
       component: require('./views/me'),
       meta: {
         title: '我的',
-        showNav: true,
+        navSwitch: true,
+        backSwitch: true,
         lv: 1,
       },
     },
@@ -33,7 +36,8 @@ export default {
       component: require('./views/more'),
       meta: {
         title: '更多',
-        showNav: true,
+        navSwitch: true,
+        backSwitch: true,
         lv: 1,
       }
     },
@@ -42,6 +46,7 @@ export default {
       component: require('./views/user/login'),
       meta: {
         title: '登录',
+        backSwitch: true,
         lv: 1,
       }
     },

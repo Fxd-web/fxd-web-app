@@ -3,6 +3,20 @@
  */
 
 /**
+ * 判断是否是移动端
+ * @param str 传入值返回的是不是微信端
+ * @returns {boolean}
+ */
+export function isMobile (str) {
+  const ua = window.navigator.userAgent.toLowerCase();
+  if (str) {
+    return ua.match(/MicroMessenger/i) == 'micromessenger';
+  }
+  return !!navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)
+}
+
+
+/**
  * 判断非空对象
  *
  * @param {Object} obj

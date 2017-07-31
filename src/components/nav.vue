@@ -17,9 +17,10 @@
     bottom: 0;
     left: 0;
     width: 100%;
+    height: 1.04rem;
+    border-top: 1px solid #dbdcdc;
   }
   ul {
-    border-top: 1px solid #dbdcdc;
     background: #fff;
     display: flex;
     li {
@@ -29,6 +30,7 @@
       font-size: .28rem;
       list-style: none;
       a {
+        height: 1.04rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -40,12 +42,8 @@
           color: #00aaee;
         }
         img {
-          margin-top: 2px;
+          margin: 2px 0;
           height: .5rem;
-        }
-        span {
-          height: 48px;
-          line-height: 48px;
         }
       }
     }

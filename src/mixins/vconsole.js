@@ -23,7 +23,7 @@ export default {
       setTimeout(()=> {
         document.getElementById('app').click();
         this.tap_console();
-      },0)
+      },1000);
     },
     /***
      * 不知道什么原因vconsole初始化之后获取不到dom元素，所以只能通过点击屏幕来唤醒vconsole实例

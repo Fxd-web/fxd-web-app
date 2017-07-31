@@ -8,11 +8,11 @@
         <ul><li>2017-08-20 **骅 130****56 借款1,000 元</li><li>2017-07-26 **磊 156****19 借款500 元</li><li>2017-07-26 **磊 156****19 借款1,000 元</li><li>2017-07-26 **磊 156****19 借款500 元</li><li>2017-07-26 **端 156****19 借款500 元</li><li>2017-07-26 **磊 156****19 借款1,000 元</li><li>2017-07-25 **源 133****86 借款500 元</li><li>2017-07-25 **磊 156****19 借款500 元</li><li>2017-07-25 **波 145****00 借款1,000 元</li><li>2017-07-25 **丽 183****00 借款1,000 元</li></ul>
         <span></span>
       </div>
-      <img src="../assets/img/main_qr_code.png" class="wx">
+      <img src="../assets/img/main_qr_code.png" class="wx" v-if="isWX" @click="toggle_popup_wx">
     </div>
-    <div class="main-con">
+    <div class="main-con" id="main-con">
       <!--主产品-->
-        <div class="product-normal">
+        <div class="product-normal"  >
             <img src="http://192.168.6.137/fxd/M00/00/00/wKgGiVlxnnaEW81EAAAAAKYuGXo782.png" alt="" class="product-normal-left">
             <div class="product-normal-center">
                 <h2>工薪贷 <span>灵活还款</span></h2>
@@ -23,14 +23,15 @@
             </div>
         </div>
       <!--拒绝导流部分-->
-        <div class="product-reject" v-if="false">
+        <div class="product-reject"  v-if="false">
           <h2  class="product-reject-header"><div class="crying-face"><span></span></div>很抱歉，您的借款申请审核失败</h2>
-            <div class="product-reject-con">
+            <div class="product-reject-con" :style="{'max-height': rejectHeight}">
               <p class="product-reject-tip">
                 为您匹配其他第三方平台，通过率高达80%
               </p>
               <div class="product-reject-list">
                 <img src="/" alt="" class="product-reject-list-left">
+                <!--导流列表 s-->
                 <div class="product-reject-list-con">
                     <h2>野狗金融</h2>
                     <p>额度：至少1毛钱</p>
@@ -40,6 +41,7 @@
                     </div>
                     <p><span>贵</span><span>通过率低</span><span>跑路快</span></p>
                 </div>
+                <!--导流列表 e-->
                 <span class="product-reject-right arrow-right"></span>
               </div>
               <p class="product-reject-more">更多<span class="">>></span></p>
@@ -63,9 +65,12 @@
         </ul>
     </div>
     <!--************* 微信弹出层 *************-->
-    <fxd-mask v-if="false">
-      <div class="wx-con" v-if="false">
-        <div class="wx-cancel">+</div>
+    <fxd-mask v-if="mask.popupWx">
+      <transition name="smallBig">
+
+      <div class="wx-con" v-if="mask.popupWx">
+
+        <div class="wx-cancel" @click="toggle_popup_wx">+</div>
         <div class="wx-top">
           <img src="../assets/img/wx.png" alt="">
           <div>
@@ -84,17 +89,78 @@
           <fxd-button type="inset">复制微信号</fxd-button>
           <fxd-button type="inset">保存图片</fxd-button>
         </div>
+
       </div>
+
+      </transition>
+
     </fxd-mask>
   </div>
 </template>
+
+<script type="text/ecmascript-6">
+  /*eslint-disable*/
+  import swiper from '../components/ui/swiper';
+  import { isMobile } from '../util/';
+  export default{
+    data() {
+      return {
+        isWX: !isMobile('wx'),
+        mask: {
+          popupWx: false,
+        },
+        data: {
+          list: [{
+            img: require('../assets/img/banner_01.png'),
+            link: 'home',
+          }, {
+            img: require('../assets/img/0107.jpg'),
+            link: 'coupon',
+          }, {
+            img: require('../assets/img/banner_01.png'),
+            link: 'home',
+          }, {
+            img: require('../assets/img/0107.jpg'),
+            link: 'coupon',
+          }],
+          interval: false
+        }
+      };
+    },
+    computed:{
+      rejectHeight() {
+        return `${this.viewHeight.slice(0,-1)} - 7.65rem)`;
+      },
+    },
+    props: ['viewHeight'],
+    components:{
+      'fxd-swiper':swiper,
+    },
+    mounted() {
+    },
+    methods:{
+      toggle_popup_wx() {
+        this.mask.popupWx = !this.mask.popupWx;
+      },
+      linkCase(pid) {
+        this.$store.dispatch('get_applyStatus', {
+          pid,
+          linkto: true
+        });
+      },
+    }
+  };
+</script>
 <style lang="scss" scoped>
   .home{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background: #f5f5f5;
     .main-header{
       position: relative;
       .banner{
-        /*background: red;*/
+        background: red;
         height: 3.76rem;
       }
       .dialog{
@@ -125,51 +191,52 @@
       }
     }
     .main-con{
+      flex: 1;
       /*主产品*/
-        .product-normal{
-          &:active{
-            background: rgba(255,255,255,.4);
-          }
-          margin-top: .1rem;
-          background: #fff;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: .5rem .3rem;
-          line-height: 1.5;
-          #{&}-left{
-            width: .76rem;
-            img{
-              background: #c8c8cd;
-              padding-right: .8rem;
-            }
-          }
-          #{&}-center{
-            h2{
-              display: flex;
-              align-items: center;
-              color: #666;
-              span{
-                font-size: .24rem;
-                color: #1da9ff;
-                border-radius: .4rem;
-                border: 1px solid #1da9ff;
-                padding: .02rem .2rem;
-                margin-left:.3rem;
-              }
-            }
-            p{
-              color: #8c8c8c;
-            }
-          }
-          #{&}-right{
-            color: #1da9ff;
-            font-size: .24rem!important;
-            .arrow-right{
-              padding-right: .5rem;
-            }
+      .product-normal{
+        &:active{
+          background: rgba(255,255,255,.4);
+        }
+        margin-top: .1rem;
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: .4rem .3rem;
+        line-height: 1.5;
+        #{&}-left{
+          width: .76rem;
+          img{
+            background: #c8c8cd;
+            padding-right: .8rem;
           }
         }
+        #{&}-center{
+          h2{
+            display: flex;
+            align-items: center;
+            color: #666;
+            span{
+              font-size: .24rem;
+              color: #1da9ff;
+              border-radius: .4rem;
+              border: 1px solid #1da9ff;
+              padding: .02rem .2rem;
+              margin-left:.3rem;
+            }
+          }
+          p{
+            color: #8c8c8c;
+          }
+        }
+        #{&}-right{
+          color: #1da9ff;
+          font-size: .24rem!important;
+          .arrow-right{
+            padding-right: .5rem;
+          }
+        }
+      }
       /*拒绝导流产品*/
       .product-reject{
         #{&}-header{
@@ -219,8 +286,7 @@
           border-radius: 15px;
           width: calc(100% - 1rem);
           padding: .1rem;
-          margin:0 auto .3rem;
-          height: 300px;
+          margin:0 auto;
           overflow-y: auto;
         }
         #{&}-tip{
@@ -238,6 +304,7 @@
             padding-left: .1rem;
           }
         }
+         /*导流列表样式*/
         #{&}-list{
           display: flex;
           justify-content: space-between;
@@ -246,7 +313,7 @@
             background: #f5f5f5;
           }
           #{&}-left{
-              background: #c8c8cd;
+            background: #c8c8cd;
             width: 1.28rem;
             height: 1.28rem;
           }
@@ -291,26 +358,27 @@
       }
     }
     .main-footer{
-      margin-top: .1rem;
+      margin-bottom: .1rem;
       background: #fff;
-        ul{
-          display: flex;
-          text-align: center;
-          align-items: center;
-          justify-content: space-between;
-          color: #7e878e;
-          li{
-            flex: 1;
-            padding: .3rem 0;
-            &:active{
-              background: rgba(0,0,0,.04);
-            }
-          }
-          img{
-            height:.56rem;
-            width: .56rem;
+      ul{
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: space-between;
+        color: #7e878e;
+        li{
+          flex: 1;
+          padding: .3rem 0;
+          &:active{
+            background: rgba(0,0,0,.04);
           }
         }
+        img{
+          height:.56rem;
+          width: .56rem;
+          padding-bottom: .2rem;
+        }
+      }
     }
 
 
@@ -349,7 +417,7 @@
           width: 1.08rem;
         }
         p{
-          line-height:.6;
+          line-height: 1.6;
         }
         span{
           color: #1da9ff;
@@ -359,7 +427,7 @@
         p{
           text-align: center;
           font-size: .24rem;
-          line-height: .5;
+          line-height: 1.6;
         }
       }
       .wx-btn{
@@ -381,42 +449,3 @@
     }
   }
 </style>
-<script type="text/ecmascript-6">
-  /*eslint-disable*/
-  import swiper from '../components/ui/swiper';
-  export default{
-    data() {
-      return {
-        data: {
-          list: [{
-            img: require('../assets/img/banner_01.png'),
-            link: 'home',
-          }, {
-            img: require('../assets/img/0107.jpg'),
-            link: 'coupon',
-          }, {
-            img: require('../assets/img/banner_01.png'),
-            link: 'home',
-          }, {
-            img: require('../assets/img/0107.jpg'),
-            link: 'coupon',
-          }],
-          interval: false
-        }
-      };
-    },
-    mounted() {
-    },
-    components:{
-      'fxd-swiper':swiper,
-    },
-    methods:{
-      linkCase(pid) {
-        this.$store.dispatch('get_applyStatus', {
-          pid,
-          linkto: true
-        });
-      },
-    }
-  };
-</script>
