@@ -19,6 +19,7 @@
     width: 100%;
     height: 1.04rem;
     border-top: 1px solid #dbdcdc;
+    z-index: 100;
   }
   ul {
     background: #fff;

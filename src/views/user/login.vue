@@ -3,10 +3,18 @@
     <div class="login-logo">
       <img src="../../assets/img/logo/logo_login.png" alt="" width="228">
     </div>
-    <fxd-cell  v-model="item.mobile_phone_" type="imgText" inputType="mobile" class="login-fxd-cell">
+    <fxd-cell
+      @input.native="e=>item.mobile_phone_=e.target.value"
+      v-model="item.mobile_phone_"
+      type="imgText"
+      inputType="mobile" class="login-fxd-cell">
       <img width="100%" src="../../assets/img/mobile.png" alt="" slot="imgText">
     </fxd-cell>
-    <fxd-cell  v-model="item.password_" type="imgText" inputType="password" class="login-fxd-cell">
+    <fxd-cell
+      @input.native="e=>item.password_=e.target.value"
+      v-model="item.password_"
+      type="imgText"
+      inputType="password" class="login-fxd-cell">
       <img width="100%" src="../../assets/img/password.png" alt="" slot="imgText">
     </fxd-cell>
     <fxd-button class="login-fxd-button" @click.native="submit">登录</fxd-button>
@@ -62,16 +70,10 @@
     data() {
       return {
         showLoginCode: false,
-        user: {
-          BSFIT_DEVICEID: '',
-          last_login_from_: 4,
-          merchant_code_: '',
-          mobile_phone_: '18202197847',
-          password_: '123123',
-          CkGZprCYk6Q: '',
-          verify_code_: ''
-        },
         item:{
+          verify_code_: '',
+          merchant_code_: '',
+          last_login_from_: 4,
           mobile_phone_:'',
           password_:''
         }
@@ -96,13 +98,14 @@
 //        this.$store.dispatch('user_login', this.user);
 //        console.log('提交按钮的操作')
 //      },
-      /* eslint-enable */
       ...mapMutations([
         'USER_LOGIN',
         'NEXT_PAGE',
       ]),
       submit() {
-        this.$store.dispatch('user_login', this.user);
+        this.$store.dispatch('user_login', this.item).then(res=> {
+          console.log(res);
+        });
         if (this.showLoginCode) {
           this.$store.commit('TOGGLE_LOGIN_CODE', {
             flag: 0
@@ -130,4 +133,6 @@
       }
     },
   };
+  /* eslint-enable */
+
 </script>

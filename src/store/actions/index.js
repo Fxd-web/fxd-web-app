@@ -6,7 +6,11 @@ import * as types from '../mutation-types/';
 import config from '../../config';
 import des from '../../lib/des3.js';
 import Api from '../../service/api/';
-import { loading, productProcess } from '../../util';
+import { productProcess } from '../../util';
+import {
+  Loading,
+  Toask
+} from 'fxd-components-example';
 
 /**
  * 字符串序列化
@@ -40,13 +44,13 @@ const transformRequest = (obj) => {
  *
  */
 const filterFlag = (json, commit, msg, bool) => {
+  Loading.close();
   return new Promise(function (resolve, reject) {
-    loading(0);
     if (!!bool) {
       return false
     }
-    (typeof msg !== 'boolean') && commit(types.TOGGLE_MASK, json.msg);
-    json.flag == '0000' ? resolve(json) : reject(json) || commit(types.NEXT_PAGE, 'login');
+    (typeof msg !== 'boolean') && Toask(json.msg);
+    json.flag == '0000' ? resolve(json) : reject(json) || commit(types.NEXT_PAGE, 'login') || Toask(json.msg);
   })
 }
 
@@ -59,8 +63,8 @@ const filterFlag = (json, commit, msg, bool) => {
  * @return {Promise}               Promise
  */
 const serverError = (error, commit) => {
-  loading(0);
-  commit(types.TOGGLE_MASK, '服务器君睡着咯,请您耐心等待!');
+  Loading.close();
+  Toask( '服务器君睡着咯,请您耐心等待!');
   return Promise.reject(new Error(error));
 }
 
@@ -73,7 +77,7 @@ const serverError = (error, commit) => {
  * @return {Promise}               Promise
  */
 const _get = (url, query, bool) => {
-  loading(1);
+  Loading.open();
   let _url = !!query && !!bool ? `${config.url}${url}` : `${config.url}${url}?${transformRequest(JSON.parse(localStorage.user))}`;
   return fetch(_url)
     .then((res) => {
@@ -93,7 +97,7 @@ const _get = (url, query, bool) => {
  * @return {Promise}        Promise
  */
 const _post = (url, params, bool) => {
-  loading(1);
+  Loading.open();
   let _url = !!params && !!bool ? `${config.url}${url}` : `${config.url}${url}?${transformRequest(JSON.parse(localStorage.user))}`;
   return fetch(_url, {
     method: 'POST',
@@ -528,7 +532,7 @@ const get_applyStatus = ({ commit }, data) => {
         commit(types.GET_APPLY_STATUS, json.result)
         if (data.linkto) {
           const dataBack = productProcess(json.result);
-          typeof dataBack === 'string' ? commit(types.NEXT_PAGE, dataBack) : commit(types.TOGGLE_MASK, dataBack.msg);
+          typeof dataBack === 'string' ? commit(types.NEXT_PAGE, dataBack) : Toask(dataBack.msg);
         }
       })
     })

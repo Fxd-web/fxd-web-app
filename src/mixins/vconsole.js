@@ -21,7 +21,7 @@ export default {
     init_vconsole() {
       this.vconsole = require('vconsole');
       setTimeout(()=> {
-        document.getElementById('app').click();
+        document.body.click();
         this.tap_console();
       },1000);
     },

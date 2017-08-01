@@ -2,6 +2,7 @@ import $http from './services';
 import Api from './api/';
 import * as types from '../../src/store/mutation-types/'
 import * as store from '../../src/store/'
+import { Toask } from 'fxd-components-example'
 let commit = store.default.commit;
 
 const get_customer_authInfo_schedule = () => {
@@ -28,7 +29,7 @@ const get_customer_carrer = () => {
 const save_customerIDInfoH5 = (data) => {
   return $http('post', Api.saveCustomerIDInfoH5, data).then(json => {
     if (json.flag !== '0000') {
-      commit(types.TOGGLE_MASK, json.msg);
+      Toask(json.msg);
       return false
     }
     return json

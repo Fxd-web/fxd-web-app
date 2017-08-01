@@ -16,17 +16,25 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
 
 //引入路由
 Vue.use(VueRouter)
-// Vue.use(a, { someOption: true })
 
 const router = new VueRouter(routers);
 
 //设置页面的title
 router.beforeEach((to, from, next) => {
-  let setTitle = function (title) {
-    document.title = title;
-  };
-  typeof to.meta.title !== undefined && setTitle(to.meta.title);
-  next();
+  try{
+    if(localStorage.user===undefined||localStorage.user==''){
+       if(to.path!=='/login'){
+        location.replace('login');
+      }else{
+        next();
+      }
+    }else{
+      next();
+    }
+  }catch (e){
+
+  }
+
 })
 
 new Vue({

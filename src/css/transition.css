@@ -6,6 +6,14 @@
   opacity: 0;
 }
 
+/**弹窗浅入浅出**/
+.fadePopup-enter-active, .fadePopup-leave-active {
+  transition: opacity .3s;
+}
+.fadePopup-enter, .fadePopup-leave-active {
+  opacity: 0;
+}
+
 /**从上往下**/
 .bouncelnDown-enter-active, .bouncelnDown-leave-active {
   transition: all .5s;
@@ -54,25 +62,13 @@
 
 
 /**从小到大**/
-.smallBig-enter-active, .smallBig-leave-active {
-  transition: all .5s;
+.smallToBig-enter-active, .smallToBig-leave-active {
+  transition: all 0.2s linear
 }
-.smallBig-enter, .smallBig-leave-active {
+.smallToBig-enter, .smallToBig-leave-active {
   opacity: 0;
   transform: scale(0);
 }
-
-
-
-/**从小到大**/
-.move-enter-active, .move-leave-active {
-  transition: all 0.2s linear
-}
-.move-enter, .move-leave-active {
-  opacity: 0;
-  transform: translate3d(100%, 0, 0)
-}
-
 
 .slide-right-enter-active, .slide-left-enter-active {
   transition: all .5s cubic-bezier(.36, .66, .04, 1);
@@ -109,4 +105,13 @@
 .router-slid-enter, .router-slid-leave-active {
   transform: translate3d(2rem, 0, 0);
   opacity: 0;
+}
+
+
+@keyframes turndownforwhat
+{
+  0%   {
+    transform: translateY(-50%);
+  }
+  100% {transform: translateY(50%)}
 }

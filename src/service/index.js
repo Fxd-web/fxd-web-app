@@ -10,3 +10,10 @@ export {
 export {
   user_login,
 } from './user';
+
+
+export {
+  get_limitProductlistApi,
+  get_queryLoanRecordList,
+  get_banner
+} from './other';

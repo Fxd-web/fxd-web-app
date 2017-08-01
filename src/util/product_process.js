@@ -89,7 +89,5 @@ let config_product_Process = {
  */
 
 export function productProcess (data) {
-  data.apply_flag_ = '0004';
-  data.applyStatus = '15';
   return config_product_Process.apply_flag_[data.apply_flag_](data);
 }

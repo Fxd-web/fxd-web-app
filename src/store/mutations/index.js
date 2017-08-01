@@ -20,21 +20,4 @@ export default {
   [types.CLEAR_NEXT_PAGE](state) {
     state.nextPage = '';
   },
-  [types.TOGGLE_MASK](state, msg) {
-    !!time && clearTimeout(time);
-    state.dialog.toast = msg || false;
-    time = setTimeout(function () {
-      state.dialog.toast = false;
-    }, 2000)
-  },
-  [types.TOGGLE_DIALOG](state, type) {
-    if (type === 'mask') {
-      for (let i of Object.keys(state.dialog)) {
-        state.dialog[i] = false;
-      }
-      return
-    }
-    state.dialog.mask = !state.dialog.mask;
-    state.dialog[type] = !state.dialog[type];
-  },
 };

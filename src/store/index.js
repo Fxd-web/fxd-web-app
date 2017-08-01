@@ -10,8 +10,6 @@ import module from './modules/'
 //模块设置别名
 const user = module.user;
 const dictionary = module.dictionary;
-const caseStatus = module.caseStatus;
-const customer = module.customer;
 const mine = module.mine;
 const product = module.product;
 const information = module.information;
@@ -26,8 +24,6 @@ export default new Vuex.Store({
   modules: {
     user,
     dictionary,
-    caseStatus,
-    customer,
     mine,
     product,
     information,

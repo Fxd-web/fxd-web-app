@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
       <fxd-header :title="headTitle" :backSwitch="backSwitch" v-if="headSwitch"/>
       <!--<transition :name="transitionName">-->
         <!--<keep-alive>-->
@@ -14,7 +14,7 @@
 </template>
 
 <style lang="scss">
-  #app{
+  .app{
     .view{
       position: absolute;
     }
@@ -57,9 +57,23 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.interceptLogin();
         this.route_change();
       });
+    },
+    methods: {
+      /* eslint-disable */
+      /**
+       * 根据路由切换动态显示主页和底部菜单栏
+       */
+      route_change() {
+        this.navSwitch = !!this.$route.meta.navSwitch ? this.$route.meta.navSwitch : false;
+        this.backSwitch = !!this.$route.meta.backSwitch ? this.$route.meta.backSwitch : false;
+        this.headTitle = this.$route.meta.title || this.headTitle;
+      },
+      /* eslint-enable */
+      pickerCb() {
+        this.$store.dispatch('toggle_mask');
+      }
     },
     watch: {
       '$store.state.nextPage'(path) {
@@ -68,43 +82,10 @@
           this.$store.commit('CLEAR_NEXT_PAGE');
         }
       },
-      '$route'(to, from) {
-        this.headTitle = this.$route.meta.title;
-        this.$store.state.dialog.toast && this.$store.commit('TOGGLE_MASK');
-        if (to.meta.lv === from.meta.lv) {
-          this.transitionName = 'fade';
-          return;
-        }
-        this.transitionName = to.meta.lv > from.meta.lv ? 'slide-right' : 'slide-left';
+      '$route'() {
         this.route_change();
       },
     },
-    methods: {
-      /* eslint-disable */
-      /**
-       * 根据路由切换动态显示主页和底部菜单栏
-       */
-      route_change() {
-        this.navSwitch = this.$route.meta.navSwitch || this.navSwitch;
-        this.backSwitch = this.$route.meta.backSwitch || this.backSwitch;
-        this.headTitle = this.$route.meta.title || this.headTitle;
-      },
-      interceptLogin() { // 登录拦截
-//        if (this.$route.path === '/login') {
-//          return;
-//        }
-//        if (localStorage.user === 'undefined' || !localStorage.user) {
-//          delete localStorage.user;
-//          this.$store.commit('NEXT_PAGE', 'login');
-//          return;
-//        }
-//        this.$store.commit('USER_LOGIN', JSON.parse(localStorage.user));
-      },
-      /* eslint-enable */
-      pickerCb() {
-        this.$store.dispatch('toggle_mask');
-      }
-    }
   };
 </script>
 

@@ -3,8 +3,6 @@ export default {
   mine: (state) => state.mine.mine,
   dictionary: (state) => state.dictionary,
   addrList: (state) => state.dictionary.addrList,
-  caseStatus: (state) => state.caseStatus.caseStatus,
-  customer: (state) => state.customer.customer,
   bank: (state) => state.mine.bank,
   config: (state) => state.config,
   information: (state) => state.information.information,

@@ -2,8 +2,9 @@ import 'whatwg-fetch';
 import config from '../config';
 import des from '../lib/des3.js';
 import {
-  loading
-} from '../util';
+  Loading,
+  Toask
+} from 'fxd-components-example';
 import * as types from '../../src/store/mutation-types/'
 import * as store from '../../src/store/'
 let commit = store.default.commit;
@@ -38,17 +39,17 @@ const transformRequest = (obj) => {
  *
  */
 const filterFlag = (json) => {
-  loading(0);
+  Loading.close();
   return new Promise(function (resolve, reject) {
     let flagArr = ['0003','0016'];
     let flag = json.flag;
    if (~flagArr.indexOf(flag)) {
       reject(json);
     } else {
-      resolve(json)
+      resolve(json.result)
     }
   }).catch(err => {
-    commit(types.TOGGLE_MASK, json.msg)
+    Toask(json.msg)
       setTimeout(function () {
         commit(types.NEXT_PAGE, 'login');
       }, 1000);
@@ -63,17 +64,18 @@ const filterFlag = (json) => {
  * @return {Promise}               Promise
  */
 const serverError = (err) => {
+  Loading.close();
   commit(types.NEXT_PAGE, 'error');
-  commit(types.TOGGLE_MASK, '服务器君睡着咯,请您耐心等待!');
+  Toask('服务器君睡着咯,请您耐心等待!');
   return new Error(err);
 }
 
 
 
 export default async(type = 'GET', url = '', params = '', des3 = true) => {
-  loading(1);
+  Loading.open();
   type = type.toUpperCase();
-  url = config.url + url + '?' + transformRequest(JSON.parse(localStorage.user));
+  url = config.url + url + '?' + (localStorage.user?transformRequest(JSON.parse(localStorage.user)):'');
   let record = '';
   if (des3 && !!params) {
     !!params.password_ && (params.password_ = des.DES3.encrypt(params.password_));

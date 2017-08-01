@@ -34,24 +34,6 @@ export function isEmptyObj (obj) {
   return !i
 }
 
-/**
- * 加载loading
- *
- * @param {Object} obj
- * @param {String} key
- * @return {Boolean}
- */
-export function loading (data) {
-  try{
-    let loading =  document.getElementById('loading');
-    loading.setAttribute('class',!data?'loading dis':'loading');
-  }
-  catch (err){
-    // console.log(err)
-  }
-}
-
-
 
 /**
  * 压缩图片

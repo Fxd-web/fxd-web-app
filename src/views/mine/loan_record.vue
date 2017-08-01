@@ -47,7 +47,6 @@
    </div>
 </template>
 <style lang="scss" scoped>
-  @import  "../../css/common.scss";
   .accut_record{
     width:80%;
     margin:.34rem auto 0;

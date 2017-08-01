@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import * as types from '../mutation-types/'
 import * as store from '../../store'
+import { Toask } from 'fxd-components-example'
 
 export default {
     state:{
@@ -39,10 +40,10 @@ export default {
             _state.nextPage = data.item.link;
           }
           else if(nextStep == -2){
-            commit(types.TOGGLE_MASK, '当前状态无法修改资料!')
+            Toask('当前状态无法修改资料!')
           }
           else{
-            commit(types.TOGGLE_MASK, `请选择${data.list[nextStep-1].title}`)
+            Toask(`请选择${data.list[nextStep-1].title}`)
           }
         },
     },

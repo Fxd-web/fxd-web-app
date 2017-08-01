@@ -1,10 +1,10 @@
 <template>
     <div class="banner" id="slide">
         <transition :name="transitionName">
-            <img :src="data.img" width="100%" @click="linkto" v-if='key' :key='key'>
+            <img :src="data.file_store_path_" width="100%" @click="linkto" v-if='key' :key='key'>
         </transition>
         <ul>
-          <li v-for='(i,index) in list.list' :class="index==tag?'act':''" @click='touch(null,null,index)'></li>
+          <li v-for='(i,index) in list' :class="index==tag?'act':''" @click='touch(null,null,index)'></li>
         </ul>
     </div>
 </template>
@@ -24,16 +24,16 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      height: 10px;
+      height: .1rem;
       z-index: 11;
-      bottom: 20px;
+      bottom: .2rem;
       li{
-        width: 10px;
-        height: 10px;
+        width: .1rem;
+        height: .1rem;
         display: inline-block;
         background: rgba(255,255,255,0.3);
         border-radius: 50%;
-        margin:10px 5px;
+        margin:.1rem .05rem;
         &.act{
           background:#fff
         }
@@ -45,9 +45,10 @@
   import touch from 'touchjs'
   export default{
     name: 'swiper',
-    props:['list'],
+    props:['value'],
     data(){
       return{
+        list:[],
         data:{},
         key:'a',
         tag:0,
@@ -56,24 +57,27 @@
       }
     },
     computed:{
+      myvalue(){
+        return this.value;
+      },
       slide(){
         return document.getElementById('slide');
       }
     },
-    mounted() {
-      let _this = this;
-      this.data = this.list.list[this.tag];
-      touch.on( _this.slide, 'swipeleft', ()=>{
-        _this.transitionName = 'slide-right';
-        _this.touch(1,'swipeleft');
-      });
-      touch.on( _this.slide, 'swiperight', ()=>{
-        _this.transitionName = 'slide-left';
-        _this.touch(-1,'swiperight');
-      });
-      _this.list.interval && _this.interval(_this, _this.list.interval);
-    },
     methods:{
+      init(){
+        let _this = this;
+        this.data = this.list[this.tag];
+        touch.on( _this.slide, 'swipeleft', ()=>{
+          _this.transitionName = 'slide-right';
+          _this.touch(1,'swipeleft');
+        });
+        touch.on( _this.slide, 'swiperight', ()=>{
+          _this.transitionName = 'slide-left';
+          _this.touch(-1,'swiperight');
+        });
+        _this.list.interval && _this.interval(_this, _this.list.interval);
+      },
       touch(parms, type, index){
         this.list.interval&&clearInterval(this.time);
         this.list.interval&&this.interval(this, this.list.interval);
@@ -100,8 +104,9 @@
         })
       },
       linkto(){
-        let link = this.list.list[this.tag].link;
-        this.$store.commit('NEXT_PAGE', link);
+          location.href='';
+//        let link = this.list.list[this.tag].link;
+//        this.$store.commit('NEXT_PAGE', link);
       },
       interval(self, data){
         self.time = setInterval(()=>{
@@ -115,6 +120,10 @@
          this.key = 'b'
        }
       },
+      'myvalue' (val){
+        this.list = val;
+        this.init();
+      }
     },
   }
 </script>

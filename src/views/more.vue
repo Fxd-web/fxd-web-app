@@ -1,15 +1,16 @@
 <template>
   <div class="more">
     <ul>
-      <li v-for="(i,index) in list" @click='linkto(i.link,index)'>
+      <li v-for="(i,index) in list" @click='linkto(i)'>
         <img :src="i.icon" width="27"/>
         {{ i.title }}
         <span class="arrow-right"></span>
       </li>
     </ul>
-    <div class="logout" @click="$store.commit('TOGGLE_DIALOG','alert')">
+    <div class="logout" @click="logout">
       退出登录
     </div>
+    <fxd-actionsheet v-if="actionsheetSwitch"/>
   </div>
 </template>
 <style  lang="scss" scoped>
@@ -72,10 +73,12 @@
 </style>
 <script type="text/ecmascript-6">
   /*eslint-disable*/
+  import { Alert } from 'fxd-components-example';
     export default{
-        data(){
+      data(){
           return {
-            msg:'您确认要退出登录吗？',
+            actionsheetSwitch: false,
+            msg:'您确认退出登录吗？',
             list:[{
               title:'关于我们',
               icon:require('../assets/img/7_gd_icon_05.png'),
@@ -105,13 +108,19 @@
         mounted() {
         },
         methods:{
-          alertCb(bool){
-            !bool||this.$store.dispatch('user_logout', this.$store.getters.user);
+          logout(){
+            Alert({
+              title:this.msg
+            }).then((bool) =>{
+              if (bool) {
+                this.$store.dispatch('user_logout')
+              }
+            });
           },
-          linkto(data,index){
-            if(index == (this.list.length-1)){
-              this.$store.commit('TOGGLE_DIALOG','actionsheet');
-              return
+          linkto(data){
+            if(data.title === '客服热线'){
+              this.actionsheetSwitch = !this.actionsheetSwitch;
+              return;
             }
             location.href = data;
           }

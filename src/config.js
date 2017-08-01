@@ -1,6 +1,6 @@
 const config = {
   dev:{
-    url:'http://192.168.6.133:8081/fxd-esb/',
+    url:'http://h5.test.fxds/fxd-esb/',
     local:'http://192.168.14.71:8000/',
   },
   pro:{
@@ -11,5 +11,5 @@ const config = {
 
 
 export default (() => {
-  return config.pro;
+  return config.dev;
 })();

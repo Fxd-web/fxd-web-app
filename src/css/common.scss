@@ -1,6 +1,9 @@
-body,html,#app,.view {
+body,html,.app,.view {
   height: 100%;
   width: 100%;
+  max-width: 1242px;
+  min-width: 320px;
+  margin:0 auto;
   .view{
     overflow-x: hidden;
   }
