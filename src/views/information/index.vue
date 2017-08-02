@@ -1,32 +1,34 @@
 <template>
   <div>
     <div class="case_main">
-      <div class="case_head">
-        <div class="case_progress">
-          <p class="case_progress-con"><span :style="{width: progressWidth + '%' }"></span></p>
-          <p class="case_progress-p"><span>0%</span></p>
+      <div class="case_main_body">
+        <div class="case_head">
+          <div class="case_progress">
+            <p class="case_progress-con"><span :style="{width: progressWidth + '%' }"></span></p>
+            <p class="case_progress-p"><span v-for="(i, index) in list.length">{{100/list.length*index}}%</span><span>100%</span></p>
+          </div>
+          <p class="case_head-p">资料填写进度达到100%,即可借款</p>
         </div>
-        <p class="case_head-p">资料填写进度达到100%,即可借款</p>
-      </div>
-      <p class="case_tip">
-        <img src="../../assets/img/case_main_i.png" alt=""> 请按顺序进行各项资料填写
+        <p class="case_tip">
+          <img src="../../assets/img/case_main_i.png" alt=""> 请按顺序进行各项资料填写
       </p>
-      <div class="case_con">
-        <ul>
-          <li @click="link(i.link)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act':''">
-            <p>
-              <span>{{i.title}}</span>
-              <span>{{i.des}}</span>
-            </p>
-            <p>
-              <span data-tip="已完成">未完成</span>
-            </p>
-          </li>
-        </ul>
+        <div class="case_con">
+          <ul>
+            <li @click="link(i.link)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act':''">
+              <p>
+                <span>{{i.title}}</span>
+                <span>{{i.des}}</span>
+              </p>
+              <p>
+                <span data-tip="已完成">未完成</span>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <fxd-button >立即申请</fxd-button>
       </div>
-      <fxd-button >立即申请</fxd-button>
       <transition name="router-slid" mode="out-in">
-        <router-view></router-view>
+        <router-view class="case_main_con"></router-view>
       </transition>
     </div>
   </div>
@@ -65,10 +67,10 @@
           des: '完善第三方认证有助于通过审核',
           link: 'information/authentication',
         }, {
-            title: '芝麻信用',
-            des: '授权获取您的芝麻信用信息',
-            link: 'information/authentication',
-          }],
+          title: '芝麻信用',
+          des: '授权获取您的芝麻信用信息',
+          link: 'information/authentication',
+        }],
         btnAct: 'act',
       }
     },
@@ -77,15 +79,8 @@
         'information',
       ]),
     },
-    beforeRouteEnter(to, from, next) {
-      get_customer_authInfo_schedule().then((data) => {
-        if(!data) return false
-        next(_this => {
-            console.log(data)
-//          _this.progressWidth = _this.progressWidth[data.result.nextStep];
-//          _this.nextStep = data.result.nextStep;
-        })
-      })
+    created() {
+       this.init();
     },
     beforeMount() {
       //          get_customer_authInfo_schedule().then((data)=>{
@@ -102,6 +97,13 @@
         'INFORMATION_LINKTO',
         'NEXT_PAGE'
       ]),
+      init() {
+        get_customer_authInfo_schedule().then((data) => {
+          if(!data) return false
+            this.progressWidth = data.nextStep<0?100:100/this.list.length*(data.nextStep-1);
+            this.nextStep = data.nextStep;
+        })
+      },
       link(url) {
         this.NEXT_PAGE(url)
 //        let nextStep = this.nextStep;
@@ -113,13 +115,12 @@
 //        });
       }
     },
-    // watch: {
-    //   'information' (data) {
-    //     this.progressWidth = this.progressWidth[data.nextStep];
-    //     this.nextStep = data.nextStep;
-    //     this.data = true;
-    //   },
-    // },
+     watch: {
+       $route() {
+         this.init();
+         console.log(123)
+       },
+     },
 
   }
   /*eslint-disable*/
@@ -313,5 +314,13 @@
     .case_btn {
       margin-top: -10px;
     }
+  }
+  .case_main_con{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
   }
 </style>

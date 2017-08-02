@@ -134,7 +134,8 @@
         })
       })
     },
-    mounted() {},
+    mounted() {
+    },
     methods: {
       // ...mapActions([
       //   'fetch_dictionary',
@@ -144,7 +145,8 @@
       ...mapMutations([
         'FETCH_ADDR_LIST',
         'FETCH_DICTIONARY',
-        'SAVE_CUSTOMERIDINFOH5'
+        'SAVE_CUSTOMERIDINFOH5',
+        'NEXT_PAGE'
       ]),
       pickerCb(res) {
         this.customer = this.$store.getters.customer;

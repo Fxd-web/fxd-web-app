@@ -55,7 +55,7 @@ const getRecomfrInfoApi  = 'esb/ProductProtocol/GetRecomfrInfoApi.jhtml';
 
 // 获取借款记录
 const getLoanList  = 'esb/account/loanList.jhtml';
-
+// const getLoanList  = 'esb/customer/getCustomerBase.jhtml';
 
 
 // 获取进件

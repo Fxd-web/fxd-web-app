@@ -127,9 +127,9 @@
       /**
        * 初始化黏贴板
        */
-//      page_logic() {
-//        new Clipboard('.setcopy_gettext');
-//      },
+      page_logic() {
+        new Clipboard('.setcopy_gettext');
+      },
       /**
        * 异步获取数据
        */
@@ -147,9 +147,9 @@
       /**
        * 点击复制微信提示文字
        */
-//      copyToClipboard() {
-//        Toask('您已复制成功,赶紧去微信关注"急速发薪"公众号吧!');
-//      },
+      copyToClipboard() {
+        Toask('您已复制成功,赶紧去微信关注"急速发薪"公众号吧!');
+      },
       /**
        * 微信弹出层切换
        */

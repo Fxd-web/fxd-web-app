@@ -84,19 +84,20 @@ export default {
     },
     {
       path: '/information',
-      component: require('./views/information'),
+      component: require('./views/information/'),
       meta: {
         title: '资料填写',
         lv: 2,
       },
-      children: [{
+      children: [
+        {
         path: 'personal',
         component: require('./views/information/personal'),
         meta: {
           title: '个人信息',
           lv: 3,
         },
-      },
+        },
         {
           path: 'linkman',
           component: require('./views/information/linkman'),
