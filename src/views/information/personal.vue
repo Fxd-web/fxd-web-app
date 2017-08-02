@@ -269,9 +269,6 @@
     height: 50px;
     border-radius: 6px;
     -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
     font-size: 16px;
     color: #00aaee;
     margin-bottom: 10px;
@@ -305,11 +302,8 @@
   .case_sfz {
     height: 66px;
     display: flex;
-    display: -webkit-flex;
     justify-content: space-between;
-    -webkit-justify-content: space-between;
     align-items: center;
-    -webkit-align-items: center;
   }
 
   .sfz-text {

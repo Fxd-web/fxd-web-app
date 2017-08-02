@@ -88,8 +88,12 @@
   import {
     get_limitProductlistApi,
     get_queryLoanRecordList,
-    get_banner
+    get_banner,
+    get_apply_status
   } from '../service';
+  import {
+    mapMutations
+  } from 'vuex';
   export default{
     data() {
       return {
@@ -111,6 +115,11 @@
       this.init();
     },
     methods:{
+      ...mapMutations([
+        'SET_PRODUCT',
+        'SET_LOCAL_PRODUCT',
+        'DEAL_PRODUCT_CASE'
+      ]),
       init(){
         this.page_logic(); //页面逻辑
         this.page_async(); //交互请求
@@ -130,6 +139,9 @@
           this.productlist = productlist;
           this.queryLoanRecordList = queryLoanRecordList;
           this.bannerList = bannerList.files_;
+          return productlist.products;
+        }).then( res => {
+          this.SET_PRODUCT(res);
         })
       },
       /**
@@ -148,10 +160,10 @@
         }catch (e){}
       },
       linkCase(pid) {
-//        this.$store.dispatch('get_applyStatus', {
-//          pid,
-//          linkto: true
-//        });
+        get_apply_status(pid).then(res=>{
+          this.SET_LOCAL_PRODUCT(pid);
+          this.DEAL_PRODUCT_CASE(res)
+        })
       },
     },
   };
