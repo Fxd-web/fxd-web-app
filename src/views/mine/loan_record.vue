@@ -1,6 +1,6 @@
 <template>
    <div>
-     <div class="wrap_head" style="display: none" >
+     <div class="wrap_head" style="display: block" >
        <div >
          <img src="../../assets/img/faxindai_logo.png" alt="" />
          <p class="change">您当前暂无借款记录</p>
@@ -13,31 +13,38 @@
               <ul>
                 <li>
                   <div>产品名称</div>
-                  <div class="record_rgt">工薪贷</div>
+                  <div class="record_rgt">434534</div>
+                  <div class="clear"></div>
                 </li>
                 <li>
                   <div>借款金额</div>
-                  <div class="record_rgt">2000元</div>
+                  <div class="record_rgt">34</div>
+                  <div class="clear"></div>
                 </li>
                 <li>
                   <div>借款周期</div>
-                  <div class="record_rgt">30周</div>
+                  <div class="record_rgt">34</div>
+                  <div class="clear"></div>
                 </li>
                 <li>
                   <div>每周还款</div>
-                  <div class="record_rgt">108元</div>
+                  <div class="record_rgt">34</div>
+                  <div class="clear"></div>
                 </li>
                 <li>
                   <div>总还款额</div>
-                  <div class="record_rgt">3260元</div>
+                  <div class="record_rgt">444</div>
+                  <div class="clear"></div>
                 </li>
                 <li>
                   <div>申请状态</div>
-                  <div class="record_rgt">已到账</div>
+                  <div class="record_rgt">4334</div>
+                  <div class="clear"></div>
                 </li>
                 <li>
                   <div>申请时间</div>
-                  <div class="record_rgt">2015-10-25</div>
+                  <div class="record_rgt">3434</div>
+                  <div class="clear"></div>
                 </li>
               </ul>
             </div>
@@ -79,17 +86,24 @@
     }
   }
 </style>
-<script type="text/ecmascript-6">
+<script>
   /*eslint-disable*/
+  import {
+    get_LoanList,
+  } from '../../service/';
   export default{
-     data() {
-        return {
-         }
-     },
+    data() {
+      return{
+        }
+      },
     mounted(){
+      get_LoanList().then((res) =>{
+           console.log(res)
+        })
 
-    },
-    methods:{
+
     }
+
   }
+  /*eslint-disable*/
 </script>

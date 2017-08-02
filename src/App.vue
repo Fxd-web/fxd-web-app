@@ -14,6 +14,7 @@
 </template>
 
 <style lang="scss">
+  /*eslint-disable*/
   .app{
     .view{
       position: absolute;
@@ -22,6 +23,7 @@
 </style>
 
 <script>
+  /*eslint-disable*/
   import 'normalize.css';
   import './css/common.scss';
   import nav from './components/nav';
@@ -61,7 +63,7 @@
       });
     },
     methods: {
-      /* eslint-disable */
+      /*eslint-disable*/
       /**
        * 根据路由切换动态显示主页和底部菜单栏
        */
@@ -70,7 +72,7 @@
         this.backSwitch = !!this.$route.meta.backSwitch ? this.$route.meta.backSwitch : false;
         this.headTitle = this.$route.meta.title || this.headTitle;
       },
-      /* eslint-enable */
+      /*eslint-enable*/
       pickerCb() {
         this.$store.dispatch('toggle_mask');
       }

@@ -71,7 +71,7 @@
     text-align: center;
   }
 </style>
-<script type="text/ecmascript-6">
+<script>
   /*eslint-disable*/
   import { Alert } from 'fxd-components-example';
   import {
@@ -139,4 +139,5 @@
           }
         }
     }
+  /*eslint-disable*/
 </script>

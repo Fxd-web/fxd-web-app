@@ -54,7 +54,9 @@ const getBankInfo  = 'esb/getAccountCardList/getAccountCardList.jhtml';
 const getRecomfrInfoApi  = 'esb/ProductProtocol/GetRecomfrInfoApi.jhtml';
 
 // 获取借款记录
-const getLoanList  = 'esb/account/loanList.jhtml';
+// const getLoanList  = 'esb/account/loanList.jhtml';
+const getLoanList  = 'esb/customer/getCustomerBase.jhtml';
+
 
 // 获取进件
 const getApplyStatus  = 'esb/caseInfo/getApplyStatus.jhtml';
@@ -111,5 +113,5 @@ export default{
   saveCustomerCarrer,
   getLimitProductlistApi,
   queryLoanRecordApi,
-  topBanner
+  topBanner,
 };

@@ -9,7 +9,7 @@
       @mobile_verify_submit_cb="mobile_verify_submit_cb"></fxd-mobileVerify>
 
     <fxd-cell  v-model="item.password_" type="all" inputType="password" class="reg_">
-      <img width="150%" src="../../assets/img/password2.png" alt="" slot="imgText" class="imgCode">
+      <img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText" class="imgCode">
       <div slot="btnText">
         <img width="100%" :src='password.type==="password"?password.hideUrl:password.showUrl' @click='changePsdType' alt=""  class="img_"/>
       </div>
@@ -62,7 +62,7 @@
 </style>
 
 <script>
-  /* eslint-disable */
+  /*eslint-disable*/
   import config from '../../config'
   export default {
     data() {

@@ -29,7 +29,7 @@
       verifyCellName="cell1"
       type = 'all'
       v-if="showMobeilCode">
-      <img src="../../assets/img/phone_code.png" alt="" class="sendCodeImg">
+      <!--<img src="../../assets/img/mobile.png" alt="" class="sendCodeImg">-->
     </fxd-send-code>
     <fxd-button class="login-fxd-button" @click.native="submit" >登录</fxd-button>
     <div class="login-footer">
@@ -75,7 +75,7 @@
 </style>
 
 <script>
-  /* eslint-disable */
+  /*eslint-disable*/
   import {
     user_login,
     send_SMS
@@ -99,6 +99,9 @@
       };
     },
     mounted() {
+        user_login().then((res)=>{
+            console.log(res)
+      });
     },
     mixins:[verify],
     methods: {
@@ -131,6 +134,6 @@
       }
     },
   };
-  /* eslint-enable */
+  /*eslint-enable*/
 
 </script>
