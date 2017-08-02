@@ -4,7 +4,7 @@
       <div class="case_head">
         <div class="case_progress">
           <p class="case_progress-con"><span :style="{width: progressWidth + '%' }"></span></p>
-          <p class="case_progress-p"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></p>
+          <p class="case_progress-p"><span>0%</span></p>
         </div>
         <p class="case_head-p">资料填写进度达到100%,即可借款</p>
       </div>
@@ -13,7 +13,7 @@
       </p>
       <div class="case_con">
         <ul>
-          <li @click="link(i,index,list)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act':''">
+          <li @click="link(i.link)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act':''">
             <p>
               <span>{{i.title}}</span>
               <span>{{i.des}}</span>
@@ -24,7 +24,7 @@
           </li>
         </ul>
       </div>
-      <a href="javascript:void(0)" class="case_btn" :class='btnAct'>立即申请</a>
+      <fxd-button >立即申请</fxd-button>
       <transition name="router-slid" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -46,15 +46,7 @@
     data() {
       return {
         nextStep: 0,
-        progressWidth: {
-          '-2': '100',
-          '-1': '100',
-          '0': '0',
-          '1': '0',
-          '2': '25',
-          '3': '50',
-          '4': '75',
-        },
+        progressWidth: 0,
         list: [{
           title: '个人信息',
           des: '完善您的个人信息',
@@ -71,7 +63,11 @@
           title: '第三方认证',
           des: '完善第三方认证有助于通过审核',
           link: 'information/authentication',
-        }],
+        }, {
+            title: '芝麻信用',
+            des: '授权获取您的芝麻信用信息',
+            link: 'information/authentication',
+          }],
         btnAct: 'act',
       }
     },
@@ -84,8 +80,9 @@
       get_customer_authInfo_schedule().then((data) => {
         if(!data) return false
         next(_this => {
-          _this.progressWidth = _this.progressWidth[data.result.nextStep];
-          _this.nextStep = data.result.nextStep;
+            console.log(data)
+//          _this.progressWidth = _this.progressWidth[data.result.nextStep];
+//          _this.nextStep = data.result.nextStep;
         })
       })
     },
@@ -101,16 +98,18 @@
         'get_customer_authInfo_schedule'
       ]),
       ...mapMutations([
-        'INFORMATION_LINKTO'
+        'INFORMATION_LINKTO',
+        'NEXT_PAGE'
       ]),
-      link(item, index, list) {
-        let nextStep = this.nextStep;
-        this.INFORMATION_LINKTO({
-          item,
-          index,
-          list,
-          nextStep,
-        });
+      link(url) {
+        this.NEXT_PAGE(url)
+//        let nextStep = this.nextStep;
+//        this.INFORMATION_LINKTO({
+//          item,
+//          index,
+//          list,
+//          nextStep,
+//        });
       }
     },
     // watch: {
@@ -127,7 +126,7 @@
 
 <style lang="scss" scoped>
   .case_main {
-    padding-bottom: 10px;
+    padding-bottom: .2rem;
     line-height: 1.5;
   }
 
@@ -136,9 +135,8 @@
   }
 
   .case_head {
-    font-size: 12px;
+    font-size: .24rem;
     background: #01aaef;
-    height: 120px;
     color: #fff;
     text-align: center;
   }
@@ -146,15 +144,15 @@
   .case_progress {
     width: 90%;
     margin: 0 auto;
-    padding-top: 20px;
+    padding-top: .4rem;
   }
 
   .case_head-p {}
 
   .case_progress-con {
     background: #edeae6;
-    border-radius: 9px;
-    height: 18px;
+    border-radius: .18rem;
+    height: .36rem;
     overflow: hidden;
   }
 
@@ -174,12 +172,12 @@
 
   .case_con {
     margin-left: 5%;
-    padding: 10px 0 0;
+    padding: .2rem 0 0;
   }
 
   .case_tip {
     color: red;
-    font-size: 14px;
+    font-size: .28rem;
     text-align: left;
   }
 
@@ -192,29 +190,34 @@
     align-items: center;
     -webkit-align-items: center;
     color: #9d9ea0;
-    font-size: 12px;
-    padding-left: 50px;
-    padding-right: 10px;
+    font-size: .24rem;
+    padding-left: 1rem;
+    padding-right: .2rem;
   }
 
   .case_con li:nth-child(1) {
     background: url("../../assets/img/case_main1.png") no-repeat left center;
-    background-size: 42px 42px;
+    background-size: .84rem .84rem;
   }
 
   .case_con li:nth-child(2) {
     background: url("../../assets/img/case_main2.png") no-repeat left center;
-    background-size: 42px 42px;
+    background-size: .84rem .84rem;
   }
 
   .case_con li:nth-child(3) {
     background: url("../../assets/img/case_main3.png") no-repeat left center;
-    background-size: 42px 42px;
+    background-size: .84rem .84rem;
   }
 
   .case_con li:nth-child(4) {
     background: url("../../assets/img/case_main4.png") no-repeat left center;
-    background-size: 42px 42px;
+    background-size: .84rem .84rem;
+  }
+
+  .case_con li:nth-child(5) {
+    background: url("../../assets/img/case_main5.png") no-repeat left center;
+    background-size: .84rem .84rem;
   }
 
   .case_con li:last-child {
@@ -223,12 +226,12 @@
 
   .case_main img {
     display: inline-block;
-    width: 14px;
+    width: .28rem;
     vertical-align: middle;
   }
 
   .case_main .case_tip img {
-    width: 22px;
+    width: .44rem;
   }
 
   .case_tip {
@@ -240,18 +243,15 @@
   }
 
   .case_con li p:first-child span:first-child {
-    font-size: 18px;
+    font-size: .36rem;
     display: block;
     color: #000;
   }
 
   .case_con li p:last-child span {
     display: flex;
-    display: -webkit-flex;
     justify-content: space-between;
-    -webkit-justify-content: space-between;
     align-items: center;
-    -webkit-align-items: center;
     position: relative;
   }
 
@@ -287,7 +287,7 @@
     line-height: 50px;
     border-radius: 7px;
     margin: 60px auto 0;
-    font-size: 20px;
+    font-size: .4rem;
   }
 
   .case_btn.act {

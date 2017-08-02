@@ -67,7 +67,8 @@ module.exports = app.listen(port, function (err) {
   var lacalhost = ''
   try {
     var network = os.networkInterfaces()
-    localhost = network.en5[1].address
+    // localhost = network.en5[1].address
+    localhost = network.en0[1].address
   } catch (e) {
     localhost = 'localhost';
   }

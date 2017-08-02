@@ -23,6 +23,9 @@
     /*align-items: center;*/
   }
   li {
+    a{
+      display: block;
+    }
     width:97%;
     background: #fff;
     padding-left: .3rem;
