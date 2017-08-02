@@ -22,30 +22,30 @@ Vue.use(VueRouter);
 const router = new VueRouter(routers);
 
 //设置页面的title
-// router.beforeEach((to, from, next) => {
-//   const rejectRouter = ()=>{
-//     if(to.path=='/loanRecord') {
-//       next();
-//       return false
-//     }
-//     localStorage.clear();
-//     sessionStorage.clear();
-//     next({
-//       path:'/loanRecord'
-//     })
-//   };
-//   let obj;
-//   try{
-//     obj = storage(0,'USERINFO');
-//     if(obj&&obj.hasOwnProperty('juid')){
-//       next();
-//     }else{
-//       rejectRouter()
-//     }
-//   } catch(e){
-//     rejectRouter()
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  const rejectRouter = ()=>{
+    if(to.path=='/login') {
+      next();
+      return false
+    }
+    localStorage.clear();
+    sessionStorage.clear();
+    next({
+      path:'/login'
+    })
+  };
+  let obj;
+  try{
+    obj = storage(0,'USERINFO');
+    if(obj&&obj.hasOwnProperty('juid')){
+      next();
+    }else{
+      rejectRouter()
+    }
+  } catch(e){
+    rejectRouter()
+  }
+});
 
 new Vue({
   router,

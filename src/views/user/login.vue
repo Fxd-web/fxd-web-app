@@ -99,9 +99,6 @@
       };
     },
     mounted() {
-        user_login().then((res)=>{
-            console.log(res)
-      });
     },
     mixins:[verify],
     methods: {
