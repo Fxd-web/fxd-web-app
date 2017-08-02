@@ -2,3 +2,4 @@
 **/*.vue
 !src/views/**/*.vue
 !src/App.vue
+src/views/information/**/*.vue

@@ -148,10 +148,10 @@
         }catch (e){}
       },
       linkCase(pid) {
-        this.$store.dispatch('get_applyStatus', {
-          pid,
-          linkto: true
-        });
+//        this.$store.dispatch('get_applyStatus', {
+//          pid,
+//          linkto: true
+//        });
       },
     },
   };

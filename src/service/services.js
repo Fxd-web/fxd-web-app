@@ -5,8 +5,9 @@ import {
   Loading,
   Toask
 } from 'fxd-components-example';
-import * as types from '../../src/store/mutation-types/'
-import * as store from '../../src/store/'
+import { storage } from '../util';
+import * as types from '../../src/store/mutation-types/';
+import * as store from '../../src/store/';
 let commit = store.default.commit;
 
 
@@ -41,18 +42,17 @@ const transformRequest = (obj) => {
 const filterFlag = (json) => {
   Loading.close();
   return new Promise(function (resolve, reject) {
-    let flagArr = ['0003','0016'];
+    let flagArr = ['0002','0003','0005','0016'];
     let flag = json.flag;
    if (~flagArr.indexOf(flag)) {
-      reject(json);
+     Toask(json.msg);
+     reject(json);
+     setTimeout(function () {
+       commit(types.NEXT_PAGE, 'login');
+     }, 1000);
     } else {
       resolve(json.result)
     }
-  }).catch(err => {
-    Toask(json.msg)
-      setTimeout(function () {
-        commit(types.NEXT_PAGE, 'login');
-      }, 1000);
   })
 }
 
@@ -70,12 +70,26 @@ const serverError = (err) => {
   return new Error(err);
 }
 
+/**
+ * 拼接token
+ * @returns {*}
+ */
+const spliceToken = () => {
+  try{
+    let data = storage(0, 'USERINFO');
+    let juid = data.juid;
+    let juidToken = data[`${juid}token`];
+    return `juid=${juid}&${juid}token=${juidToken}`
+  }catch (e){
+    return ''
+  }
+}
 
 
 export default async(type = 'GET', url = '', params = '', des3 = true) => {
   Loading.open();
   type = type.toUpperCase();
-  url = config.url + url + '?' + (localStorage.user?transformRequest(JSON.parse(localStorage.user)):'');
+  url = `${config.url}${url}?${spliceToken()}`;
   let record = '';
   if (des3 && !!params) {
     !!params.password_ && (params.password_ = des.DES3.encrypt(params.password_));

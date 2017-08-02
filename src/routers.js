@@ -83,6 +83,47 @@ export default {
       }
     },
     {
+      path: '/information',
+      component: require('./views/information'),
+      meta: {
+        title: '资料填写',
+        lv: 2,
+      },
+      children: [{
+        path: 'personal',
+        component: require('./views/information/personal'),
+        meta: {
+          title: '个人信息',
+          lv: 3,
+        },
+      },
+        {
+          path: 'linkman',
+          component: require('./views/information/linkman'),
+          meta: {
+            title: '联系人信息',
+            lv: 3,
+          },
+        },
+        {
+          path: 'profession',
+          component: require('./views/information/profession'),
+          meta: {
+            title: '职业信息',
+            lv: 3,
+          },
+        },
+        {
+          path: 'authentication',
+          component: require('./views/information/authentication'),
+          meta: {
+            title: '第三方认证',
+            lv: 3,
+          },
+        },
+      ]
+    },
+    {
       path: '*',
       component: require('./views/404'),
       meta: {

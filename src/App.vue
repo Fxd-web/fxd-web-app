@@ -25,7 +25,7 @@
   import 'normalize.css';
   import './css/common.scss';
   import nav from './components/nav';
-  import vconsole from './mixins/vconsole';
+  // import vconsole from './mixins/vconsole';
   import { isMobile } from './util/';
   export default {
     name: 'app',
@@ -51,7 +51,7 @@
         return `${m}rem`;
       }
     },
-    mixins: [vconsole],
+    // mixins: [vconsole],
     components: {
       'fxd-nav': nav,
     },

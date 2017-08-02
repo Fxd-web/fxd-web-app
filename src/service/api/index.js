@@ -18,10 +18,10 @@ const forgetPwd  = 'esb/findPasswordBack/findPasswordBack.jhtml';
 const picCode  = 'esb/register/getPicCodeApi.jhtml';
 
 //注册手机验证码
-const phoneCode  = 'esb/common/sendSMSH5.jhtml';
+const sendSMSH5  = 'esb/common/sendSMSH5.jhtml';
 
 //找回密码手机验证码
-const picCodeH5  = 'esb/common/sendSMS.jhtml';
+const sendSMS  = 'esb/common/sendSMS.jhtml';
 
 //获取页面token
 const getPageToken  = 'esb/common/getPageToken.jhtml';
@@ -88,8 +88,8 @@ export default{
   logout,
   forgetPwd,
   picCode,
-  phoneCode,
-  picCodeH5,
+  sendSMSH5,
+  sendSMS,
   getPageToken,
   updateLastLongitudeAndLatitude,
   addrList,

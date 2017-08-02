@@ -74,6 +74,12 @@
 <script type="text/ecmascript-6">
   /*eslint-disable*/
   import { Alert } from 'fxd-components-example';
+  import {
+    user_logout
+  } from '../service/';
+  import {
+    mapMutations
+  } from 'vuex';
     export default{
       data(){
           return {
@@ -108,12 +114,19 @@
         mounted() {
         },
         methods:{
+          ...mapMutations([
+            'USER_LOGOUT',
+            'NEXT_PAGE'
+          ]),
           logout(){
             Alert({
               title:this.msg
             }).then((bool) =>{
               if (bool) {
-                this.$store.dispatch('user_logout')
+                user_logout().then(()=> {
+                  this.USER_LOGOUT();
+                  this.NEXT_PAGE('login')
+                })
               }
             });
           },
@@ -122,7 +135,7 @@
               this.actionsheetSwitch = !this.actionsheetSwitch;
               return;
             }
-            location.href = data;
+            location.href = data.link;
           }
         }
     }

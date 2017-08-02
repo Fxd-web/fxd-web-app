@@ -4,6 +4,8 @@
       <img src="../../assets/img/logo/logo_login.png" alt="" width="228">
     </div>
     <fxd-cell
+      ref="cell1"
+      @verify_cb="verify_cb"
       @input.native="e=>item.mobile_phone_=e.target.value"
       v-model="item.mobile_phone_"
       type="imgText"
@@ -11,13 +13,25 @@
       <img width="100%" src="../../assets/img/mobile.png" alt="" slot="imgText">
     </fxd-cell>
     <fxd-cell
+      ref="cell2"
+      @verify_cb="verify_cb"
       @input.native="e=>item.password_=e.target.value"
       v-model="item.password_"
       type="imgText"
       inputType="password" class="login-fxd-cell">
       <img width="100%" src="../../assets/img/password.png" alt="" slot="imgText">
     </fxd-cell>
-    <fxd-button class="login-fxd-button" @click.native="submit">登录</fxd-button>
+    <fxd-send-code
+      v-model='item.verify_code_'
+      @input.native="e=>item.verify_code_=e.target.value"
+      ref="cell3"
+      @send_code_cb="send_code_cb"
+      verifyCellName="cell1"
+      type = 'all'
+      v-if="showMobeilCode">
+      <img src="../../assets/img/phone_code.png" alt="" class="sendCodeImg">
+    </fxd-send-code>
+    <fxd-button class="login-fxd-button" @click.native="submit" >登录</fxd-button>
     <div class="login-footer">
       <span @click="forgetPwd">忘记密码</span>
       <span>|</span>
@@ -29,6 +43,10 @@
 <style lang="scss" scoped>
   /*eslint-disable*/
   .login {
+    .sendCodeImg{
+      position: relative;
+      top: -.1rem;
+    }
     .login-logo{
       text-align: center;
       margin-top: .8rem;
@@ -59,17 +77,18 @@
 <script>
   /* eslint-disable */
   import {
-    user_login
+    user_login,
+    send_SMS
   } from '../../service/';
-  /* eslint-enable */
   import {
     mapMutations
   } from 'vuex';
+  import { verify } from '../../mixins/verify';
 
   export default {
     data() {
       return {
-        showLoginCode: false,
+        showMobeilCode: false,
         item:{
           verify_code_: '',
           merchant_code_: '',
@@ -79,43 +98,28 @@
         }
       };
     },
-    computed: {
-
+    mounted() {
     },
-    mounted() {},
+    mixins:[verify],
     methods: {
-      /* eslint-disable */
-//      mobile_verify_change_pic_cb(){
-//        console.log('切换图片的操作')
-//      },
-//      mobile_verify_send_code_cb(){
-//        this.$store.dispatch('user_picCodeH5', {
-//          mobile_phone_: this.item.mobile.val,
-//          flag: 'MSG_LOGIN_'
-//        });
-//      },
-//      mobile_verify_submit_cb(){
-//        this.$store.dispatch('user_login', this.user);
-//        console.log('提交按钮的操作')
-//      },
       ...mapMutations([
         'USER_LOGIN',
         'NEXT_PAGE',
       ]),
+      send_code_cb() {
+        send_SMS(this.item.mobile_phone_)
+      },
       submit() {
-        this.$store.dispatch('user_login', this.item).then(res=> {
-          console.log(res);
+        this.required([this.$refs.cell1,this.$refs.cell2]).then(()=>{
+          user_login(this.item).then(res => {
+            this.USER_LOGIN(res);
+            this.NEXT_PAGE('home');
+          }).catch(res=>{
+            if(res.flag==='0005'){
+              this.showMobeilCode = true;
+            }
+          })
         });
-        if (this.showLoginCode) {
-          this.$store.commit('TOGGLE_LOGIN_CODE', {
-            flag: 0
-          });
-        }
-        // user_login(this.user).then((data)=>{
-        //   this.USER_LOGIN(data.result);
-        //   this.NEXT_PAGE('home');
-        // })
-        // console.log('121')
       },
       register() {
         this.NEXT_PAGE('register');
@@ -124,12 +128,6 @@
         this.NEXT_PAGE('forgetPwd');
       },
       sendCode() {
-
-      }
-    },
-    watch: {
-      '$store.state.user.user_login_verify_code'(bool) {
-        this.showLoginCode = bool;
       }
     },
   };

@@ -1,5 +1,5 @@
 <template>
-  <div id="load_progress" v-cloak>
+  <div id="load_progress">
     <div class="load_progress">
       <div class="wrap_head null" style="display: block">
         <img src="../../assets/img/faxindai_logo.png" alt="">
@@ -133,9 +133,7 @@
 
   .reject_fxd_head {
     display: flex;
-    display: -webkit-flex;
     align-items: center;
-    -webkit-align-items: center;
     margin-bottom: .3rem;
   }
 
@@ -156,9 +154,7 @@
 
   .reject_fxd_con {
     display: flex;
-    display: -webkit-flex;
     justify-content: center;
-    -webkit-justify-content: center;
     position: relative;
   }
 
@@ -166,7 +162,6 @@
     line-height: .4rem;
     text-align: center;
     flex: 1;
-    -webkit-flex: 1;
   }
 
   .reject_fxd_con:after {
@@ -201,7 +196,6 @@
     line-height: .7rem;
     text-decoration: none;
     background: linear-gradient(#3cc3f9, #04a4fb);
-    background: -webkit-linear-gradient(#3cc3f9, #04a4fb)
   }
   .check_false_foot {
     width: 90%;
@@ -225,7 +219,6 @@
     line-height: .7rem;
     text-decoration: none;
     background: linear-gradient(#3cc3f9, #04a4fb);
-    background: -webkit-linear-gradient(#3cc3f9, #04a4fb);
     margin-top: .8rem;
     font-size: .4rem;
   }
