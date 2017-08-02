@@ -34,6 +34,7 @@
 
 
 <script>
+  /*eslint-disable*/
   import {
     get_customer_authInfo_schedule
   } from '../../service/';
@@ -121,6 +122,7 @@
     // },
 
   }
+  /*eslint-disable*/
 </script>
 
 

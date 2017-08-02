@@ -103,4 +103,5 @@
           }
         },
     }
+  /*eslint-disable*/
 </script>

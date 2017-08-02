@@ -135,5 +135,4 @@
     },
   };
   /*eslint-enable*/
-
 </script>

@@ -100,8 +100,6 @@
       get_LoanList().then((res) =>{
            console.log(res)
         })
-
-
     }
 
   }
