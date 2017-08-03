@@ -25,7 +25,7 @@
             </li>
           </ul>
         </div>
-        <fxd-button >立即申请</fxd-button>
+        <fxd-button class="case_btn">立即申请</fxd-button>
       </div>
       <transition name="router-slid" mode="out-in">
         <router-view class="case_main_con"></router-view>
@@ -118,7 +118,6 @@
      watch: {
        $route() {
          this.init();
-         console.log(123)
        },
      },
 
@@ -129,12 +128,19 @@
 
 <style lang="scss" scoped>
   .case_main {
+    .case_btn{
+      margin-top: .5rem;
+    }
+    .case_head-p{
+      padding-bottom: .2rem;
+    }
     padding-bottom: .2rem;
     line-height: 1.5;
   }
 
   p {
-    margin: 1em 0;
+    font-size: .24rem;
+    margin: .2rem 0;
   }
 
   .case_head {
@@ -277,27 +283,6 @@
     position: absolute;
   }
 
-  .case_btn {
-    width: 90%;
-  }
-
-  .case_btn {
-    background-color: #9d9ea0;
-    pointer-events: none;
-    display: block;
-    color: #fff;
-    text-align: center;
-    line-height: 50px;
-    border-radius: 7px;
-    margin: 60px auto 0;
-    font-size: .4rem;
-  }
-
-  .case_btn.act {
-    pointer-events: auto;
-    background-color: #00aaee;
-  }
-
   @media screen and (max-width: 320px) {
     .case_head {
       height: 110px;
@@ -315,12 +300,13 @@
       margin-top: -10px;
     }
   }
+
   .case_main_con{
     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     background: #fff;
   }
 </style>

@@ -29,7 +29,7 @@
       verifyCellName="cell1"
       type = 'all'
       v-if="showMobeilCode">
-      <img src="../../assets/img/mobile.png" alt="" class="sendCodeImg">
+      <!--<img src="../../assets/img/mobile.png" alt="" class="sendCodeImg">-->
     </fxd-send-code>
     <fxd-button class="login-fxd-button" @click.native="submit" >登录</fxd-button>
     <div class="login-footer">
@@ -99,8 +99,9 @@
       };
     },
     mounted() {
-
-
+        user_login().then((res)=>{
+            console.log(res)
+      });
     },
     mixins:[verify],
     methods: {
