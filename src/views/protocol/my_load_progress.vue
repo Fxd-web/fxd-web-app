@@ -1,37 +1,32 @@
 <template>
   <div id="load_progress">
     <div class="load_progress">
-      <div class="wrap_head null" style="display: block">
+      <div class="wrap_head null" style="display: none">
         <img src="../../assets/img/faxindai_logo.png" alt="">
         <p class="change">您当前无借款进度</p>
       </div>
       <ul>
-        <!--<li v-for="i in list">-->
-          <!--<h2><span></span>{{i.apply_status_}}</h2>-->
-          <!--<p>{{i.content_}}</p>-->
-          <!--<p>{{i.audit_time_}}</p>-->
-        <!--</li>-->
-        <li style="display: block">
-          <h2><span></span>已到账</h2>
-          <p>您的借款已经到账，请查看您的银行卡金额</p>
-          <p>2017-1-23 15:50:24</p>
+        <li v-for="i in list">
+          <h2><span></span>{{i.apply_status_}}</h2>
+          <p>{{i.content_}}</p>
+          <p>{{i.audit_time_}}</p>
         </li>
       </ul>
     </div>
-    <!--<div class="reject_fxd" style="display: none">-->
-      <!--<h2 class="reject_fxd_title">被拒无需担心，试试通过率更高的产品？</h2>-->
-      <!--<div class="reject_fxd_body">-->
-        <!--<div class="reject_fxd_head"><img :src="product.ext_attr_.icon_" width="28"><span>{{product.name_}}</span><span class="">{{product.ext_attr_.tags}}</span></div>-->
-        <!--<div class="reject_fxd_con">-->
-          <!--<p><span>{{product.principal_bottom_}}-{{product.principal_top_}}</span><span>额度</span></p>-->
-          <!--<p><span>{{product.ext_attr_.period_desc_}}</span><span>期限</span></p>-->
-        <!--</div>-->
-        <!--<a href="javascript:void(0)" class="reject_fxd_btn" @click="needLoanSmall">立即申请</a>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div class="reject_fxd" style="display:none">
+      <h2 class="reject_fxd_title">被拒无需担心，试试通过率更高的产品？</h2>
+      <div class="reject_fxd_body">
+        <div class="reject_fxd_head"><img :src="product.ext_attr_.icon_" width="28"><span>{{product.name_}}</span><span class="">{{product.ext_attr_.tags}}</span></div>
+        <div class="reject_fxd_con">
+          <p><span>{{product.principal_bottom_}}-{{product.principal_top_}}</span><span>额度</span></p>
+          <p><span>{{product.ext_attr_.period_desc_}}</span><span>期限</span></p>
+        </div>
+        <a href="javascript:void(0)" class="reject_fxd_btn">立即申请</a>
+      </div>
+    </div>
     <div class="check_false_foot" style="display: none">
       <p>试试其他平台?</p>
-      <a href="javascript:void(0)" onclick="location.href='../case/select_platform.html'" class="case_btn act" id='case_btn'>去看看</a>
+      <a href="javascript:void(0)" onclick="location.href='http://192.168.6.133/fxd-esb/esb/case/select_platform.html'" class="case_btn act" id='case_btn'>去看看</a>
     </div>
   </div>
 </template>
@@ -104,12 +99,12 @@
   .load_progress ul p {
     line-height: .5rem;
     color: #8c8c8c;
-    font-size: .28rem;
+    font-size: .3rem;
   }
 
   .load_progress ul p:last-child {
     color: #b7babd;
-    font-size: .26rem;
+    font-size: .24rem;
   }
   .reject_fxd {
     width: 80%;
@@ -223,3 +218,65 @@
     font-size: .4rem;
   }
 </style>
+<script>
+  /*eslint-disable*/
+  import '../../lib/jquery-1.7.2.js'
+  import {
+    query_LoanStatus,
+    get_LimitProductlistApi,
+    get_apply_status
+  } from '../../service/';
+  export default{
+    data() {
+      return {
+        list:[],
+        productId:'',
+        leadStroke:'',
+        product: {
+          name: '工薪贷',
+          amt_desc_: '1000-5000元',
+          ext_attr_: {
+            icon_: '',
+            period_desc_: '5-50周',
+          },
+          refuseMsg: '',
+        },
+      }
+    },
+    mounted(){
+      query_LoanStatus().then((res) => {
+        this.list = res;
+        for(let i=0; i<this.list.length; i++){
+           if(this.list[i].apply_status_ == "已拒绝"){
+               this.leadStroke = true;
+               $('.reject_fxd').show();
+           }
+       }
+      }),
+      get_apply_status().then((res) => {
+        this.productId = res.product_id_;
+      }),
+      get_LimitProductlistApi().then((res)=>{
+        if (this.leadStroke = true) {
+          if (this.productId  == "P001005") {        //白领贷被拒，导流工薪贷
+            for (let i = 0; i < res.products.length; i++) {
+              if (res.products[i].id == "P001002") {
+                this.product = res.products[i]
+              }
+            }
+          } else if (this.productId  == "P001002") { //工薪贷被拒，导流急速贷
+            for (let j = 0; j < res.products.length; j++) {
+              if (res.products[j].id == "P001004") {
+                this.product = res.products[j]
+              }
+            }
+          } else if (this.productId  == "P001004") { //急速贷被拒，导流第三方平台
+            $('.reject_fxd').hide();
+            $('.check_false_foot').show();
+          }
+        }
+      })
+
+    },
+  }
+</script>

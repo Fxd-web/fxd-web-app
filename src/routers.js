@@ -40,6 +40,14 @@ export default {
       }
     },
     {
+      path: '/loanProgess',
+      component: require('./views/protocol/my_load_progress.vue'),
+      meta: {
+        title: '借款记录',
+        lv: 2,
+      }
+    },
+    {
       path: '/more',
       component: require('./views/more'),
       meta: {

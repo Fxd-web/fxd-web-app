@@ -12,3 +12,5 @@ export function filterDictionary (data) {
     return item[data.key] === data.val;
   }));
 }
+
+

@@ -55,7 +55,10 @@ const getRecomfrInfoApi  = 'esb/ProductProtocol/GetRecomfrInfoApi.jhtml';
 
 // 获取借款记录
 const getLoanList  = 'esb/account/loanList.jhtml';
-// const getLoanList  = 'esb/customer/getCustomerBase.jhtml';
+
+//获取借款进度
+const queryLoanStatus = 'esb/caseInfo/queryLoanStatus.jhtml';
+
 
 
 // 获取进件
@@ -81,7 +84,7 @@ const saveCustomerCarrer  = 'esb/customer/saveCustomerCarrer.jhtml';
 
 
 // 首页部分
-const getLimitProductlistApi  = 'esb/product/getLimitProductlistApi.jhtml'; // 获取产品
+const getLimitProductlistApi  = 'esb/product/getLimitProductlistApi.jhtml'; // 获取用户产品列表
 const queryLoanRecordApi  = 'esb/caseInfo/queryLoanRecordApi.jhtml'; // 首页文字切换
 const topBanner  = 'esb/event/topBanner.jhtml'; // 首页banner
 export default{
@@ -113,5 +116,6 @@ export default{
   saveCustomerCarrer,
   getLimitProductlistApi,
   queryLoanRecordApi,
+  queryLoanStatus,
   topBanner,
 };

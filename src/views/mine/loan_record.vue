@@ -1,56 +1,55 @@
 <template>
    <div>
-     <div class="wrap_head" style="display: block" >
-       <div >
+     <div class="wrap_head" style="display:block" >
+       <div v-if="loanRecordList.length == 0">
          <img src="../../assets/img/faxindai_logo.png" alt="" />
          <p class="change">您当前暂无借款记录</p>
        </div>
+       <div v-else>
+         <div class="wrap_accut">
+           <div class="accut_record" v-for="loanRecord in loanRecordList">
+             <ul>
+               <li>
+                 <div>产品名称</div>
+                 <div class="record_rgt">{{loanRecord.product_id_}}</div>
+                 <div class="clear"></div>
+               </li>
+               <li>
+                 <div>借款金额</div>
+                 <div class="record_rgt">{{loanRecord.principal_amount_}}元</div>
+                 <div class="clear"></div>
+               </li>
+               <li>
+                 <div>借款周期</div>
+                 <div class="record_rgt">{{loanRecord.loan_staging_amount_}}周</div>
+                 <div class="clear"></div>
+               </li>
+               <li>
+                 <div>每周还款</div>
+                 <div class="record_rgt">{{loanRecord.staging_repayment_amount_}}元</div>
+                 <div class="clear"></div>
+               </li>
+               <li>
+                 <div>总还款额</div>
+                 <div class="record_rgt">{{loanRecord.repayment_amount_}}元</div>
+                 <div class="clear"></div>
+               </li>
+               <li>
+                 <div>申请状态</div>
+                 <div class="record_rgt">{{loanRecord.application_status_==null?'获取状态失败':loanRecord.application_status_}}</div>
+                 <div class="clear"></div>
+               </li>
+               <li>
+                 <div>申请时间</div>
+                 <div class="record_rgt">{{loanRecord.create_date_}}</div>
+                 <div class="clear"></div>
+               </li>
+             </ul>
+           </div>
+         </div>
+       </div>
      </div>
-     <div>
-        <div>
-          <div class="wrap_accut">
-            <div class="accut_record">
-              <ul>
-                <li>
-                  <div>产品名称</div>
-                  <div class="record_rgt">434534</div>
-                  <div class="clear"></div>
-                </li>
-                <li>
-                  <div>借款金额</div>
-                  <div class="record_rgt">34</div>
-                  <div class="clear"></div>
-                </li>
-                <li>
-                  <div>借款周期</div>
-                  <div class="record_rgt">34</div>
-                  <div class="clear"></div>
-                </li>
-                <li>
-                  <div>每周还款</div>
-                  <div class="record_rgt">34</div>
-                  <div class="clear"></div>
-                </li>
-                <li>
-                  <div>总还款额</div>
-                  <div class="record_rgt">444</div>
-                  <div class="clear"></div>
-                </li>
-                <li>
-                  <div>申请状态</div>
-                  <div class="record_rgt">4334</div>
-                  <div class="clear"></div>
-                </li>
-                <li>
-                  <div>申请时间</div>
-                  <div class="record_rgt">3434</div>
-                  <div class="clear"></div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-     </div>
+
    </div>
 </template>
 <style lang="scss" scoped>
@@ -63,7 +62,7 @@
       li{
         display: flex;
         align-items: center;
-        justify-content:space-between;
+        justify-content:space-between;;
         height:.6rem;
         padding-left: .3rem;
         color: #666;;
@@ -71,7 +70,7 @@
         .record_rgt{
           color:#4d4d4d;
           font-size:.26rem;
-          margin-right: .3rem;
+          margin-left: .3rem;
         }
       }
       li:nth-child(odd){
@@ -93,14 +92,21 @@
   } from '../../service/';
   export default{
     data() {
-      return{
+      return {
+        loanRecordList:[],
+        loanRecord:'',
+        pid:'P001002'
         }
       },
     mounted(){
       get_LoanList().then((res) =>{
-           console.log(res)
+         this.loanRecordList = res;
         })
+    },
+    methods:{
+
     }
+
 
   }
   /*eslint-disable*/
