@@ -7,10 +7,10 @@
  * @param {Object} data.val
  * @return {Promise}
  */
-export function filterDictionary (data) {
-  return Promise.resolve(data.list.filter((item)=>{
-    return item[data.key] === data.val;
-  }));
+export function filterDictionary (data, key) {
+  return data.filter(i=>{
+    return i.code_ === key;
+  })[0].desc_
 }
 
 

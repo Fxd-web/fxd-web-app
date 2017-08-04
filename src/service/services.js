@@ -39,20 +39,23 @@ const transformRequest = (obj) => {
  * @return {Promise}               Promise
  *
  */
-const filterFlag = (json) => {
+const filterFlag = (json, fltFlag) => {
   Loading.close();
   return new Promise(function (resolve, reject) {
-    let flagArr = ['0002','0003','0005','0016'];
+    let flagArr = ['0002', '0003','0005','0016'];
     let flag = json.flag;
-   if (~flagArr.indexOf(flag)) {
+    if(fltFlag){
+      resolve(json)
+      return
+    }
+    if(~flagArr.indexOf(flag)) {
      Toask(json.msg);
      reject(json);
      setTimeout(function () {
        commit(types.NEXT_PAGE, 'login');
      }, 1000);
-    } else {
-      resolve(json.result)
     }
+    resolve(json.result)
   })
 }
 
@@ -85,8 +88,16 @@ const spliceToken = () => {
   }
 }
 
-
-export default async(type = 'GET', url = '', params = '', des3 = true) => {
+/**
+ * ajax服务
+ * @param type  类型get或者post
+ * @param url   接口地址
+ * @param params 参数
+ * @param des3  是否加密
+ * @param fltFlag  是否过滤flag
+ * @returns {Promise}
+ */
+export default async(type = 'GET', url = '', params = '', des3 = true, fltFlag = false) => {
   Loading.open();
   type = type.toUpperCase();
   url = `${config.url}${url}?${spliceToken()}`;
@@ -94,9 +105,6 @@ export default async(type = 'GET', url = '', params = '', des3 = true) => {
   if (des3 && !!params) {
     !!params.password_ && (params.password_ = des.DES3.encrypt(params.password_));
     record = des.DES3.encrypt(JSON.stringify(params));
-    record = {
-      record
-    };
   }
   if (type == 'GET') {}
   let init = null;
@@ -124,5 +132,5 @@ export default async(type = 'GET', url = '', params = '', des3 = true) => {
     .catch(err => {
       serverError(err)
     })
-  return filterFlag(res);
+  return filterFlag(res, fltFlag);
 }

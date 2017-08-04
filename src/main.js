@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import LogRocket from 'logrocket'
+// import LogRocket from 'logrocket'
 import store from './store'
 import App from './App'
 import * as filters from './filters'
@@ -13,7 +13,7 @@ for(let i of Object.keys(FxdUi).filter((t,i)=>i>1)){ //给所有组件加上fxd�
   Vue.component('fxd'+i, FxdUi[i])
 }
 
-LogRocket.init('pkkrqo/cleartime');
+// LogRocket.init('pkkrqo/cleartime');
 //注册过滤器
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 //引入路由

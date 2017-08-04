@@ -4,39 +4,58 @@
       <img src="../../assets/img/case_main_i.png" alt="" id="aaa"> 请确保填写的均为本人真实信息
     </p>
     <div id="customerBase">
-      <div class="info case_sfz">
-        <p class="sfz-text" :class="sfztext?'act':''">身份证识别</p>
-        <p class="sfz-img"><span :class="sfzimg1?'act':'init'"><img src="../../assets/img/sfz1.png" alt="" height="49"><input type="file"  name="image" capture="camera"  accept="image/*" @change="fileChange($event,0)" /></span></p>
-        <p class="sfz-img"><span :class="sfzimg2?'act':'init'"><img src="../../assets/img/sfz2.png" alt=""  height="49"><input type="file" name="image" capture="camera"  accept="image/*" @change="fileChange($event,1)"/></span></p>
+      <div class="info case_sfz item">
+        <p class="sfz-text" :class="id_card.front&&id_card.back?'act':''">身份证识别</p>
+        <p class="sfz-img"><span :class="id_card.front?'act':'init'"><img src="../../assets/img/sfz1.png" alt="" height="90"><input type="file"  name="image" capture="camera"  accept="image/*" @change="fileChange($event,0)" /></span></p>
+        <p class="sfz-img"><span :class="id_card.back?'act':'init'"><img src="../../assets/img/sfz2.png" alt=""  height="90"><input type="file" name="image" capture="camera"  accept="image/*" @change="fileChange($event,1)"/></span></p>
       </div>
-      <input class="input" type="text" placeholder="真实姓名" v-model="item.customer_name_" required minlength="2" maxlength="20" readonly/>
-      <input class="input" type="text" placeholder="身份证号" required pattern="" maxlength="18" v-model="item.id_code_" readonly/>
-      <div class="pick" @click="showPicker('education_level_','EDUCATION_LEVEL_')">
-        <span placeholder="学历" v-if='!education_level_.res'></span>
-        <span v-else>{{education_level_.res.desc_}}</span>
-        <span></span>
+      <div class="info case_sfz case_sfz_idcard item">
+        <p class="sfz-text" :class="body_file?'act':''">手持身份证照片</p>
+        <p class="sfz-img"><span :class="body_file?'act':'init'"><img src="../../assets/img/self_id_card.png" alt="" height="90"><input type="file"  name="image" capture="camera"  accept="image/*" @change="fileChange($event,0,1)" /></span></p>
       </div>
-      <div class="pick" @click="showPicker('nowIn')">
-        <span placeholder="现居地" v-if='!nowIn.res'></span>
-        <span v-for='(i,index) in nowIn.res' v-else>{{i.name}}</span>
-        <span></span>
-      </div>
-      <input class="input" placeholder="居住地详址" v-model.lazy="item.home_address_" />
+      <fxd-cell
+        class="item"
+        placeholder="真实姓名"
+        :readonly='editable_field.customer_name_'
+        @verify_cb="verify_cb"
+        @input.native="e=>item.customer_name_=e.target.value"
+        v-model="item.customer_name_"
+        inputType="name" >
+      </fxd-cell>
+      <fxd-cell
+        class="item"
+        placeholder="身份证号"
+        :readonly='editable_field.id_code_'
+        @verify_cb="verify_cb"
+        @input.native="e=>item.id_code_=e.target.value"
+        v-model="item.id_code_"
+        inputType="idCard" >
+      </fxd-cell>
+      <fxd-cellPicker
+        :defaultValue="pickerList.education_level_.defaultValue"
+        class="item"
+        :data="pickerList.education_level_"
+        valueKey="desc_"
+        @cell_picker_cancel_cb="education_level_cancel_picker"
+        @cell_picker_submit_cb="education_level_submit_picker"></fxd-cellPicker>
+      <fxd-cell
+        class="item"
+        placeholder="居住地详址"
+        @verify_cb="verify_cb"
+        @input.native="e=>item.home_address_=e.target.value"
+        v-model="item.home_address_">
+      </fxd-cell>
+      <fxd-button class="item" :disabled="submit_dis" @click.native="submit">保存</fxd-button>
     </div>
-    <div class="btn" :class="[submit_btn?'':'dis']" @click="submit">
-      保存
-    </div>
-    <transition name="bouncelnUp">
-      <!--<Picker v-if='$store.state.dialog.picker' v-on:pickerCb="pickerCb" :data='pickerData'></Picker>-->
-    </transition>
   </div>
 </template>
 
 
 <script>
   import {
-    filterDictionary,
-    compress
+    compress,
+    isEmptyValObj,
+    filterDictionary
   } from '../../util/';
   import {
     mapGetters,
@@ -49,209 +68,189 @@
     get_dict_code_list,
     get_region_byOrder_H5List,
     save_customerIDInfoH5,
+    save_uploadFileBase64
   } from '../../service/';
-
+  import { verify } from '../../mixins/verify';
+  import { Toask } from 'fxd-components-example';
   export default {
     name: 'authUserInfo',
     data() {
       return {
-        verify_list: {
-          sfztext: false,
-          education_level_: false,
-          addlocal: false,
-          home_address_: false
+        item:{
+          customer_name_: '',
+          id_code_: '',
+          education_level_: '',
+          province_: '',
+          city_: '',
+          county_: '',
+          home_address_: '',
+          body_file_id_: '',
         },
-        submit_btn: false,
-        educationCount: 0,
-        sfztext: false,
-        sfzimg1: false,
-        sfzimg2: false,
-        item: {},
-        params: {},
-        customer_name_: '',
-        id_code_: '',
-        home_address_: '',
-        education_level_: {
-          title: '学历',
-          list: [],
-          column: 1,
-          nickName: 'desc_',
-          res: '',
+        pickerList:{  // picker部分
+          education_level_: {  // 学历
+            placeholder: '学历', //提示语
+            values: [],
+            defaultValue:'',
+          },
+          home_address_: {  // 地址
+          }
         },
-        nowIn: {
-          title: '选择省市区',
-          list: [],
-          column: 3,
-          nickName: 'name',
-          nickChildren: 'sub',
-          res: '',
+        editable_field: { // 控制身份证姓名和号码是否手动修改默认不能修改
+          customer_name_ : true,
+          id_code_: true
         },
-        pickerData: null,
-        pickerAct: null,
-        showNext: false,
+        id_card: { // 身份证部分默认没有通过
+          front: false, //正面
+          back: false, // 反面
+          cache_info: null // 缓存身份证信息，因为只有正面才会返回信息，反面不会返回，但是需要显示的条件必须是身份证正反面都认证完成，所以此处做个缓存
+        },
+        body_file: null, // 手持身份证图片和文字高亮
+        submit_dis: true, // 确定按钮
       }
     },
     components: {
     },
+    mixins:[verify],
     computed: {
       ...mapGetters([
         'customerIDInfo',
         'deal_verify'
       ]),
     },
-    beforeRouteEnter(to, from, next) {
-      Promise.all([
-        get_customer_base(),
-        get_region_byOrder_H5List(),
-        get_dict_code_list({
-          dict_type_: 'EDUCATION_LEVEL_'
-        }),
-      ]).then(function(data) {
-        let data1 = data[0].result;
-        let data2 = data[1].result;
-        let data3 = data[2].result;
-        next(_this => {
-          if (!!data1) {
-            _this.sfztext = data1.ocr_status_ == '2';
-            _this.sfzimg1 = data1.ocr_status_ == '2';
-            _this.sfzimg2 = data1.ocr_status_ == '2';
-            _this.item = data1;
-            _this.nowIn.res = [{
-              name: data1.province_name_,
-            }, {
-              name: data1.city_name_,
-            }, {
-              name: data1.county_name_,
-            }];
-          }
-          _this.verify_list.home_address_ = true
-          _this.setEducation_level(data3);
-          _this.FETCH_ADDR_LIST(data2);
-          _this.FETCH_DICTIONARY({
-            type: 'EDUCATION_LEVEL_',
-            res: data3,
-          });
-        })
-      })
-    },
-    mounted() {
+    created() {
+      this.init();
     },
     methods: {
-      // ...mapActions([
-      //   'fetch_dictionary',
-      //   'fetch_addrList',
-      //   'get_customerBase'
-      // ]),
       ...mapMutations([
         'FETCH_ADDR_LIST',
         'FETCH_DICTIONARY',
         'SAVE_CUSTOMERIDINFOH5',
         'NEXT_PAGE'
       ]),
-      pickerCb(res) {
-        this.customer = this.$store.getters.customer;
-        this[this.pickerAct].res = res;
+      /**
+       * 初始化
+       **/
+      init() {
+        Promise.all([
+          get_customer_base(),
+          get_region_byOrder_H5List(),
+          get_dict_code_list({
+            dict_type_: 'EDUCATION_LEVEL_'
+          }),
+        ]).then(data=> {
+          let { customer_name_, id_code_, education_level_, province_, city_, county_, home_address_, body_file_id_ } = data[0]; // 取值
+           this.item = Object.assign({customer_name_}, {id_code_}, {education_level_}, {province_}, {city_}, {county_}, {home_address_}, {body_file_id_}); // 赋值
+           this.pickerList.education_level_.values = data[2]; // 学历picker赋值
+           this.pickerList.education_level_.defaultValue = filterDictionary(data[2], education_level_); // 学历赋值
+           // 图片高亮
+          if(customer_name_&&id_code_){
+             this.id_card.front = this.id_card.back = true;
+             this.body_file = true;
+             this.submit_dis = false;
+           }
+        })
       },
-      showPicker(data, type) {
-        this[data].list = !!type ? this.$store.getters.dictionary[type] : this.$store.getters.addrList;
-        this.pickerData = this[data];
-        this.pickerAct = data;
-        this.$store.commit('TOGGLE_DIALOG', 'picker');
-      },
-      next() {
-        if (!this.showNext) {
-          this.showNext = !this.showNext;
-          return false;
-        }
-        this.$store.commit('NEXT_PAGE', 'case/userInfo/authMain');
-      },
-      fileChange(e, type) {
+      /**
+       * 身份证识别
+       * @param e event
+       * @param type 类型 0正面，1 反面
+       * @param selfIdCard 手持身份证
+       */
+      fileChange(e, type, selfIdCard) {
         let files = e.target.files || e.dataTransfer.files;
         if (!files.length) return;
-        compress(files)
-          .then((url) => {
-            // this.$store.dispatch('save_customerIDInfoH5', {
-            //   side: !type ? 'front' : 'back',
-            //   idCardSelf: url.split(',')[1],
-            // });
-            save_customerIDInfoH5({
-              side: !type ? 'front' : 'back',
-              idCardSelf: url.split(',')[1],
+        compress(files) // 压缩图片
+          .then(url => {
+            if (!selfIdCard) {
+              save_customerIDInfoH5({ // 上传身份证图片
+                side: !type ? 'front' : 'back',
+                idCardSelf: url.split(',')[1],
+              }).then(data => {
+                if(!data){
+                  return
+                }
+                this.id_card[!type ? 'front' : 'back'] = true;
+                // 正面返回的信息放到缓存中
+                if( !type ){
+                  this.cache_info = data
+                }
+                // 真反面都通过了才显示
+                if (this.id_card.front && this.id_card.back) {
+                  this.item.customer_name_ =  this.cache_info.customer_name_;
+                  this.item.id_code_ = this.cache_info.id_code_;
+                  // 设置可以修改姓名或者身份证号码
+                  try{
+                    data.editable_field_.split(',').forEach(i=>{
+                      this.editable_field[i] = false;
+                    })
+                  }catch (e){}
+                }
+              })
+              return
+            }
+            save_uploadFileBase64({ // 上传手持身份证图片
+              file_context_: url.split(',')[1],
+              file_name_: '手持身份证',
+              file_type_: '1',
+              file_ext_name_: 'jpeg',
             }).then(data => {
-              if (data) {
-                data.side = type;
-                this.SAVE_CUSTOMERIDINFOH5(data);
+              if(!data){
+                return
               }
+              this.body_file = true;
+              this.item.body_file_id_ = data.fileId
             })
           })
       },
-      setEducation_level(data) {
-        filterDictionary({
-          list: data,
-          key: 'code_',
-          val: this.item.education_level_,
-        }).then((data) => {
-          this.education_level_.res = data[0]
-        });
+      /**
+       * 设置学历
+       * @param data
+       */
+      education_level_submit_picker(data) {
+        this.item.education_level_ = data[0].code_;
       },
+      /**
+       * 取消学历
+       * @param data
+       */
+      education_level_cancel_picker() {
+        this.item.education_level_ = '';
+      },
+      home_address_picker() {
+      },
+      /**
+       * 提交
+       */
       submit() {
-        this.$store.dispatch('save_customerBaseInfo', {
-          customer_name_: this.item.customer_name_,
-          id_code_: this.item.id_code_,
-          education_level_: this.education_level_.res.code_,
-          province_: this.nowIn.res[0].name || '',
-          city_: this.nowIn.res[1].name || '',
-          county_: this.nowIn.res[2].name || '',
-          home_address_: this.item.home_address_,
-        });
+//          if( !this.item.education_level_ ){
+//            Toask('请选择学历')
+//            return
+//          }
+//          if( !this.item.home_address_ ){
+//            Toask('居住地详址')
+//            return
+//          }
+
+
+
+//        this.$store.dispatch('save_customerBaseInfo', {
+//          customer_name_: this.item.customer_name_,
+//          id_code_: this.item.id_code_,
+//          education_level_: this.education_level_.res.code_,
+//          province_: this.nowIn.res[0].name || '',
+//          city_: this.nowIn.res[1].name || '',
+//          county_: this.nowIn.res[2].name || '',
+//          home_address_: this.item.home_address_,
+//        });
       }
     },
     watch: {
-      'customerIDInfo': {
-        handler: function(data) {
-          if (data.front) {
-            this.sfzimg1 = true;
+      'item': {
+        handler(obj) {
+          this.submit_dis = true;
+          if(isEmptyValObj(obj)) {
+              this.submit_dis = false;
           }
-          if (data.back) {
-            this.sfzimg2 = true;
-          }
-          if (data.front && data.back) {
-            this.item.customer_name_ = data.customer_name_;
-            this.item.id_code_ = data.id_code_;
-            this.sfztext = true;
-          }
-        },
-        deep: true
-      },
-      'sfztext' (data) {
-        if (data) {
-          this.verify_list.sfztext = true
-        }
-      },
-      'education_level_': {
-        handler: function(obj) {
-          try {
-            this.verify_list.education_level_ = !!obj.res.desc_
-          } catch (err) {}
-        },
-        deep: true
-      },
-      'nowIn': {
-        handler: function(obj) {
-          try {
-            this.verify_list.addlocal = !!obj.res.length
-          } catch (err) {}
-        },
-        deep: true
-      },
-      'deal_verify'(data){
-        this.verify_list.home_address_ = data.config.id==1&&data.succ;
-      },
-      'verify_list': {
-        handler: function(obj) {
-          this.submit_btn = Object.values(obj).every(i =>i)
-          // this.submit_btn = ans
-          // console.log(ans)
         },
         deep: true
       }
@@ -261,31 +260,42 @@
 
 <style scoped lang="scss">
   .auth-job {
-    padding: 15px;
+    .item{
+      margin-bottom: .2rem;
+      &:last-child{
+        margin-top: 1rem;
+      }
+    }
+    span{
+      font-size: .24rem;
+    }
+    input{
+      font-size: .36rem;
+    }
   }
 
   .info {
     width: 100%;
     position: relative;
     border: 1px solid #00aaee;
-    height: 50px;
-    border-radius: 6px;
-    -webkit-border-radius: 6px;
-    font-size: 16px;
+    height: 1rem;
+    border-radius: .12rem;
+    font-size: .32rem;
     color: #00aaee;
-    margin-bottom: 10px;
+    margin-bottom: .2rem;
   }
 
   .case_tip {
+    padding: .3rem;
     img {
       display: inline-block;
-      width: 22px;
+      width: .44rem;
       vertical-align: middle;
     }
     color: red;
-    font-size: 14px;
+    font-size: .28rem;
     text-align: left;
-    padding-bottom: 20px;
+    padding-bottom: .4rem;
   }
 
   .info_head {
@@ -297,12 +307,14 @@
   }
 
   .info_head .info input {
-    padding-left: 15px;
+    padding-left: .3rem;
     width: 326px
   }
 
   .case_sfz {
-    height: 66px;
+    width: 90%;
+    margin: 0 auto;
+    height: 1.2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -310,7 +322,7 @@
 
   .sfz-text {
     text-align: left;
-    padding-left: 15px;
+    padding-left: .3rem;
     color: #a9a9a9;
   }
 
@@ -325,7 +337,7 @@
 
   .case_sfz p:first-child {
     text-align: left;
-    padding-left: 15px;
+    padding-left: .3rem;
   }
 
   .case_sfz p span {
@@ -337,18 +349,18 @@
   .case_sfz p span.act:after {
     content: '';
     position: absolute;
-    right: -5px;
-    bottom: -5px;
+    right: -.1rem;
+    bottom: -.1rem;
     background: url("../../assets/img/sfz3.png") no-repeat;
-    background-size: 20px 20px;
+    background-size: .4rem .4rem;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: .4rem;
+    height: .4rem;
   }
 
   @mixin case_sfz_init {
     color: rgba(255, 255, 255, .8);
-    font-size: 14px;
+    font-size: .28rem;
     background-color: rgba(000, 000, 000, .4);
     width: 100%;
     height: 50%;
@@ -361,25 +373,36 @@
     @include case_sfz_init;
     content: '点击';
     top: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: .2rem;
+    border-top-right-radius: .2rem;
   }
 
   .case_sfz p span.init:after {
     @include case_sfz_init;
     content: '上传正面';
     bottom: 0;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
   }
 
   .case_sfz p:last-child span.init:after {
     @include case_sfz_init;
     content: '上传反面';
     bottom: 0;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
   }
+
+  .case_sfz_idcard p:last-child span.init:after {
+    @include case_sfz_init;
+    content: '上传';
+    bottom: 0;
+    border-radius: 0;
+  }
+  .case_sfz_idcard span.init:before {
+    border-radius: 0;
+  }
+
 
   .case_sfz p img {
     margin: 0 auto;
@@ -398,13 +421,5 @@
 
   .sfz-img.dis {
     pointer-events: none;
-  }
-
-  .bar .button-link {
-    color: #ff7f28!important;
-  }
-
-  .btn {
-    margin: 15px 0;
   }
 </style>

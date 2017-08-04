@@ -30,7 +30,7 @@ const getPageToken  = 'esb/common/getPageToken.jhtml';
 const updateLastLongitudeAndLatitude  = 'esb/updateLastLongitudeAndLatitude/updateLastLongitudeAndLatitude.jhtml';
 
 //获取字典城市数据
-const addrList  = 'esb/getRegionList/getRegionByOrderH5List.jhtml';
+const addrList  = 'esb/getRegionList/getAllRegionByOrderList.jhtml';
 
 //获取地址code
 const getRegionCodeByName  = 'esb/getRegionList/getRegionCodeByName.jhtml';
@@ -74,6 +74,8 @@ const getCustomerBase  = 'esb/customer/getCustomerBase.jhtml';
 const saveCustomerBaseInfo  = 'esb/customerAuth/saveCustomerBaseInfo.jhtml';
 // 上传身份证图片信息
 const saveCustomerIDInfoH5  = 'esb/customerAuth/saveCustomerIDInfoH5.jhtml';
+// 上传手持身份证
+const uploadFileBase64  = 'esb/common/uploadFileBase64.jhtml';
 // 保存联系人
 const saveCustomerContactInfo  = 'esb/customerAuth/saveCustomerContactInfo.jhtml';
 // 获取客户职业信息
@@ -118,4 +120,5 @@ export default{
   queryLoanRecordApi,
   queryLoanStatus,
   topBanner,
+  uploadFileBase64
 };

@@ -36,6 +36,18 @@ export function isEmptyObj (obj) {
 
 
 /**
+ * 判断对象的值是否为空
+ * @param obj
+ * @returns {boolean}
+ */
+export function isEmptyValObj (obj) {
+  let arr = Object.values(obj);
+  let res = arr.every(i=>i.length);
+  return res
+}
+
+
+/**
  * 压缩图片
  *
  * @param {Object} file

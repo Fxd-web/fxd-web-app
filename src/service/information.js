@@ -27,15 +27,24 @@ const get_customer_carrer = () => {
 
 
 const save_customerIDInfoH5 = (data) => {
-  return $http('post', Api.saveCustomerIDInfoH5, data).then(json => {
+  return $http('post', Api.saveCustomerIDInfoH5, data, true, true).then(json => {
     if (json.flag !== '0000') {
       Toask(json.msg);
       return false
     }
-    return json
+    return json.result
   })
 }
 
+const save_uploadFileBase64 = (data) => {
+  return $http('post', Api.uploadFileBase64, data, true, true).then(json => {
+    if (json.flag !== '0000') {
+      Toask(json.msg);
+      return false
+    }
+    return json.result
+  })
+}
 
 export {
   get_customer_authInfo_schedule,
@@ -44,4 +53,5 @@ export {
   get_region_byOrder_H5List,
   get_customer_carrer,
   save_customerIDInfoH5,
+  save_uploadFileBase64
 };

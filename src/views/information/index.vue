@@ -25,7 +25,7 @@
             </li>
           </ul>
         </div>
-        <fxd-button class="case_btn">立即申请</fxd-button>
+        <fxd-button class="case_btn" @click.native="submit" :disabled="isdisabled">立即申请</fxd-button>
       </div>
       <transition name="router-slid" mode="out-in">
         <router-view class="case_main_con"></router-view>
@@ -45,6 +45,7 @@
     mapActions,
     mapMutations
   } from 'vuex'
+  import { Alert } from 'fxd-components-example';
   export default {
     data() {
       return {
@@ -72,6 +73,7 @@
           link: 'information/authentication',
         }],
         btnAct: 'act',
+        isdisabled: true, // 按钮不可点击
       }
     },
     computed: {
@@ -82,13 +84,6 @@
     created() {
        this.init();
     },
-    beforeMount() {
-      //          get_customer_authInfo_schedule().then((data)=>{
-      //            this.progressWidth  = this.progressWidth[data.result.nextStep];
-      //            this.nextStep = data.result.nextStep;
-      //          })
-      // this.get_customer_authInfo_schedule();
-    },
     methods: {
       ...mapActions([
         'get_customer_authInfo_schedule'
@@ -98,10 +93,14 @@
         'NEXT_PAGE'
       ]),
       init() {
+        if(this.$route.path!=='/information') return;
         get_customer_authInfo_schedule().then((data) => {
           if(!data) return false
             this.progressWidth = data.nextStep<0?100:100/this.list.length*(data.nextStep-1);
             this.nextStep = data.nextStep;
+            if(data.nextStep<0||(data.nextStep+1)>=this.list.length){
+              this.isdisabled = false // 按钮可以点击
+            }
         })
       },
       link(url) {
@@ -113,6 +112,11 @@
 //          list,
 //          nextStep,
 //        });
+      },
+      submit() {
+        Alert('是否愿意家人知晓?').then(res=> {
+            console.log(res)
+        })
       }
     },
      watch: {

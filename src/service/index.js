@@ -5,6 +5,7 @@ export {
   get_region_byOrder_H5List,
   get_customer_carrer,
   save_customerIDInfoH5,
+  save_uploadFileBase64
 } from './information';
 
 export {
