@@ -1,36 +1,6 @@
 <template>
   <div>
-    <div class="case_main">
-      <div class="case_main_body">
-        <div class="case_head">
-          <div class="case_progress">
-            <p class="case_progress-con"><span :style="{width: progressWidth + '%' }"></span></p>
-            <p class="case_progress-p"><span v-for="(i, index) in list.length">{{100/list.length*index}}%</span><span>100%</span></p>
-          </div>
-          <p class="case_head-p">资料填写进度达到100%,即可借款</p>
-        </div>
-        <p class="case_tip">
-          <img src="../../assets/img/case_main_i.png" alt=""> 请按顺序进行各项资料填写
-      </p>
-        <div class="case_con">
-          <ul>
-            <li @click="link(i, index)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act':''">
-              <p>
-                <span>{{i.title}}</span>
-                <span>{{i.des}}</span>
-              </p>
-              <p>
-                <span data-tip="已完成">{{tipText | filterTipText(index, customer_authInfo)}}</span>
-              </p>
-            </li>
-          </ul>
-        </div>
-        <fxd-button class="case_btn" @click.native="submit" :disabled="isdisabled">立即申请</fxd-button>
-      </div>
-      <transition name="router-slid" mode="out-in">
-        <router-view class="case_main_con"></router-view>
-      </transition>
-    </div>
+
   </div>
 </template>
 

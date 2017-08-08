@@ -68,7 +68,7 @@
           <p>精彩活动 不容错过</p>
         </div>
         <div class="wx-btn">
-          <fxd-button type="inset" @click.native="copyToClipboard" data-clipboard-text="急速发薪" class="setcopy_gettext">复制微信号</fxd-button>
+          <fxd-button type="inset" @click.native="copy_to_clipboard" data-clipboard-text="急速发薪" class="setcopy_gettext">复制微信号</fxd-button>
           <fxd-button type="inset"><a href="#" id="downloadIMG" download>保存图片</a></fxd-button>
         </div>
 
@@ -120,7 +120,7 @@
         'SET_LOCAL_PRODUCT',
         'DEAL_PRODUCT_CASE'
       ]),
-      init(){
+      init() {
         this.page_logic(); //页面逻辑
         this.page_async(); //交互请求
       },
@@ -136,6 +136,7 @@
       page_async() {
         Promise.all([get_limitProductlistApi(),get_queryLoanRecordList(),get_banner()]).then( res => {
           let [productlist, queryLoanRecordList, bannerList] = res;
+          if(!productlist) return;
           this.productlist = productlist;
           this.queryLoanRecordList = queryLoanRecordList;
           this.bannerList = bannerList.files_;
@@ -147,7 +148,7 @@
       /**
        * 点击复制微信提示文字
        */
-      copyToClipboard() {
+      copy_to_clipboard() {
         Toask('您已复制成功,赶紧去微信关注"急速发薪"公众号吧!');
       },
       /**

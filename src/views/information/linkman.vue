@@ -1,12 +1,15 @@
 <template>
   <div class="auth-job rating_page">
-    <fxd-cellPicker
+      <p class="case_tip">
+        <img src="../../assets/img/case_main_i.png" alt="">请确保填写的均为本人真实信息
+     </p>
+    <fxd-cell-picker
       :defaultValue="pickerList.relationship_.defaultValue"
       class="item"
       :data="pickerList.relationship_"
       valueKey="desc_"
-      @cell_picker_cancel_cb="relationship_cancel_picker"
-      @cell_picker_submit_cb="relationship_submit_picker"></fxd-cellPicker>
+      @cell_picker_cancel_cb="relationship_cancel_picker(1)"
+      @cell_picker_submit_cb="relationship_submit_picker($event, 1)"></fxd-cell-picker>
       <fxd-cell
         class="item"
         placeholder="联系人1姓名"
@@ -21,16 +24,17 @@
         @verify_cb="verify_cb"
         @input.native="e=>item.contact_phone_=e.target.value"
         v-model="item.contact_phone_"
-        inputType="idCard" >
+        inputType="mobile" >
       </fxd-cell>
-    <fxd-cellPicker
+    <fxd-cell-picker
       :defaultValue="pickerList.relationship1_.defaultValue"
       class="item"
       :data="pickerList.relationship1_"
       valueKey="desc_"
-      @cell_picker_cancel_cb="relationship1_level_cancel_picker"
-      @cell_picker_submit_cb="relationship1_level_submit_picker"></fxd-cellPicker>
+      @cell_picker_cancel_cb="relationship_cancel_picker(0)"
+      @cell_picker_submit_cb="relationship_submit_picker($event, 0)"></fxd-cell-picker>
       <fxd-cell
+        inputType="name"
         class="item"
         placeholder="联系人2姓名"
         @verify_cb="verify_cb"
@@ -38,6 +42,7 @@
         v-model="item.contact_name1_">
       </fxd-cell>
     <fxd-cell
+      inputType="mobile"
       class="item"
       placeholder="联系人2号码"
       @verify_cb="verify_cb"
@@ -56,16 +61,12 @@
     filterDictionary
   } from '../../util/';
   import {
-    mapGetters,
-    mapActions,
     mapMutations,
-    mapState
   } from 'vuex'
   import {
     get_customer_base,
     get_dict_code_list,
-    save_customerIDInfoH5,
-    save_uploadFileBase64
+    save_customer_contact_info
   } from '../../service/';
   import { verify } from '../../mixins/verify';
   import { Toask } from 'fxd-components-example';
@@ -96,15 +97,7 @@
         submit_dis: true, // 确定按钮
       }
     },
-    components: {
-    },
     mixins:[verify],
-    computed: {
-      ...mapGetters([
-        'customerIDInfo',
-        'deal_verify'
-      ]),
-    },
     created() {
       this.init();
     },
@@ -125,59 +118,42 @@
             dict_type_: 'RELATIONSHIP_'
           }),
         ]).then(data=> {
+          if(data[1]){
+            this.pickerList.relationship_.values = this.pickerList.relationship1_.values = data[1]; // picker赋值
+          }
+          if(!data[0]) return;
           let { contactBean } = data[0]; // 取值
-//          this.item.relationship_ = contactBean[0].relationship_; // 赋值
-//          this.item.contact_name_ = contactBean[0].contact_name_;
-//          this.item.contact_phone_ = contactBean[0].contact_phone_;
-//          this.item.relationship1_ = contactBean[1].relationship_;
-//          this.item.contact_name1_ = contactBean[1].relationship_;
-//          this.item.contact_phone1_ = contactBean[1].relationship_;
-          contactBean.forEach(i,index=>{
-            this.item[`relationship${index?index:''}_`] = contactBean[index].relationship_
-            this.item[`contact_name_${index?index:''}_`] = contactBean[index].contact_name_;
-            this.item[`contact_phone_${index?index:''}_`] = contactBean[index].contact_phone_;
-          })
-
-          this.pickerList.relationship_.values = this.pickerList.relationship1_.values = data[1]; // picker赋值
-          this.pickerList.relationship_.defaultValue = filterDictionary(data[1], relationship_); // 关系人1赋值
-          this.pickerList.relationship1_.defaultValue = filterDictionary(data[1], relationship1_); // 关系人2赋值
-          this.submit_dis = false;
+          try{
+            contactBean.forEach((i, index) => {   // 赋值
+              this.item[`relationship${index?index:''}_`] = i.relationship_;
+              this.item[`contact_name${index?index:''}_`] = i.contact_name_;
+              this.item[`contact_phone${index?index:''}_`] = i.contact_phone_;
+              this.pickerList[`relationship${index?index:''}_`].defaultValue = filterDictionary(data[1], i.relationship_);
+            });
+            this.submit_dis = false;
+          }catch (e){}
         })
       },
       /**
-       * 取消联系人1关系
-       * @param data
+       * 取消联系人关系
+       * @param type 1联系人1，0联系人2(为什么用0和1呢，因为0和1会被if隐式转换为true和false)
        */
-      relationship_cancel_picker() {
-         this.item.relationship_ = '';
+      relationship_cancel_picker(type) {
+         this.item[`relationship${type?'':'1'}_`] = '';
       },
       /**
-       * 设置联系人1关系
-       * @param data
+       * 设置联系人关系
+       * @param type 同上
        */
-      relationship_submit_picker(data) {
-         this.item.relationship_ = data[0].code_;
-      },
-      /**
-       * 取消联系人2关系
-       * @param data
-       */
-      relationship1_cancel_picker() {
-        this.item.relationship1_ = '';
-      },
-      /**
-       * 设置联系人2关系
-       * @param data
-       */
-      relationship1_submit_picker(data) {
-        this.item.relationship1_ = data[0].code_;
-      },
-      home_address_picker() {
+      relationship_submit_picker(data, type) {
+         this.item[`relationship${type?'':'1'}_`] = data[0].code_;
       },
       /**
        * 提交
        */
       submit() {
+
+        save_customer_contact_info(this.item)
       }
     },
     watch: {

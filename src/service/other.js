@@ -1,11 +1,6 @@
 import $http from './services';
 import Api from './api/';
 
-const get_limitProductlistApi = ()=>{
-  return $http('post', Api.getLimitProductlistApi)
-}
-
-
 const get_queryLoanRecordList = ()=>{
   return $http('post', Api.queryLoanRecordApi)
 }
@@ -27,7 +22,6 @@ const send_SMS = (mobile_phone_)=>{
 
 
 export {
-  get_limitProductlistApi,
   get_queryLoanRecordList,
   get_banner,
   send_SMS

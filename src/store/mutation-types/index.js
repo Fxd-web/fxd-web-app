@@ -60,7 +60,9 @@ export const GET_LOANLIST = 'GET_LOANLIST';
 // 验证机制
 export const DEAL_VERIFY = 'DEAL_VERIFY';
 
-export { INFORMATION_LINKTO, GET_CUSTOMERBASE, SAVE_CUSTOMERIDINFOH5, GET_CUSTOMERCARRER } from './information';
+
+
+export { SAVE_CUSTOMERAUTHINFOSCHEDULE, SET_IFFAMILYKNOW } from './information';
 
 
 export { SET_PRODUCT, SET_LOCAL_PRODUCT, DEAL_PRODUCT_CASE } from './product';

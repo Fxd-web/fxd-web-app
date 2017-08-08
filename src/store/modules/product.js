@@ -9,7 +9,7 @@ export default {
     },
     mutations: {
         [types.SET_LOCAL_PRODUCT](state, product) {
-          state.local_product = product
+          state.local_product = product;
         },
         [types.SET_PRODUCT](state, product) {
           state.product = product;

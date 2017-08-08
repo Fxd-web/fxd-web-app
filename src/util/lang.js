@@ -42,7 +42,7 @@ export function isEmptyObj (obj) {
  */
 export function isEmptyValObj (obj) {
   let arr = Object.values(obj);
-  let res = arr.every(i=>i.length);
+  let res = arr.every(i=>i.toString().length);
   return res
 }
 

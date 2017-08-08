@@ -5,7 +5,14 @@ export {
   get_region_byOrder_H5List,
   get_customer_carrer,
   save_customerIDInfoH5,
-  save_uploadFileBase64
+  save_uploadFileBase64,
+  get_carrier_name_by_mobile,
+  save_customer_base_info,
+  save_customer_contact_info,
+  save_customer_carrer,
+  auth_mobile_phone,
+  save_customer_auth_mobile,
+  submit_zhima_credit_auth,
 } from './information';
 
 export {
@@ -15,7 +22,6 @@ export {
 
 
 export {
-  get_limitProductlistApi,
   get_queryLoanRecordList,
   get_banner,
   send_SMS
@@ -23,7 +29,10 @@ export {
 
 
 export {
-  get_apply_status
+  get_limitProductlistApi,
+  get_apply_status,
+  get_product_info,
+  create_application,
 } from './product';
 
 

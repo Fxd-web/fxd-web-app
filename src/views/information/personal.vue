@@ -31,13 +31,13 @@
         v-model="item.id_code_"
         inputType="idCard" >
       </fxd-cell>
-      <fxd-cellPicker
+      <fxd-cell-picker
         :defaultValue="pickerList.education_level_.defaultValue"
         class="item"
         :data="pickerList.education_level_"
         valueKey="desc_"
         @cell_picker_cancel_cb="education_level_cancel_picker"
-        @cell_picker_submit_cb="education_level_submit_picker"></fxd-cellPicker>
+        @cell_picker_submit_cb="education_level_submit_picker"></fxd-cell-picker>
       <fxd-cell
         class="item"
         placeholder="居住地详址"
@@ -68,7 +68,8 @@
     get_dict_code_list,
     get_region_byOrder_H5List,
     save_customerIDInfoH5,
-    save_uploadFileBase64
+    save_uploadFileBase64,
+    save_customer_base_info
   } from '../../service/';
   import { verify } from '../../mixins/verify';
   import { Toask } from 'fxd-components-example';
@@ -80,9 +81,9 @@
           customer_name_: '',
           id_code_: '',
           education_level_: '',
-          province_: '',
-          city_: '',
-          county_: '',
+          province_: '1',
+          city_: '1',
+          county_: '1',
           home_address_: '',
           body_file_id_: '',
         },
@@ -138,16 +139,21 @@
             dict_type_: 'EDUCATION_LEVEL_'
           }),
         ]).then(data=> {
-          let { customer_name_, id_code_, education_level_, province_, city_, county_, home_address_, body_file_id_ } = data[0]; // 取值
-           this.item = Object.assign({customer_name_}, {id_code_}, {education_level_}, {province_}, {city_}, {county_}, {home_address_}, {body_file_id_}); // 赋值
-           this.pickerList.education_level_.values = data[2]; // 学历picker赋值
-           this.pickerList.education_level_.defaultValue = filterDictionary(data[2], education_level_); // 学历赋值
-           // 图片高亮
-          if(customer_name_&&id_code_){
-             this.id_card.front = this.id_card.back = true;
-             this.body_file = true;
-             this.submit_dis = false;
-           }
+          if(data[2]){
+            this.pickerList.education_level_.values = data[2]; // 学历picker赋值
+          }
+          if(!data[0]) return;
+           try{
+             let { customer_name_, id_code_, education_level_, province_, city_, county_, home_address_, body_file_id_ } = data[0]; // 取值
+             Object.assign(this.item, {customer_name_}, {id_code_}, {education_level_}, {province_}, {city_}, {county_}, {home_address_}, {body_file_id_}); // 赋值
+             this.pickerList.education_level_.defaultValue = filterDictionary(data[2], education_level_); // 学历赋值
+             // 图片高亮
+             if(customer_name_&&id_code_){
+               this.id_card.front = this.id_card.back = true;
+               this.body_file = true;
+               this.submit_dis = false;
+             }
+           }catch (e){}
         })
       },
       /**
@@ -222,6 +228,7 @@
        * 提交
        */
       submit() {
+        save_customer_base_info(this.item)
 //          if( !this.item.education_level_ ){
 //            Toask('请选择学历')
 //            return
@@ -230,7 +237,6 @@
 //            Toask('居住地详址')
 //            return
 //          }
-
 
 
 //        this.$store.dispatch('save_customerBaseInfo', {
@@ -283,19 +289,6 @@
     font-size: .32rem;
     color: #00aaee;
     margin-bottom: .2rem;
-  }
-
-  .case_tip {
-    padding: .3rem;
-    img {
-      display: inline-block;
-      width: .44rem;
-      vertical-align: middle;
-    }
-    color: red;
-    font-size: .28rem;
-    text-align: left;
-    padding-bottom: .4rem;
   }
 
   .info_head {

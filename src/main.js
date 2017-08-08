@@ -46,7 +46,6 @@ router.beforeEach((to, from, next) => {
     rejectRouter()
   }
 });
-
 new Vue({
   router,
   store,

@@ -4,7 +4,6 @@
  *
  * @param {object} data.list 字典数据
  * @param {Object} data.key
- * @param {Object} data.val
  * @return {Promise}
  */
 export function filterDictionary (data, key) {

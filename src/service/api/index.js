@@ -60,10 +60,12 @@ const getLoanList  = 'esb/account/loanList.jhtml';
 const queryLoanStatus = 'esb/caseInfo/queryLoanStatus.jhtml';
 
 
-
 // 获取进件
 const getApplyStatus  = 'esb/caseInfo/getApplyStatus.jhtml';
-
+// 获取产品信息
+const getProductInfo  = 'esb/product/getProductInfo.jhtml';
+// 首次进件
+const createApplication = 'esb/applicant/createApplication.jhtml';
 
 
 // 查询用户信息认证录入进度
@@ -82,6 +84,14 @@ const saveCustomerContactInfo  = 'esb/customerAuth/saveCustomerContactInfo.jhtml
 const getCustomerCarrer  = 'esb/customer/getCustomerCarrer.jhtml';
 // 保存客户职业信息
 const saveCustomerCarrer  = 'esb/customer/saveCustomerCarrer.jhtml';
+// 获取运营商
+const getCarrierNameByMobile = 'esb/getCarrierNameByMobile/getCarrierNameByMobile.jhtml';
+// 手机认证结果保存
+const authMobilePhone = 'esb/customer/authMobilePhone.jhtml';
+// 认证手机天创
+const saveCustomerAuthTcMobile = 'esb/customer/saveCustomerAuthTcMobile.jhtml';
+// 芝麻信用
+const submitZhimaCreditAuth = 'esb/zmxy/submitZhimaCreditAuth.jhtml';
 
 
 
@@ -120,5 +130,11 @@ export default{
   queryLoanRecordApi,
   queryLoanStatus,
   topBanner,
-  uploadFileBase64
+  uploadFileBase64,
+  getCarrierNameByMobile,
+  authMobilePhone,
+  saveCustomerAuthTcMobile,
+  submitZhimaCreditAuth,
+  getProductInfo,
+  createApplication
 };

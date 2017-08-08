@@ -28,7 +28,7 @@ const transformRequest = (obj) => {
     if (t.indexOf('invitation_code') > -1 || t.indexOf('user_id_') > -1) {
       str.splice(i, 1)
     }
-  })
+  });
   return str.join('&');
 };
 
@@ -45,7 +45,7 @@ const filterFlag = (json, fltFlag) => {
     let flagArr = ['0002', '0003','0005','0016'];
     let flag = json.flag;
     if(fltFlag){
-      resolve(json)
+      resolve(json);
       return
     }
     if(~flagArr.indexOf(flag)) {
@@ -105,6 +105,7 @@ export default async(type = 'GET', url = '', params = '', des3 = true, fltFlag =
   if (des3 && !!params) {
     !!params.password_ && (params.password_ = des.DES3.encrypt(params.password_));
     record = des.DES3.encrypt(JSON.stringify(params));
+    record = { record }
   }
   if (type == 'GET') {}
   let init = null;
@@ -118,7 +119,7 @@ export default async(type = 'GET', url = '', params = '', des3 = true, fltFlag =
     }
     if (!!params && Object.prototype.toString.call(params) == '[object Object]') {
       Object.defineProperty(init, 'body', {
-        value: transformRequest(params)
+        value: transformRequest(des3 ? record : params)
       })
     }
   }

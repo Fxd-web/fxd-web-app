@@ -130,7 +130,24 @@ export default {
             lv: 3,
           },
         },
+        {
+          path: 'sesame',
+          component: require('./views/information/sesame.vue'),
+          meta: {
+            title: '芝麻信用授权',
+            lv: 3,
+          },
+        },
+
       ]
+    },
+    {
+      path: '/loan_apply',
+      component: require('./views/loan_apply.vue'),
+      meta: {
+        title: '借款确认',
+        lv: 2,
+      },
     },
     {
       path: '*',
