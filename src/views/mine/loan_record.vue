@@ -104,7 +104,12 @@
         })
     },
     methods:{
+      linkCase(pid) {
+        get_apply_status(pid).then(res=>{
 
+
+        })
+      },
     }
 
 

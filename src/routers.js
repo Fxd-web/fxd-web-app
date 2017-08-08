@@ -43,7 +43,15 @@ export default {
       path: '/loanProgess',
       component: require('./views/protocol/my_load_progress.vue'),
       meta: {
-        title: '借款记录',
+        title: '借款进度',
+        lv: 2,
+      }
+    },
+    {
+      path: '/coupon',
+      component: require('./views/mine/coupon.vue'),
+      meta: {
+        title: '我的红包',
         lv: 2,
       }
     },

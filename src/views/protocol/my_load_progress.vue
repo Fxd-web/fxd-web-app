@@ -21,7 +21,7 @@
           <p><span>{{product.principal_bottom_}}-{{product.principal_top_}}</span><span>额度</span></p>
           <p><span>{{product.ext_attr_.period_desc_}}</span><span>期限</span></p>
         </div>
-        <a href="javascript:void(0)" class="reject_fxd_btn">立即申请</a>
+        <a href="javascript:void(0)" class="reject_fxd_btn" @click="needLoanSmall">立即申请</a>
       </div>
     </div>
     <div class="check_false_foot" style="display: none">
@@ -278,5 +278,17 @@
       })
 
     },
+    methods: {
+      needLoanSmall: function() {
+//        sessionStorage.product_ID = this.productId;
+        if (this.productId == 'P001002') {
+//          location.href = "../case/choose_money.html?out_operate_fee_2=" +
+//            sessionStorage.out_operate_fee_2 + "&out_day_service_fee_2=" + sessionStorage.out_day_service_fee_2 +
+//            "&out_day_interest_fee_2=" + sessionStorage.out_day_interest_fee_2;
+        } else{ //导流工薪贷,点立即申请，跳转借款申请页面
+//          location.href = "../case/case_main.html" ;
+        };
+      },
+    }
   }
 </script>

@@ -71,9 +71,7 @@
           <fxd-button type="inset" @click.native="copy_to_clipboard" data-clipboard-text="急速发薪" class="setcopy_gettext">复制微信号</fxd-button>
           <fxd-button type="inset"><a href="#" id="downloadIMG" download>保存图片</a></fxd-button>
         </div>
-
       </div>
-
     </fxd-mask>
   </div>
 </template>

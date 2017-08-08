@@ -48,7 +48,7 @@
     }
     img {
       float:left;
-      margin-top:.27rem;
+      margin-top:.23rem;
       width:.55rem;
       height:.55rem;
       margin-right: .24rem;

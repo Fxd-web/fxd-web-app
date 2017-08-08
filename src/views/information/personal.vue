@@ -11,7 +11,7 @@
       </div>
       <div class="info case_sfz case_sfz_idcard item">
         <p class="sfz-text" :class="body_file?'act':''">手持身份证照片</p>
-        <p class="sfz-img"><span :class="body_file?'act':'init'"><img src="../../assets/img/self_id_card.png" alt="" height="90"><input type="file"  name="image" capture="camera"  accept="image/*" @change="fileChange($event,0,1)" /></span></p>
+        <p class="sfz-img"><span :class="body_file?'act':'init'"><img src="../../assets/img/sfz2.png" alt="" height="90"><input type="file"  name="image" capture="camera"  accept="image/*" @change="fileChange($event,0,1)" /></span></p>
       </div>
       <fxd-cell
         class="item"
@@ -102,7 +102,7 @@
         },
         id_card: { // 身份证部分默认没有通过
           front: false, //正面
-          back: false, // 反面
+          back: false,  // 反面
           cache_info: null // 缓存身份证信息，因为只有正面才会返回信息，反面不会返回，但是需要显示的条件必须是身份证正反面都认证完成，所以此处做个缓存
         },
         body_file: null, // 手持身份证图片和文字高亮
