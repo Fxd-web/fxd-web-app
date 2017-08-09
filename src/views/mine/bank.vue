@@ -7,9 +7,8 @@
       </div>
     </div>
     <div class="my_bank" v-else>
-      <template v-for="bank in bankList">
+      <div v-for="bank in bankList">
         <div class="short"></div>
-        <div>
           <div class="my_bank_edit">
             <img :src="bank.bank_img_">
             <ul>
@@ -20,8 +19,7 @@
           </div>
           <div class="clear"></div>
           <p>{{bank.card_no_}}</p>
-        </div>
-      </template>
+      </div>
     </div>
   </div>
 </template>
@@ -86,6 +84,7 @@
   /*eslint-disable*/
   import {
     get_BankInfo,
+    get_DictCode
   } from '../../service/';
   export default{
       data(){
@@ -95,16 +94,20 @@
         }
       },
     mounted(){
-      get_BankInfo().then((res)=>{
-          this.bankList = res;
-          console.log(res)
-      })
+      get_BankInfo().then((data)=>{
+          this.bankList = data;
+
+          console.log(data);
+      });
+    },
+    ready:function () {
+      this.init();
     },
     methods:{
-       init(res){
-          for(let i=0;i<res.length;i++){ //解密？
-             console.log('ssssssss')
-          }
+       init:function(data){
+             get_DictCode().then((data)=>{
+               console.log(data)
+             })
        }
     }
 

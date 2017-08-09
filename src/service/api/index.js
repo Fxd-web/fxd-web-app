@@ -35,7 +35,7 @@ const addrList  = 'esb/getRegionList/getAllRegionByOrderList.jhtml';
 //获取地址code
 const getRegionCodeByName  = 'esb/getRegionList/getRegionCodeByName.jhtml';
 
-// 获取字典对照值
+//获取字典对照值
 const getDictCode  = 'esb/getDictCode/getDictCodeDesc.jhtml';
 
 //获取字典数据
@@ -47,24 +47,25 @@ const customerBase  = 'esb/customer/getCustomerBase.jhtml';
 //获取进件状态
 const fetchcase  = 'esb/caseInfo/getApplyStatus.jhtml';
 
-// 获取银行卡列表
+//获取银行卡列表
 const getBankInfo  = 'esb/getAccountCardList/getAccountCardList.jhtml';
 
-// 获取活动规则
+
+//获取活动规则
 const getRecomfrInfoApi  = 'esb/ProductProtocol/GetRecomfrInfoApi.jhtml';
 
-// 获取借款记录
+//获取借款记录
 const getLoanList  = 'esb/account/loanList.jhtml';
 
 //获取借款进度
 const queryLoanStatus = 'esb/caseInfo/queryLoanStatus.jhtml';
 
 
-// 获取进件
+//获取进件
 const getApplyStatus  = 'esb/caseInfo/getApplyStatus.jhtml';
-// 获取产品信息
+//获取产品信息
 const getProductInfo  = 'esb/product/getProductInfo.jhtml';
-// 首次进件
+//首次进件
 const createApplication = 'esb/applicant/createApplication.jhtml';
 
 
@@ -93,7 +94,7 @@ const saveCustomerAuthTcMobile = 'esb/customer/saveCustomerAuthTcMobile.jhtml';
 // 芝麻信用
 const submitZhimaCreditAuth = 'esb/zmxy/submitZhimaCreditAuth.jhtml';
 
-//获取红包
+// 获取红包
 const getcoupon = 'esb/userWs/getUserAvailabelRedpacketList.jhtml';
 
 // 首页部分

@@ -40,8 +40,10 @@ export {
 export {
   get_LoanList,
   get_LimitProductlistApi,
-  query_LoanStatus,
   get_coupon,
-  get_BankInfo
+  get_BankInfo,
+  get_DictCode,
+  get_RecomfrInfoApi,
+  query_LoanStatus
 } from './mine';
 

@@ -64,8 +64,8 @@ export default {
       }
     },
     {
-      path: '/bankAdd',
-      component: require('./views/mine/bank_add.vue'),
+      path: '/inviteFriends',
+      component: require('./views/mine/invite_friends.vue'),
       meta: {
         title: '我的银行卡',
         lv: 2,

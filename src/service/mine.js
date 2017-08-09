@@ -33,12 +33,28 @@ const get_coupon = (params)=>{
  */
 const get_BankInfo = (params)=>{
   return $http('post',Api.getBankInfo,(params))
-}
+};
+/**
+ * 获取字典对照值
+ */
+const get_DictCode = (params)=>{
+  return $http('post',Api.getDictCode,(params))
+};
+/**
+ * 获取活动规则
+ */
+const get_RecomfrInfoApi = (params)=>{
+  return $http('post',Api.getRecomfrInfoApi,(params))
+};
+
+
 export {
   user_login,
   get_LoanList,
   get_coupon,
   get_LimitProductlistApi,
   query_LoanStatus,
-  get_BankInfo
+  get_BankInfo,
+  get_DictCode,
+  get_RecomfrInfoApi
 };
