@@ -21,19 +21,6 @@
 
     <fxd-radio-tip agreeText="同意发薪贷" :tipList="tipList" class="reg_"></fxd-radio-tip>
     <fxd-button class="affirmRegister">确认注册</fxd-button>
-    <!--<p><img width="29" src="../../assets/img/mobile.png" alt=""><input type="phone" placeholder="输入手机号" v-model='data.mobile_phone_'></p>-->
-    <!--<p><img width="29" src="../../assets/img/1_Signin_icon_02.png" alt=""><input type="text" placeholder="请先输入图片验证码" v-model='data.pic_verify_code_'><img width="84" height='48' :src="data.picCodeUrl" alt="/" class="picCode" @click='picCode'></p>-->
-    <!--<p><img width="29" src="../../assets/img/1_Signin_icon_02.png" alt=""><input type="text" placeholder="输入验证码" v-model='data.verify_code_'><span class="sendCode" @click='sendCode'>发送验证码</span></p>-->
-    <!--<p><img width="29" src="../../assets/img/password.png" alt=""><input placeholder="输入至少6位密码" v-model='data.password_'><img width="30" :src='password.type==="password"?password.hideUrl:password.showUrl' @click='changePsdType'></p>-->
-    <!--<div class="reg-accept">-->
-      <!--<span class='reg-accept-icon' :class="isAccept?'active':''" @click='acceptBtn'></span>-->
-      <!--<span @click='acceptBtn'>同意发薪贷</span>-->
-      <!--<span>《注册协议》</span>-->
-      <!--<span>《隐私保密协议》</span>-->
-    <!--</div>-->
-    <!--<div class="btn" @click='submit'>-->
-      <!--确认注册-->
-    <!--</div>-->
   </div>
 </template>
 

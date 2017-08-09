@@ -111,10 +111,9 @@
     })
     },
     methods:{
-        couponDetail(){
 
-        }
     }
+
   }
 
 </script>

@@ -19,7 +19,7 @@ export default {
         navSwitch: true,
         backSwitch: true,
         lv: 1,
-      }
+    }
     },
     {
       path: '/me',
@@ -52,6 +52,22 @@ export default {
       component: require('./views/mine/coupon.vue'),
       meta: {
         title: '我的红包',
+        lv: 2,
+      }
+    },
+    {
+      path: '/bank',
+      component: require('./views/mine/bank.vue'),
+      meta: {
+        title: '我的银行卡',
+        lv: 2,
+      }
+    },
+    {
+      path: '/bankAdd',
+      component: require('./views/mine/bank_add.vue'),
+      meta: {
+        title: '我的银行卡',
         lv: 2,
       }
     },

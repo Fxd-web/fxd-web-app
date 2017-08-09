@@ -24,7 +24,7 @@
               </span>
             </div>
             <div class="words3">
-              有效期：{{coupon.validity_period_from_|myDate}}
+              有效期：{{coupon.validity_period_from_|myDatel}}
               至{{coupon.validity_period_to_|myDate}}
             </div>
           </div>
@@ -48,7 +48,59 @@
   </div>
 </template>
 <style>
-
+  .msage {
+    height: 20%;
+    margin: .4rem .3rem 0 .3rem;
+    position: relative;
+  }
+  .msage img {
+    width: 100%;
+    height: 2.84rem;
+  }
+  .words1 {
+    position: absolute;
+    width: 100%;
+    top: .3rem;
+    color: #fff;
+    font-size: .46rem;
+  }
+  .words1 div {
+    float: left;
+  }
+  .words1 div:first-child {
+    margin-left: 22%;
+  }
+  .words1 div:last-child {
+    display: inline-block;
+    padding: .12rem;
+    background: rgb(112,112,112);
+    border-radius: .06rem;
+    float: right;
+    margin-right: .3rem;
+    font-size: .28rem;
+  }
+  .words2{
+    position: absolute;
+    top: .9rem;
+    left: 22%;
+    color: #fff;
+    font-size: .84rem;
+  }
+  .words2 span:first-child{
+    font-size: .96rem;
+    font-weight: bold;
+  }
+  .words2 span:last-child{
+    font-size: .46rem;
+    display: inline-block;
+  }
+  .words3{
+    position: absolute;
+    top: 2.2rem;
+    left: 22%;
+    color: #fff;
+    font-size: .28rem;
+  }
 </style>
 <script>
   /*eslint-disable*/

@@ -42,5 +42,6 @@ export {
   get_LimitProductlistApi,
   query_LoanStatus,
   get_coupon,
+  get_BankInfo
 } from './mine';
 

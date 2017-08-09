@@ -4,22 +4,41 @@ import Api from './api/';
 const user_login = (params)=>{
   return $http('post', Api.login, params)
 };
-const get_LoanList = (params)=>{ //获取借款记录
+/**
+ * 获取借款记录
+ */
+const get_LoanList = (params)=>{
   return $http('post',Api.getLoanList,params)
 };
-const query_LoanStatus = (params)=>{ //获取借款进度
+/**
+ * 获取借款进度
+ */
+const query_LoanStatus = (params)=>{
   return $http('post',Api.queryLoanStatus,(params))
 };
-const get_LimitProductlistApi = (params)=>{  // 获取用户产品列表
+/**
+ * 获取用户产品列表
+ */
+const get_LimitProductlistApi = (params)=>{
   return $http('post',Api.getLimitProductlistApi,(params))
 };
-const get_coupon = (params)=>{  //获取红包
+/**
+ * 获取红包
+ */
+const get_coupon = (params)=>{
   return $http('post',Api.getcoupon,(params))
 };
+/**
+ * 获取借款记录
+ */
+const get_BankInfo = (params)=>{
+  return $http('post',Api.getBankInfo,(params))
+}
 export {
   user_login,
   get_LoanList,
   get_coupon,
   get_LimitProductlistApi,
   query_LoanStatus,
+  get_BankInfo
 };
