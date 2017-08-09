@@ -93,7 +93,8 @@ const saveCustomerAuthTcMobile = 'esb/customer/saveCustomerAuthTcMobile.jhtml';
 // 芝麻信用
 const submitZhimaCreditAuth = 'esb/zmxy/submitZhimaCreditAuth.jhtml';
 
-
+//获取红包
+const getcoupon = 'esb/userWs/getUserAvailabelRedpacketList.jhtml';
 
 // 首页部分
 const getLimitProductlistApi  = 'esb/product/getLimitProductlistApi.jhtml'; // 获取用户产品列表
@@ -121,6 +122,7 @@ export default{
   getApplyStatus,
   getCustomerAuthInfoSchedule,
   getCustomerBase,
+  getcoupon,
   saveCustomerBaseInfo,
   saveCustomerIDInfoH5,
   saveCustomerContactInfo,
