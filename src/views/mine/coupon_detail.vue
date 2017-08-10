@@ -101,7 +101,33 @@
     color: #fff;
     font-size: .28rem;
   }
+  .shuoming{ padding: 0 .3rem;  font-size: .26rem;  color: #666; margin-top: .3rem;}
+  .shuoming>div{ border: 1px solid #ccc; width: 100%;  }
+  .shuoming ul{ padding: 0 .3rem;}
+  .shuoming li{ width: 100%;line-height: .5rem;}
+  .shuoming h2{ margin-left: .3rem; margin-top: .3rem; margin-bottom: .1rem;}
 </style>
 <script>
   /*eslint-disable*/
+  import {
+    get_coupon,
+  } from '../../service/';
+  export default{
+    data(){
+      return{
+        couponList:[],
+        coupon:'',
+      }
+    },
+    mounted(){
+      get_coupon().then((res)=>{
+        this.couponList = res;
+      }),
+        console.log(this.$router.params.aid)
+    },
+    methods:{
+
+    }
+
+  }
 </script>

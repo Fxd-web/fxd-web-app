@@ -1,7 +1,7 @@
 <template>
   <div id="load_progress">
     <div class="load_progress">
-      <div class="wrap_head null" style="display: none">
+      <div class="wrap_head null"  v-if="myLoadProgress">
         <img src="../../assets/img/faxindai_logo.png" alt="">
         <p class="change">您当前无借款进度</p>
       </div>
@@ -13,7 +13,7 @@
         </li>
       </ul>
     </div>
-    <div class="reject_fxd" style="display:none">
+    <div class="reject_fxd" v-if="reject" >
       <h2 class="reject_fxd_title">被拒无需担心，试试通过率更高的产品？</h2>
       <div class="reject_fxd_body">
         <div class="reject_fxd_head"><img :src="product.ext_attr_.icon_" width="28"><span>{{product.name_}}</span><span class="">{{product.ext_attr_.tags}}</span></div>
@@ -24,7 +24,7 @@
         <a href="javascript:void(0)" class="reject_fxd_btn" @click="needLoanSmall">立即申请</a>
       </div>
     </div>
-    <div class="check_false_foot" style="display: none">
+    <div class="check_false_foot" v-if="check_false">
       <p>试试其他平台?</p>
       <a href="javascript:void(0)" onclick="location.href='http://192.168.6.133/fxd-esb/esb/case/select_platform.html'" class="case_btn act" id='case_btn'>去看看</a>
     </div>
@@ -220,7 +220,6 @@
 </style>
 <script>
   /*eslint-disable*/
-  import '../../lib/jquery-1.7.2.js'
   import {
     query_LoanStatus,
     get_LimitProductlistApi,
@@ -232,6 +231,9 @@
         list:[],
         productId:'',
         leadStroke:'',
+        myLoadProgress:false,
+        reject:false,
+        check_false:false,
         product: {
           name: '工薪贷',
           amt_desc_: '1000-5000元',
@@ -246,10 +248,13 @@
     mounted(){
       query_LoanStatus().then((res) => {
         this.list = res;
+        if(this.list.length ==0){
+            this.myLoadProgress = !this.myLoadProgress;
+        }
         for(let i=0; i<this.list.length; i++){
            if(this.list[i].apply_status_ == "已拒绝"){
                this.leadStroke = true;
-               $('.reject_fxd').show();
+               this.reject =!this.reject;
            }
        }
       }),
@@ -271,8 +276,8 @@
               }
             }
           } else if (this.productId  == "P001004") { //急速贷被拒，导流第三方平台
-            $('.reject_fxd').hide();
-            $('.check_false_foot').show();
+                this.reject = false;
+                this.check_false  = true;
           }
         }
       })

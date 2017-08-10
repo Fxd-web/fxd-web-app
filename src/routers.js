@@ -56,6 +56,14 @@ export default {
       }
     },
     {
+      path: '/couponDetail',
+      component: require('./views/mine/coupon_detail.vue'),
+      meta: {
+        title: '红包详情',
+        lv: 2,
+      }
+    },
+    {
       path: '/bank',
       component: require('./views/mine/bank.vue'),
       meta: {
@@ -67,7 +75,7 @@ export default {
       path: '/inviteFriends',
       component: require('./views/mine/invite_friends.vue'),
       meta: {
-        title: '我的银行卡',
+        title: '邀请好友',
         lv: 2,
       }
     },

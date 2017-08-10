@@ -3,8 +3,8 @@
     <div class="short"></div>
     <div class="wrap_accut" id="coupon" v-cloak>
 
-      <div id="couponList" v-for="coupon in couponList" >
-          <div class="msage">
+      <div id="couponList" v-for="(coupon,index) in couponList" v-if="coupon_list">
+          <div class="msage" @click="goDetail">
             <img src="../../assets/img/coupon.png"/>
             <div class="words1">
               <div>
@@ -29,7 +29,7 @@
             </div>
           </div>
       </div>
-      <div class="wrap">
+      <div class="wrap" v-if="!coupon_list">
         <div class="wrap_head null">
           <img src="../../assets/img/faxindai_logo.png" alt="" />
           <p class="change">您当前暂无优惠券</p>
@@ -39,6 +39,7 @@
   </div>
 </template>
 <style>
+
   .msage {
     height: 20%;
     margin: .4rem .3rem 0 .3rem;
@@ -102,16 +103,21 @@
     data(){
         return{
           couponList:[],
-          coupon:'',
+          coupon:'' ,
+          coupon_list:true
+
         }
     },
     mounted(){
     get_coupon().then((res)=>{
       this.couponList = res;
+      console.log(res)
     })
     },
     methods:{
-
+      goDetail(){
+       this.$router.push({path:'/couponDetail',params:{aid:coupon.id_}})
+    }
     }
 
   }
