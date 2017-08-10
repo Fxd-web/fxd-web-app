@@ -38,6 +38,11 @@
         valueKey="desc_"
         @cell_picker_cancel_cb="education_level_cancel_picker"
         @cell_picker_submit_cb="education_level_submit_picker"></fxd-cell-picker>
+      <fxd-add-picker
+        :defaultValueArr="pickerList.home_address_.defaultValueArr"
+        :data="pickerList.home_address_"
+        @addPicker_change_cb="home_address_cancel_picker"
+        @addPicker_submit_cb="home_address_submit_picker"></fxd-add-picker>
       <fxd-cell
         class="item"
         placeholder="居住地详址"
@@ -81,19 +86,22 @@
           customer_name_: '',
           id_code_: '',
           education_level_: '',
-          province_: '1',
-          city_: '1',
-          county_: '1',
+          province_: '',
+          city_: '',
+          county_: '',
           home_address_: '',
           body_file_id_: '',
         },
         pickerList:{  // picker部分
           education_level_: {  // 学历
-            placeholder: '学历', //提示语
+            placeholder: '学历', // 提示语
             values: [],
             defaultValue:'',
           },
           home_address_: {  // 地址
+            placeholder: '单位所在地', // 提示语
+            defaultValueArr: [],
+            values: [],
           }
         },
         editable_field: { // 控制身份证姓名和号码是否手动修改默认不能修改
@@ -139,14 +147,20 @@
             dict_type_: 'EDUCATION_LEVEL_'
           }),
         ]).then(data=> {
-          if(data[2]){
+          if(data[2]) {
             this.pickerList.education_level_.values = data[2]; // 学历picker赋值
+          }
+          if(data[1]) {
+            this.pickerList.home_address_ = { // 地址picker赋值
+                  values : data[1]
+            };
           }
           if(!data[0]) return;
            try{
              let { customer_name_, id_code_, education_level_, province_, city_, county_, home_address_, body_file_id_ } = data[0]; // 取值
              Object.assign(this.item, {customer_name_}, {id_code_}, {education_level_}, {province_}, {city_}, {county_}, {home_address_}, {body_file_id_}); // 赋值
              this.pickerList.education_level_.defaultValue = filterDictionary(data[2], education_level_); // 学历赋值
+             this.pickerList.home_address_.defaultValueArr = [province_, city_, county_]; // 地址赋值
              // 图片高亮
              if(customer_name_&&id_code_){
                this.id_card.front = this.id_card.back = true;
@@ -222,7 +236,21 @@
       education_level_cancel_picker() {
         this.item.education_level_ = '';
       },
-      home_address_picker() {
+      /**
+       * 设置地址
+       * @param data
+       */
+      home_address_submit_picker(data) {
+        this.item.province_ = data[0].name;
+        this.item.city_ = data[1].name;
+        this.item.county_ = data[2].name;
+      },
+      /**
+       * 取消地址
+       * @param data
+       */
+      home_address_cancel_picker() {
+        this.item.education_level_ = '';
       },
       /**
        * 提交
@@ -395,7 +423,6 @@
   .case_sfz_idcard span.init:before {
     border-radius: 0;
   }
-
 
   .case_sfz p img {
     margin: 0 auto;

@@ -189,7 +189,7 @@
         padding: 0 .3rem;
         overflow: hidden;
         position: relative;
-        &:after,&:before{
+        &:after, &:before{
           content: '';
           position: absolute;
           left: 0;
@@ -274,6 +274,7 @@
       }
     }
     .main-footer{
+      /*border: 1px solid blue;*/
       margin-bottom: .1rem;
       background: #fff;
       ul{

@@ -33,6 +33,11 @@
       valueKey="desc_"
       @cell_picker_cancel_cb="industry_cancel_picker(1)"
       @cell_picker_submit_cb="industry_submit_picker($event, 1)"></fxd-cell-picker>
+    <fxd-add-picker
+      :defaultValueArr="pickerList.home_address_.defaultValueArr"
+      :data="pickerList.home_address_"
+      @addPicker_change_cb="home_address_cancel_picker"
+      @addPicker_submit_cb="home_address_submit_picker"></fxd-add-picker>
     <fxd-cell
       class="item"
       placeholder="单位详址"
@@ -61,6 +66,7 @@
     get_customer_carrer,
     get_dict_code_list,
     save_customer_carrer,
+    get_region_byOrder_H5List
   } from '../../service/';
   import { verify } from '../../mixins/verify';
   import { Toask } from 'fxd-components-example';
@@ -76,9 +82,9 @@
           organization_name_: '',
           organization_telephone_: '',
           industry_: '',
-          province_: '1',
-          city_: '1',
-          country_: '1',
+          province_: '',
+          city_: '',
+          country_: '',
           organization_address_: '',
         },
         pickerList:{  // picker部分
@@ -87,6 +93,11 @@
             values: [],
             defaultValue:'',
           },
+          home_address_: {  // 地址
+            placeholder: '居住地', // 提示语
+            defaultValueArr: [],
+            values: [],
+          }
         },
         submit_dis: true, // 确定按钮
       }
@@ -108,20 +119,27 @@
           get_dict_code_list({
             dict_type_: 'INDUSTRY_'
           }),
+          get_region_byOrder_H5List(),
         ]).then(data=> {
 
           this.pickerList.industry_.values = data[1]; // picker赋值
 
-          try{
+          if(data[2]) {
+            this.pickerList.home_address_ = { // 地址picker赋值
+              values : data[2]
+            };
+          }
+          try {
             let { organization_name_, organization_telephone_, industry_, province_name_, city_name_, country_name_,  organization_address_ } = data[0]; // 取值
             this.pickerList.industry_.defaultValue = filterDictionary(data[1], industry_); // 学历赋值
+//            this.pickerList.home_address_.defaultValueArr = [province_name_, city_name_, country_name_]; // 地址赋值
             Object.assign(this.item, {organization_name_}, {organization_telephone_}, {organization_address_} ,{industry_});
             let telephone = organization_telephone_.split('-');
             this.filter_organization_telephone.areaCode = telephone[0];
             this.filter_organization_telephone.unitPhone = telephone[1];
             this.submit_dis = false;
 
-          }catch (e){}
+          } catch (e) {}
         })
       },
       /**
@@ -137,6 +155,22 @@
        */
       industry_submit_picker(data) {
         this.item.industry_ = data[0].code_;
+      },
+      /**
+       * 设置地址
+       * @param data
+       */
+      home_address_submit_picker(data) {
+        this.item.province_ = data[0].name;
+        this.item.city_ = data[1].name;
+        this.item.county_ = data[2].name;
+      },
+      /**
+       * 取消地址
+       * @param data
+       */
+      home_address_cancel_picker() {
+        this.item.education_level_ = '';
       },
       /**
        * 提交

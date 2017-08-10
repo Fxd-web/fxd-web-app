@@ -40,7 +40,7 @@
         headTitle: '标题', // 标题栏标题
       };
     },
-    computed:{
+    computed: {
       /**
        * 动态设置内容高度和top高度
        */
@@ -73,9 +73,6 @@
         this.headTitle = this.$route.meta.title || this.headTitle;
       },
       /*eslint-enable*/
-      pickerCb() {
-        this.$store.dispatch('toggle_mask');
-      }
     },
     watch: {
       '$store.state.nextPage'(path) {
