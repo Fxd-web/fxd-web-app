@@ -177,15 +177,15 @@
       }
     },
     watch: {
-      'item': {
-        handler(obj) {
-          this.submit_dis = true;
-          if(isEmptyValObj(obj)) {
-            this.submit_dis = false;
-          }
-        },
-        deep: true
-      },
+      // 'item': {
+      //   handler(obj) {
+      //     this.submit_dis = true;
+      //     if(isEmptyValObj(obj)) {
+      //       this.submit_dis = false;
+      //     }
+      //   },
+      //   deep: true
+      // },
     }
   }
   /*eslint-disable*/
