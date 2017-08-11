@@ -24,8 +24,8 @@
               </span>
             </div>
             <div class="words3">
-              有效期：{{coupon.validity_period_from_|myDatel}}
-              至{{coupon.validity_period_to_|myDate}}
+              有效期：{{coupon.validity_period_from_}}
+              至{{coupon.validity_period_to_}}
             </div>
           </div>
         </div>
@@ -120,10 +120,12 @@
       }
     },
     mounted(){
+      console.log(this.$route.query.detail);
+      console.log(eval(this.$route.query.detail));
       get_coupon().then((res)=>{
         this.couponList = res;
-      }),
-        console.log(this.$router.params.aid)
+      })
+
     },
     methods:{
 

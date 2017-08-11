@@ -23,7 +23,7 @@
 </style>
 
 <script>
-  /*eslint-disable*/
+
   import 'normalize.css';
   import './css/common.scss';
   import nav from './components/nav';

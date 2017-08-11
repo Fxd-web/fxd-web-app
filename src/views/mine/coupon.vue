@@ -4,7 +4,7 @@
     <div class="wrap_accut" id="coupon" v-cloak>
 
       <div id="couponList" v-for="(coupon,index) in couponList" v-if="coupon_list">
-          <div class="msage" @click="goDetail">
+          <div class="msage" @click="goDetail(index)">
             <img src="../../assets/img/coupon.png"/>
             <div class="words1">
               <div>
@@ -24,8 +24,8 @@
               </span>
             </div>
             <div class="words3">
-              有效期：{{coupon.validity_period_from_|myDate}}
-              至{{coupon.validity_period_to_|myDate}}
+              有效期：{{coupon.validity_period_from_}}
+              至{{coupon.validity_period_to_}}
             </div>
           </div>
       </div>
@@ -104,21 +104,27 @@
         return{
           couponList:[],
           coupon:'' ,
-          coupon_list:true
+          coupon_list:true,
+          detail:'',
 
         }
     },
     mounted(){
-    get_coupon().then((res)=>{
+    get_coupon().then(res=>{
       this.couponList = res;
-      console.log(res)
     })
     },
     methods:{
-      goDetail(){
-       this.$router.push({path:'/couponDetail',params:{aid:coupon.id_}})
+      goDetail(index){
+        get_coupon().then(res=>{
+          this.detail = JSON.stringify(res[index]);
+        });
+        console.log(this.detail);
+
+//       this.$router.push({path:`/couponDetail?detail= ${this.detail}`})
     }
     }
+
 
   }
 

@@ -77,6 +77,7 @@
   }
 </style>
 <script>
+
   /*eslint-disable*/
   import {
     get_product_info,
