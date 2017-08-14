@@ -19,7 +19,7 @@
               <a v-if="coupon.total_amount_!=coupon.residual_amount_">/</a>
               <span>
                 <div v-if="coupon.total_amount_!=coupon.residual_amount_">
-                剩余{{coupon.residual_amount_}}元
+                  剩余{{coupon.residual_amount_}}元
                 </div>
               </span>
             </div>
@@ -38,7 +38,7 @@
             <li>2、本券从还款第一期起即可使用；</li>
             <li>3、可分期使用，如当期本金100元，当期利息21元，
               还款总额仅100元，21元利息已抵扣，抵扣利息直至100元优惠券抵扣完毕；</li>
-            <li>4、本券有效期为{{coupon.validity_period_from_|myDate}} 至 {{coupon.validity_period_to_|myDate}}；</li>
+            <li>4、本券有效期为{{coupon.validity_period_from_}} 至 {{coupon.validity_period_to_}}；</li>
             <li>5、本券不可与其他优惠券叠加使用；</li>
             <li>6、本券最终解释权归发薪贷所有。</li>
           </ul>
@@ -47,65 +47,82 @@
     </div>
   </div>
 </template>
-<style>
+<style lang="scss" scoped>
   .msage {
     height: 20%;
     margin: .4rem .3rem 0 .3rem;
     position: relative;
+    img {
+      width:100%;
+      height:2.84rem;
+    }
+    .words1 {
+      position: absolute;
+      width: 100%;
+      top: .3rem;
+      color: #fff;
+      font-size: .46rem;
+      div {
+        float: left;
+      }
+      div:first-child {
+        margin-left: 22%;
+      }
+      div:last-child {
+        display: inline-block;
+        padding: .12rem;
+        background: rgb(112,112,112);
+        border-radius: .06rem;
+        float: right;
+        margin-right: .3rem;
+        font-size: .28rem;
+      }
+    }
+    .words2{
+      position: absolute;
+      top: .9rem;
+      left: 22%;
+      color: #fff;
+      font-size: .84rem;
+      span:first-child {
+        font-size: .96rem;
+        font-weight: bold;
+      }
+      span:last-child {
+        font-size: .46rem;
+        display: inline-block;
+      }
+    }
+    .words3{
+      position: absolute;
+      top: 2.2rem;
+      left: 22%;
+      color: #fff;
+      font-size: .28rem;
+    }
   }
-  .msage img {
-    width: 100%;
-    height: 2.84rem;
+  .shuoming {
+    padding: 0 .3rem;
+    font-size: .26rem;
+    color: #666;
+    margin-top: .3rem;
+    div{
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+    ul{
+      padding:0 .3rem;
+      li {
+        width: 100%;
+        line-height: .5rem;
+      }
+    }
+    h2{
+      margin-left: .3rem;
+      margin-top: .3rem;
+      margin-bottom: .1rem;
+    }
   }
-  .words1 {
-    position: absolute;
-    width: 100%;
-    top: .3rem;
-    color: #fff;
-    font-size: .46rem;
-  }
-  .words1 div {
-    float: left;
-  }
-  .words1 div:first-child {
-    margin-left: 22%;
-  }
-  .words1 div:last-child {
-    display: inline-block;
-    padding: .12rem;
-    background: rgb(112,112,112);
-    border-radius: .06rem;
-    float: right;
-    margin-right: .3rem;
-    font-size: .28rem;
-  }
-  .words2{
-    position: absolute;
-    top: .9rem;
-    left: 22%;
-    color: #fff;
-    font-size: .84rem;
-  }
-  .words2 span:first-child{
-    font-size: .96rem;
-    font-weight: bold;
-  }
-  .words2 span:last-child{
-    font-size: .46rem;
-    display: inline-block;
-  }
-  .words3{
-    position: absolute;
-    top: 2.2rem;
-    left: 22%;
-    color: #fff;
-    font-size: .28rem;
-  }
-  .shuoming{ padding: 0 .3rem;  font-size: .26rem;  color: #666; margin-top: .3rem;}
-  .shuoming>div{ border: 1px solid #ccc; width: 100%;  }
-  .shuoming ul{ padding: 0 .3rem;}
-  .shuoming li{ width: 100%;line-height: .5rem;}
-  .shuoming h2{ margin-left: .3rem; margin-top: .3rem; margin-bottom: .1rem;}
 </style>
 <script>
   /*eslint-disable*/
@@ -115,17 +132,18 @@
   export default{
     data(){
       return{
-        couponList:[],
         coupon:'',
       }
     },
     mounted(){
-      console.log(this.$route.query.detail);
-      console.log(eval(this.$route.query.detail));
       get_coupon().then((res)=>{
-        this.couponList = res;
+        let index = this.$route.query.index;
+        for(let i=0; i<res.length; i++){
+            if(i == this.$route.query.index){
+              this.coupon = res[i];
+            }
+        }
       })
-
     },
     methods:{
 
