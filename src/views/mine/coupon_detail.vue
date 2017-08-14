@@ -137,7 +137,6 @@
     },
     mounted(){
       get_coupon().then((res)=>{
-        let index = this.$route.query.index;
         for(let i=0; i<res.length; i++){
             if(i == this.$route.query.index){
               this.coupon = res[i];
