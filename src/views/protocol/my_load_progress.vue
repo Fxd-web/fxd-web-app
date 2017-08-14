@@ -248,50 +248,50 @@
     mounted(){
       query_LoanStatus().then((res) => {
         this.list = res;
-        if(this.list.length ==0){
-            this.myLoadProgress = !this.myLoadProgress;
+      if(this.list.length ==0){
+        this.myLoadProgress = !this.myLoadProgress;
+      }
+      for(let i=0; i<this.list.length; i++){
+        if(this.list[i].apply_status_ == "已拒绝"){
+          this.leadStroke = true;
+          this.reject =!this.reject;
         }
-        for(let i=0; i<this.list.length; i++){
-           if(this.list[i].apply_status_ == "已拒绝"){
-               this.leadStroke = true;
-               this.reject =!this.reject;
-           }
-       }
-      }),
+      }
+    }),
       get_apply_status().then((res) => {
         this.productId = res.product_id_;
-      }),
+    }),
       get_LimitProductlistApi().then((res)=>{
-        if (this.leadStroke = true) {
-          if (this.productId  == "P001005") {        //白领贷被拒，导流工薪贷
-            for (let i = 0; i < res.products.length; i++) {
-              if (res.products[i].id == "P001002") {
-                this.product = res.products[i]
-              }
+        if (this.leadStroke == true) {
+        if (this.productId  == "P001005") {        //白领贷被拒，导流工薪贷
+          for (let i = 0; i < res.products.length; i++) {
+            if (res.products[i].id == "P001002") {
+              this.product = res.products[i]
             }
-          } else if (this.productId  == "P001002") { //工薪贷被拒，导流急速贷
-            for (let j = 0; j < res.products.length; j++) {
-              if (res.products[j].id == "P001004") {
-                this.product = res.products[j]
-              }
-            }
-          } else if (this.productId  == "P001004") { //急速贷被拒，导流第三方平台
-                this.reject = false;
-                this.check_false  = true;
           }
+        } else if (this.productId  == "P001002") { //工薪贷被拒，导流急速贷
+          for (let j = 0; j < res.products.length; j++) {
+            if (res.products[j].id == "P001004") {
+              this.product = res.products[j]
+            }
+          }
+        } else if (this.productId  == "P001004") { //急速贷被拒，导流第三方平台
+          this.reject = false;
+          this.check_false  = true;
         }
-      })
+      }
+    })
 
     },
     methods: {
       needLoanSmall: function() {
-//        sessionStorage.product_ID = this.productId;
+        sessionStorage.product_ID = this.productId;
         if (this.productId == 'P001002') {
 //          location.href = "../case/choose_money.html?out_operate_fee_2=" +
 //            sessionStorage.out_operate_fee_2 + "&out_day_service_fee_2=" + sessionStorage.out_day_service_fee_2 +
 //            "&out_day_interest_fee_2=" + sessionStorage.out_day_interest_fee_2;
         } else{ //导流工薪贷,点立即申请，跳转借款申请页面
-//          location.href = "../case/case_main.html" ;
+          this.$router.push({path:'/information'});
         };
       },
     }

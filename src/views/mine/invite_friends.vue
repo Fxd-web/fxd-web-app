@@ -128,6 +128,19 @@
     width:50%;
     height:50%;
   }
+  .info_bt{
+    margin-top:.3rem;
+    text-align:center;
+    color:#fff;
+    width: 100%;
+    font-size:.44rem;
+    border: 1px solid #00aaee;
+    background:#00aaee;
+    height:1rem;
+    line-height:1rem;
+    border-radius:.12rem;
+    margin-bottom: .3rem;
+  }
 </style>
 <script>
   /*eslint-disable*/

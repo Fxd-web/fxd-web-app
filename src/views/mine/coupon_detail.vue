@@ -145,8 +145,6 @@
       })
     },
     methods:{
-
     }
-
   }
 </script>
