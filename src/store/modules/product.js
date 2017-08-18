@@ -15,8 +15,7 @@ export default {
       state.product = product;
     },
     [types.DEAL_PRODUCT_CASE](state, case_info) {
-      state.product_case_info = case_info.result;
-      console.log(case_info)
+      state.product_case_info = case_info;
       let _store  = require('../store').default;
       let { Toask } = require('fxd-components-example');
       let apply_flag_arr = [{

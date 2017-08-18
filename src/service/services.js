@@ -60,6 +60,28 @@ const filterFlag = (json, fltFlag) => {
 }
 
 
+
+/**
+ * flag过滤新接口
+ * @param  {String} options.json   api地址
+ * @return {Promise}               Promise
+ *
+ */
+const filterFlagNew = (json) => {
+  Loading.close();
+  return new Promise(function (resolve, reject) {
+    if(parseInt(json.errCode)) {
+      Toask(json.msg);
+      reject(json);
+      setTimeout(()=> {
+        commit(types.NEXT_PAGE, 'login');
+      }, 1000);
+    }
+    resolve(json)
+  })
+}
+
+
 /**
  * 服务器异常处理
  * @param  {String} options.error  错误信息
@@ -73,16 +95,18 @@ const serverError = (err) => {
   return new Error(err);
 }
 
+
+
 /**
  * 拼接token
  * @returns {*}
  */
-const spliceToken = () => {
+const spliceToken = (Newinterfaces) => {
   try{
     let data = storage(0, 'USERINFO');
     let juid = data.juid;
     let juidToken = data[`${juid}token`];
-    return `juid=${juid}&${juid}token=${juidToken}`
+    return Newinterfaces ? `juid=${juid}&${juid}token=${juidToken}&platformType=0&channel_=1&position_=1` : `juid=${juid}&${juid}token=${juidToken}`;
   }catch (e){
     return ''
   }
@@ -95,12 +119,13 @@ const spliceToken = () => {
  * @param params 参数
  * @param des3  是否加密
  * @param fltFlag  是否过滤flag
+ * @param Newinterfaces  兼容新接口
  * @returns {Promise}
  */
-export default async(type = 'GET', url = '', params = '', des3 = true, fltFlag = false) => {
+export default async(type = 'GET', url = '', params = '', des3 = true, fltFlag = false, Newinterfaces = false) => {
   Loading.open();
   type = type.toUpperCase();
-  url = `${config.url}${url}?${spliceToken()}`;
+  url = `${Newinterfaces ? config.nUrl : config.url}${url}?${spliceToken(Newinterfaces)}`;
   let record = '';
   if (des3 && !!params) {
     !!params.password_ && (params.password_ = des.DES3.encrypt(params.password_));
@@ -133,5 +158,5 @@ export default async(type = 'GET', url = '', params = '', des3 = true, fltFlag =
     .catch(err => {
       serverError(err)
     })
-  return filterFlag(res, fltFlag);
+  return Newinterfaces ? filterFlagNew(res) : filterFlag(res, fltFlag);
 }

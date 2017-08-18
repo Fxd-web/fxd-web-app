@@ -24,7 +24,8 @@ export {
 export {
   get_queryLoanRecordList,
   get_banner,
-  send_SMS
+  send_SMS,
+  n_summary
 } from './other';
 
 

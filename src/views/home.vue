@@ -87,7 +87,8 @@
     get_limitProductlistApi,
     get_queryLoanRecordList,
     get_banner,
-    get_apply_status
+    get_apply_status,
+    n_summary
   } from '../service';
   import {
     mapMutations
@@ -110,6 +111,9 @@
       'fxd-product-reject': productReject
     },
     mounted() {
+      n_summary().then(res=>{
+          console.log(res)
+      })
       this.init();
     },
     methods:{

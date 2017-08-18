@@ -11,10 +11,10 @@
         </div>
         <p class="case_tip">
           <img src="../../assets/img/case_main_i.png" alt=""> 请按顺序进行各项资料填写
-      </p>
+        </p>
         <div class="case_con">
           <ul>
-            <li @click="link(i, index)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act':''">
+            <li @click="link(i, index)" v-for="(i,index) in list" :class="(index+1)<nextStep||nextStep<0?'act': index==4&&customer_authInfo.isZmxyAuth==2?'act':''">
               <p>
                 <span>{{i.title}}</span>
                 <span>{{i.des}}</span>
@@ -116,12 +116,12 @@
            return
         }
 
-        if(this.customer_authInfo.isZmxyAuth == '1') {
+        if(index == 4 && this.customer_authInfo.isZmxyAuth == '1') {
           Toask(`您正在认证中，请勿重复认证！`);
           return
         }
 
-        if(this.customer_authInfo.isZmxyAuth == '2') {
+        if(index == 4 && this.customer_authInfo.isZmxyAuth == '2') {
           Toask(`您已验证完成,无需多次验证!`);
           return
         }

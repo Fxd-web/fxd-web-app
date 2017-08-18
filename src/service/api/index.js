@@ -101,6 +101,9 @@ const getcoupon = 'esb/userWs/getUserAvailabelRedpacketList.jhtml';
 const getLimitProductlistApi  = 'esb/product/getLimitProductlistApi.jhtml'; // 获取用户产品列表
 const queryLoanRecordApi  = 'esb/caseInfo/queryLoanRecordApi.jhtml'; // 首页文字切换
 const topBanner  = 'esb/event/topBanner.jhtml'; // 首页banner
+const n_summary = 'summary'; // 新的首页接口
+
+
 export default{
   register,
   login,
@@ -139,5 +142,6 @@ export default{
   saveCustomerAuthTcMobile,
   submitZhimaCreditAuth,
   getProductInfo,
-  createApplication
+  createApplication,
+  n_summary
 };

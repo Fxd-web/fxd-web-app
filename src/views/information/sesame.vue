@@ -1,24 +1,26 @@
 <template>
   <div id="case-main-sesame">
-    <div class="sesame-head">
-      <ul class="sesame-head_num">
-        <li v-for='i in 3'><span>{{i}}</span></li>
-      </ul>
-      <ul class="sesame-head-tip">
-        <li>立即授权</li>
-        <li>同意协议</li>
-        <li>短信验证</li>
-      </ul>
+    <div class="case-main-sesame-body" :class="[iframeUrl?'iframe':'']">
+      <div class="sesame-head">
+        <ul class="sesame-head_num">
+          <li v-for='i in 3'><span>{{i}}</span></li>
+        </ul>
+        <ul class="sesame-head-tip">
+          <li>立即授权</li>
+          <li>同意协议</li>
+          <li>短信验证</li>
+        </ul>
+      </div>
+      <div class="sesame-body">
+        <p class="input"><input type="text" name="" value="" placeholder="姓名" v-model='item.user_name_' readonly></p>
+        <p class="input"><input type="text" placeholder="身份证号" v-model='item.id_code_' maxlength="18" readonly></p>
+        <p class="p">以上信息用于确认您的身份</p>
+      </div>
+      <div class="sesame-btn">
+        <span class="" @click='submit'>立即授权</span>
+      </div>
     </div>
-    <div class="sesame-body">
-      <p class="input"><input type="text" name="" value="" placeholder="姓名" v-model='item.user_name_' readonly></p>
-      <p class="input"><input type="text" placeholder="身份证号" v-model='item.id_code_' maxlength="18" readonly></p>
-      <p class="p">以上信息用于确认您的身份</p>
-    </div>
-    <div class="sesame-btn">
-      <span class="" @click='submit'>立即授权</span>
-    </div>
-    <iframe scrolling="auto" frameborder="0" :src="iframeUrl" :class="[iframeUrl?'iframe':'']"></iframe>
+    <iframe scrolling="auto" frameborder="0" id="zmxyIframe" :src="iframeUrl" :class="[iframeUrl?'iframe':'']"></iframe>
   </div>
 </template>
 <style lang="scss" >
@@ -26,8 +28,24 @@
     background: #f5f5f5;
     height: 100vh;
     width: 100%;
+    input {
+      outline: none;
+      border: none;
+    }
   }
-
+  .case-main-sesame-body.iframe{
+    position: relative;
+     &:after{
+       position: absolute;
+       content: '';
+       background: #fff;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       z-index: 101;
+     }
+  }
   .sesame-head {
     text-align: center;
     padding: .3rem 0
@@ -171,17 +189,19 @@
     right: 0;
     bottom: 0;
     height: 100vh;
-    z-index: 101;
+    z-index: 102;
   }
 </style>
 <script>
+  var date1, date2;
   import {
     get_customer_base,
-    submit_zhima_credit_auth
+    submit_zhima_credit_auth,
   } from '../../service/';
+  import { Loading } from 'fxd-components-example';
     export default{
-        data(){
-          return{
+        data() {
+          return {
             submit_dis: true,
             iframeUrl: null,
             item: {
@@ -203,9 +223,40 @@
               this.item.id_code_ = res.id_code_;
             })
           },
+          destroyIframe: function (iframe) {
+            //把iframe指向空白页面，这样可以释放大部分内存。
+            iframe.src = 'about:blank';
+            try {
+              iframe.contentWindow.document.write('');
+              iframe.contentWindow.document.clear();
+            } catch (e) {}
+            //把iframe从页面移除
+            iframe.parentNode.removeChild(iframe);
+          },
           submit() {
+
             submit_zhima_credit_auth(this.item).then(res => {
                 this.iframeUrl = res.auth_url;
+                let time = 0;
+                document.getElementById("zmxyIframe").onload = ()=> {
+                  flex(100, 1, 1);
+                  time++;
+                  if (time == 1) {
+                    date1 = +new Date()
+                  }
+                  if (time == 2) {
+                    date2 = +new Date()
+                    let num = date2 - date1
+                    if (num < 4300 && num > 4200) {
+                      location.reload();
+                    }
+                  }
+                  if (time == 3) {
+                    flex(100, 1);
+                    this.destroyIframe(document.getElementById('zmxyIframe'));
+                    this.$router.replace('/information?iszmxy=1');
+                  }
+              }
             })
           }
         },

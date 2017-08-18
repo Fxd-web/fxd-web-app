@@ -21,8 +21,17 @@ const send_SMS = (mobile_phone_)=>{
 };
 
 
+
+const n_summary = ()=>{
+  return $http('get', Api.n_summary, '', true, false, true)
+}
+
+
+
+
 export {
   get_queryLoanRecordList,
   get_banner,
-  send_SMS
+  send_SMS,
+  n_summary
 };

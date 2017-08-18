@@ -147,11 +147,14 @@
   import {
     get_RecomfrInfoApi
   }from '../../service'
+  import {
+    storage
+  } from '../../util'
   export default{
       data(){
          return{
-             showMask:false,
-             invitation_code:invitation_code,
+             showMask: false,
+             invitation_code: storage(0,'USERINFO').invitation_code,
          }
       },
     mounted(){

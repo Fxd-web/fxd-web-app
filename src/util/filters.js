@@ -12,4 +12,3 @@ export function filterDictionary (data, key) {
   })[0].desc_
 }
 
-

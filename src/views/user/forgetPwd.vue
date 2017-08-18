@@ -1,18 +1,22 @@
 <template>
   <div class="forgetPwd">
     <fxd-cell  v-model="item.mobile_phone_" type="imgText" inputType="mobile" class="phoneNumber">
-      <img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText"/>
+      <!--<img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText"/>-->
+      <div slot="imgText" class="mobileIcon"></div>
     </fxd-cell>
     <fxd-cell  v-model="item.val4" type="all" inputType="code">
-      <img width="250%" src="../../assets/img/mobile.png" alt="" slot="imgText" id="imgCode"/>
+      <!--<img width="250%" src="../../assets/img/mobile.png" alt="" slot="imgText" id="imgCode"/>-->
+      <div slot="imgText" class="codeIcon"></div>
       <fxd-button slot="btnText" type="inset" id="sendCode">发送验证码</fxd-button>
     </fxd-cell>
 
     <fxd-cell  v-model="item.password_" type="all" inputType="password" class="reg_">
-      <img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText" class="imgCode">
-      <div slot="btnText">
-        <img width="100%" :src='password.type==="password"?password.hideUrl:password.showUrl' @click='changePsdType' alt=""  class="img_"/>
-      </div>
+      <!--<img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText" class="imgCode">-->
+
+      <div class="passwordIcon" slot="imgText"></div>
+
+      <div class="passwordTypeIcon" :class="[passwordType?'dis':'']" @click="passwordTypeMethod" slot="btnText"></div>
+        <!--<img width="100%" :src='password.type==="password"?password.hideUrl:password.showUrl' @click='changePsdType' alt=""  class="img_"/>-->
     </fxd-cell>
     <fxd-button class="btn login-submit">确认找回</fxd-button>
     <!--<p><img width="29" src="../../assets/img/mobile.png" alt=""><input-->
@@ -29,8 +33,47 @@
   </div>
 </template>
 <style  lang="scss" scoped>
-  /*eslint-disable*/
   .forgetPwd {
+    .passwordIcon{
+      border: 1px solid #00aaee;
+      width: .32rem;
+      height: .32rem;
+      position: relative;
+      border-radius: .1rem;
+      background: #fff;
+      &:after{
+        position: absolute;
+        content: '';
+        top: -50%;
+        left: 25%;
+        width: 50%;
+        height: .3rem;
+        border:1px solid #00aaee;
+        border-radius: 50%;
+        z-index: -1;
+      }
+    }
+    .codeIcon{
+      width: .32rem;
+      height: .2rem;
+      border:1px solid #00aaee;
+      border-radius: .05rem;
+      position: relative;
+      background: repeating-radial-gradient(yellow 10%, green 15%);
+      &:after{
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 25%;
+        border-left:10px solid #fff;
+        border-right: 10px solid transparent;
+        border-bottom:10px solid #fff;
+        border-top:10px solid transparent;
+      }
+      &:before{
+      }
+    }
     .phoneNumber {
       margin: 0.35rem auto;
     }
@@ -74,6 +117,7 @@
 //          },
 //        }
         return {
+          passwordType:false,
           password: {
             type: 'password',
             hideUrl: require('../../assets/img/1_Signin_icon_06.png'),
@@ -86,6 +130,9 @@
         }
       },
       methods:{
+        passwordTypeMethod(){
+          this.passwordType = !this.passwordType
+        },
         submit(){
           this.$store.dispatch('user_forgetPwd', this.data);
           this.$store.commit('NEXT_PAGE','register');
