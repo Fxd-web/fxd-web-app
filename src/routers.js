@@ -8,6 +8,7 @@ export default {
         title: '首页',
         navSwitch: true,
         backSwitch: true,
+        filter: true,
         lv: 1,
       }
     },
@@ -18,6 +19,7 @@ export default {
         title: '首页',
         navSwitch: true,
         backSwitch: true,
+        filter: true,
         lv: 1,
     }
     },
@@ -95,6 +97,7 @@ export default {
       meta: {
         title: '登录',
         backSwitch: true,
+        filter: true,
         lv: 1,
       }
     },
@@ -103,6 +106,7 @@ export default {
       component: require('./views/user/register'),
       meta: {
         title: '注册',
+        filter: true,
         lv: 1,
       }
     },
@@ -111,6 +115,7 @@ export default {
       component: require('./views/user/forgetPwd'),
       meta: {
         title: '找回密码',
+        filter: true,
         lv: 1,
       }
     },

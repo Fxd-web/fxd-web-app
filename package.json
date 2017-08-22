@@ -12,6 +12,7 @@
     "v-qrcode": "^1.0.3",
     "vue": "^2.3.4",
     "vue-qart": "^1.0.5",
+    "vue-qrcode": "github:xkeshi/vue-qrcode",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.3",
     "vuex": "^2.0.0"
@@ -38,7 +39,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "function-bind": "^1.0.2",
-    "fxd-components-example": "^1.5.3",
+    "fxd-components-example": "^1.5.5",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.17.2",
     "json-loader": "^0.5.4",

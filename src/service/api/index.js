@@ -4,16 +4,12 @@
 
 //注册
 const register  = 'esb/register/register.jhtml';
-
 //登录
 const login  = 'esb/login/login.jhtml';
-
 //退出登录
 const logout  = 'esb/logout/logout.jhtml';
-
 //找回密码
 const forgetPwd  = 'esb/findPasswordBack/findPasswordBack.jhtml';
-
 //验证码图片
 const picCode  = 'esb/register/getPicCodeApi.jhtml';
 

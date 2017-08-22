@@ -21,6 +21,15 @@ const send_SMS = (mobile_phone_)=>{
 };
 
 
+const send_SMS_imgCode = (params)=>{
+  return $http('post', Api.sendSMS, params)
+};
+
+const get_pic_code = ()=>{
+  return $http('post', Api.picCode, '', true, true)
+};
+
+
 
 const n_summary = ()=>{
   return $http('get', Api.n_summary, '', true, false, true)
@@ -33,5 +42,7 @@ export {
   get_queryLoanRecordList,
   get_banner,
   send_SMS,
+  get_pic_code,
+  send_SMS_imgCode,
   n_summary
 };

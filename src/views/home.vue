@@ -33,7 +33,7 @@
     </div>
     <div class="main-footer">
         <ul>
-          <li>
+          <li @click="repayAmount">
             <img src="../assets/img/home_footer_borrow.png" alt="">
             <p>我要还款</p>
           </li>
@@ -93,7 +93,7 @@
   import {
     mapMutations
   } from 'vuex';
-  export default{
+  export default {
     data() {
       return {
         productlist: [], // 产品数据
@@ -106,21 +106,22 @@
       };
     },
     props: ['viewHeight'],
-    components:{
+    components: {
       'fxd-swiper': swiper,
       'fxd-product-reject': productReject
     },
     mounted() {
-      n_summary().then(res=>{
-          console.log(res)
-      })
+//      n_summary().then(res=>{
+//          console.log(res)
+//      })
       this.init();
     },
-    methods:{
+    methods: {
       ...mapMutations([
+        'DEAL_REPAYAMOUNT',
         'SET_PRODUCT',
         'SET_LOCAL_PRODUCT',
-        'DEAL_PRODUCT_CASE'
+        'DEAL_PRODUCT_CASE',
       ]),
       init() {
         this.page_logic(); //页面逻辑
@@ -136,7 +137,7 @@
        * 异步获取数据
        */
       page_async() {
-        Promise.all([get_limitProductlistApi(),get_queryLoanRecordList(),get_banner()]).then( res => {
+        Promise.all([get_limitProductlistApi(),get_queryLoanRecordList(),get_banner()]).then(res => {
           let [productlist, queryLoanRecordList, bannerList] = res;
           if(!productlist) return;
           this.productlist = productlist;
@@ -158,12 +159,20 @@
        */
       toggle_popup_wx() {
         this.mask.popupWx = !this.mask.popupWx;
-        try{
+        try {
           document.getElementById('downloadIMG').setAttribute("href", `${require('../config').local}img/qr_code.png`);
-        }catch (e){}
+        } catch (e) {}
+      },
+      /**
+       * 我要还款
+       */
+      repayAmount() {
+        get_apply_status().then(res =>{
+          this.DEAL_REPAYAMOUNT(res);
+        })
       },
       linkCase(pid) {
-        get_apply_status(pid).then(res=>{
+        get_apply_status(pid).then(res =>{
           this.SET_LOCAL_PRODUCT(pid);
           this.DEAL_PRODUCT_CASE(res)
         })

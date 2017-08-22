@@ -25,7 +25,7 @@
             </li>
           </ul>
         </div>
-        <fxd-button class="case_btn" @click.native="submit" :disabled="isdisabled">立即申请</fxd-button>
+        <fxd-button class="case_btn" @click.native="submit" :disabled="isdisabled" v-if="local_product">立即申请</fxd-button>
       </div>
       <transition name="router-slid" mode="out-in">
         <router-view class="case_main_con"></router-view>
@@ -43,7 +43,8 @@
   } from '../../service/';
   import {
     mapActions,
-    mapMutations
+    mapMutations,
+    mapGetters
   } from 'vuex'
   import { Alert } from 'fxd-components-example';
   export default {
@@ -77,6 +78,11 @@
         btnAct: 'act',
         isdisabled: true, // 按钮不可点击
       }
+    },
+    computed: {
+      ...mapGetters([
+        'local_product',
+      ]),
     },
     created() {
        this.init();
@@ -133,7 +139,6 @@
         Alert('是否愿意家人知晓?').then(res=> {
           this.SET_IFFAMILYKNOW(res);
           this.NEXT_PAGE(`loan_apply`);
-
         })
       }
     },

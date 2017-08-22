@@ -1,10 +1,9 @@
-import Vue from 'vue'
 import * as types from '../mutation-types/'
 
 export default {
-  state:{
+  state: {
     local_product: '',
-    product:[],
+    product: [],
     product_case_info: null,
   },
   mutations: {
@@ -13,6 +12,9 @@ export default {
     },
     [types.SET_PRODUCT](state, product) {
       state.product = product;
+    },
+    [types.DEAL_REPAYAMOUNT](state, case_info) {
+      console.log(case_info)
     },
     [types.DEAL_PRODUCT_CASE](state, case_info) {
       state.product_case_info = case_info;
@@ -32,7 +34,8 @@ export default {
           Toask(case_info.msg);
         },
         '0004': function () {
-          location.href=`http://h5.test.fxds/fxd-h5/page/redirect.html?nothing=${localStorage.USERINFO}`;
+          // location.href=`http://h5.test.fxds/fxd-h5/page/redirect.html?nothing=${localStorage.USERINFO}`;
+          location.href=`http://192.168.13.250:8000/page/redirect.html?nothing=${localStorage.USERINFO}`;
           // apply_status_arr.forEach(i=>i[case_info.apply_status_]());
         },
         '0005': function () {

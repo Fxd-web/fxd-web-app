@@ -3,30 +3,39 @@
 
     <fxd-mobileVerify
       type="imgCode"
-      :data="item"
+      :data="mobileVerifyItem"
       @mobile_verify_change_pic_cb="mobile_verify_change_pic_cb"
       @mobile_verify_send_code_cb="mobile_verify_send_code_cb"
-      @mobile_verify_submit_cb="mobile_verify_submit_cb"></fxd-mobileVerify>
+      ></fxd-mobileVerify>
 
-    <fxd-cell  v-model="item.password_" type="all" inputType="password" class="reg_">
+    <fxd-cell
+      class="reg_"
+      v-model="item.password_"
+      @input.native="e=>item.password_=e.target.value"
+      type="all"
+      :inputType="passwordType? 'password' : ''"
+      >
       <img width="150%" src="../../assets/img/mobile.png" alt="" slot="imgText" class="imgCode">
-      <div slot="btnText">
-        <img width="100%" :src='password.type==="password"?password.hideUrl:password.showUrl' @click='changePsdType' alt=""  class="img_"/>
-      </div>
+      <div class="passwordTypeIcon" :class="[passwordType?'dis':'']"  @click="passwordTypeMethod" slot="btnText"></div>
     </fxd-cell>
 
-    <fxd-cell  v-model="item.mobile_phone_" type="imgText" :placeholder="item.placeholder2" class="reg_">
+    <fxd-cell
+      v-model="item.merchant_code_"
+      type="imgText"
+      :placeholder="'邀请码或邀请人手机号'"
+      @input.native="e=>item.merchant_code_=e.target.value"
+      class="reg_">
       <img width="150%" src="../../assets/img/yaoqingma.png" alt="" slot="imgText">
     </fxd-cell>
 
     <fxd-radio-tip agreeText="同意发薪贷" :tipList="tipList" class="reg_"></fxd-radio-tip>
-    <fxd-button class="affirmRegister">确认注册</fxd-button>
+
+    <fxd-button class="affirmRegister" @click.native="submit">确认注册</fxd-button>
   </div>
 </template>
 
-<style lang="scss" scoped>
-  /*eslint-disable*/
-  .reg{
+<style lang="scss">
+  .reg {
     .reg_ {
       margin-top:.35rem;
     img{
@@ -50,98 +59,93 @@
 
 <script>
   /*eslint-disable*/
-  import config from '../../config'
+  import {
+    user_register,
+    get_pic_code,
+    send_SMS_imgCode
+  } from '../../service/';
+  import config from '../../config';
   export default {
     data() {
       return {
-//        data: {
-//          mobile_phone_: '',
-//          flag: 'MSG_REG_',
-//          pic_verify_id_: '',
-//          pic_verify_code_: '',
-//          picCodeUrl: "",
-//          BSFIT_DEVICEID: '',
-//          last_login_from_: '4',
-//          merchant_code_: '',
-//          qr_code_: '',
-//          password_: '',
-//          regProtocol: 'on',
-//          register_from_: '4',
-//          verify_code_: '',
-//          pageToken: {
-//            pageTokenKey: '',
-//            pageTokenVal: '',
-//          }
-//        },
-        password: {
-          type: 'password',
-          hideUrl: require('../../assets/img/1_Signin_icon_06.png'),
-          showUrl: require('../../assets/img/1_Signin_icon_07.png')
+        tipList: ['注册协议','隐私保密协议'],
+        passwordType: true,
+        mobileVerifyItem: {
+          placeholder: '请先输入图片验证码',
+          mobile: {
+            val: '',
+          },
+          imgCode: {
+            pic_verify_id_: '',
+            iconUrl: '',
+            val: '',
+          },
+          code: {
+            val: '',
+          },
         },
-//        isAccept: false,
-          tipList:['注册协议','隐私保密协议'],
-          item:{
-            placeholder:'请先输入图片验证码',
-            placeholder2:'邀请码或邀请人手机号',
-            mobile_phone_:'',
-            val4:'hahahhahhah',
-            mobile:{
-              val:'',
-            },
-            imgCode:{   // 此数据对象不存在则不现实图形验证码
-              iconUrl:'',
-              val:'',
-            },
-            code:{
-              val:'',
-            },
+        item: {
+          merchant_code_: this.$route.query.invitation_code || '',
+          mobile_phone_: '',
+          password_: '',
+          register_from_: '',
+          verify_code_: ''
         }
       }
     },
     mounted() {
-//      this.picCode();
+        this.pic_code_init();
     },
     methods: {
-      mobile_verify_change_pic_cb(){
-//        console.log('切换图片的操作')
+      pic_code_init() {
+        get_pic_code().then(res=> {
+          this.mobileVerifyItem.imgCode.pic_verify_id_ = res.id_;
+          this.mobileVerifyItem.imgCode.iconUrl = `${config.url}${res.pic_verify_url_}?id_=${res.id_}`;
+        })
       },
-      mobile_verify_send_code_cb(){
-//        console.log('发送验证码的操作')
+      mobile_verify_change_pic_cb() { // 切换图片
+        this.pic_code_init();
       },
-      mobile_verify_submit_cb(){
-//        console.log('提交按钮的操作')
+      mobile_verify_send_code_cb() { // 发送验证码
+        send_SMS_imgCode({
+          mobile_phone_: this.item.mobile_phone_,
+          flag: 'MSG_REG_',
+          pic_verify_id_: '',
+          pic_verify_code_: this.mobileVerifyItem.imgCode.val
+        }).then(res=> {
+            console.log(res)
+        })
       },
       picCode() {
-        this.$store.dispatch('user_picCode');
       },
       setPicCode() {
-        this.data.pic_verify_id_ = this.$store.state.picCode.id_;
-        this.data.picCodeUrl = `${config}${this.$store.state.picCode.pic_verify_url_}?id_=${this.data.pic_verify_id_}&oldId_=`;
       },
       sendCode() {
-        let data = Object.assign({}, this.data);
-        this.$store.dispatch('user_phoneCode', data);
-        this.$store.dispatch('getPageToken', data);
       },
-      changePsdType() {
-        this.password.type = this.password.type==='password'?'text':'password';
+      passwordTypeMethod() {
+        this.passwordType = !this.passwordType
       },
       acceptBtn() {
         this.isAccept = !this.isAccept;
       },
       submit() {
-        this.$store.dispatch('user_register', this.data);
-        this.$store.commit('NEXT_PAGE', 'login');
-        this.data.pageToken = {
-          pageTokenVal: this.$store.state.pageToken.pageTokenVal || '',
-          pageTokenKey: this.$store.state.pageToken.pageTokenKey || '',
-        }
+        console.log(this.item);
       }
     },
     watch: {
-      '$store.state.picCode.id_' () {
-        this.setPicCode();
-      }
+      'mobileVerifyItem': {
+        handler: function (data) {
+            this.item.mobile_phone_ = data.mobile.val;
+            this.item.verify_code_ = data.code.val;
+        },
+        deep: true
+      },
+      'item': {
+        handler: function (data) {
+          this.item.register_from_ = data.merchant_code_ ? '5' : '4';
+        },
+        deep: true
+      },
     }
   }
 </script>

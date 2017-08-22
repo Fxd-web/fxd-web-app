@@ -12,8 +12,12 @@
       <div class="nviteFriends-phone-div">
         <div class="code">
           <!--<img src="../../img/qr_code.png" alt="" width="180">-->
-          <div id="code"></div>
-          <img src="../../assets/img/logo.png" alt="" width="20%" class="code_logo">
+          <div id="code">
+            <qrcode
+              :value="qrcode_url"
+              :options="{ size: 360 }"></qrcode>
+          </div>
+          <img src="../../assets/img/logo.png" alt="" width="18%" class="code_logo">
         </div>
         <p>我的邀请二维码</p>
       </div>
@@ -146,24 +150,31 @@
   /*eslint-disable*/
   import {
     get_RecomfrInfoApi
-  }from '../../service'
+  }from '../../service';
   import {
     storage
-  } from '../../util'
+  } from '../../util';
+  import Qrcode from 'vue-qrcode';
+  import config from '../../config';
   export default{
       data(){
          return{
              showMask: false,
              invitation_code: storage(0,'USERINFO').invitation_code,
+             qrcode_url: '',
          }
       },
-    mounted(){
-       get_RecomfrInfoApi().then((res)=>{
-           for(let i=0 ;i<res.list.length;i++){
+      components: {
+        qrcode: Qrcode
+      },
+      mounted(){
+          this.qrcode_url = `${config.local}register?invitation_code=${storage(0,'USERINFO').invitation_code}`;
+           get_RecomfrInfoApi().then((res)=>{
+               for(let i=0 ;i<res.list.length;i++){
 
-           }
-         console.log(res)
-       })
-    }
+               }
+             console.log(res)
+           })
+      }
   }
 </script>

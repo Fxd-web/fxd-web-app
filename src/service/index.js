@@ -18,6 +18,7 @@ export {
 export {
   user_login,
   user_logout,
+  user_register
 } from './user';
 
 
@@ -25,6 +26,8 @@ export {
   get_queryLoanRecordList,
   get_banner,
   send_SMS,
+  get_pic_code,
+  send_SMS_imgCode,
   n_summary
 } from './other';
 

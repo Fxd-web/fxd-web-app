@@ -118,11 +118,6 @@
 //        }
         return {
           passwordType:false,
-          password: {
-            type: 'password',
-            hideUrl: require('../../assets/img/1_Signin_icon_06.png'),
-            showUrl: require('../../assets/img/1_Signin_icon_07.png')
-          },
           item:{
             mobile_phone_:'',
             val4:'',
