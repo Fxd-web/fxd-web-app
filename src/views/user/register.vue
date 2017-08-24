@@ -37,7 +37,7 @@
 <style lang="scss">
   .reg {
     .reg_ {
-      margin-top:.35rem;
+      margin:.3rem auto!important;
     img{
       width:4rem;
     }
@@ -60,10 +60,15 @@
 <script>
   /*eslint-disable*/
   import {
+    user_login,
     user_register,
     get_pic_code,
     send_SMS_imgCode
   } from '../../service/';
+  import {
+    mapMutations
+  } from 'vuex';
+  import {Toask} from 'fxd-components-example';
   import config from '../../config';
   export default {
     data() {
@@ -85,8 +90,8 @@
           },
         },
         item: {
-          merchant_code_: this.$route.query.invitation_code || '',
-          mobile_phone_: '',
+          merchant_code_: this.$route.query.invitation_code || this.$route.query.merchant_code_ || '',
+          mobile_phone_: this.$route.query.mobile_phone_ || '',
           password_: '',
           register_from_: '',
           verify_code_: ''
@@ -97,6 +102,10 @@
         this.pic_code_init();
     },
     methods: {
+      ...mapMutations([
+        'USER_LOGIN',
+        'NEXT_PAGE',
+      ]),
       pic_code_init() {
         get_pic_code().then(res=> {
           this.mobileVerifyItem.imgCode.pic_verify_id_ = res.id_;
@@ -110,17 +119,9 @@
         send_SMS_imgCode({
           mobile_phone_: this.item.mobile_phone_,
           flag: 'MSG_REG_',
-          pic_verify_id_: '',
+          pic_verify_id_: this.mobileVerifyItem.imgCode.pic_verify_id_,
           pic_verify_code_: this.mobileVerifyItem.imgCode.val
-        }).then(res=> {
-            console.log(res)
         })
-      },
-      picCode() {
-      },
-      setPicCode() {
-      },
-      sendCode() {
       },
       passwordTypeMethod() {
         this.passwordType = !this.passwordType
@@ -129,7 +130,26 @@
         this.isAccept = !this.isAccept;
       },
       submit() {
-        console.log(this.item);
+        const password_ = this.item.password_; // 密码会被解密先保存下
+        user_register(this.item).then(json=> {
+
+         if(json.flag!=='0000'){
+           Toask(json.msg);
+           setTimeout(()=>{
+             location.reload();
+           }, 1000);
+           return
+         }
+          user_login({
+            merchant_code_: this.item.merchant_code_,
+            last_login_from_: 4,
+            mobile_phone_: this.item.mobile_phone_,
+            password_
+          }).then(res => {
+            this.USER_LOGIN(res);
+            this.NEXT_PAGE('home');
+          })
+        })
       }
     },
     watch: {

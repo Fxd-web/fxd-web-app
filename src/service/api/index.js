@@ -63,6 +63,8 @@ const getApplyStatus  = 'esb/caseInfo/getApplyStatus.jhtml';
 const getProductInfo  = 'esb/product/getProductInfo.jhtml';
 //首次进件
 const createApplication = 'esb/applicant/createApplication.jhtml';
+//查询还款
+const getCommonRepayAmount = 'esb/repay/getCommonRepayAmount.jhtml';
 
 
 // 查询用户信息认证录入进度
@@ -139,5 +141,6 @@ export default{
   submitZhimaCreditAuth,
   getProductInfo,
   createApplication,
+  getCommonRepayAmount,
   n_summary
 };

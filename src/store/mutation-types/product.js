@@ -6,3 +6,6 @@ export  const SET_LOCAL_PRODUCT = 'SET_LOCAL_PRODUCT';
 
 // 处理进件状态
 export  const DEAL_PRODUCT_CASE = 'DEAL_PRODUCT_CASE';
+
+// 处理还款
+export  const DEAL_REPAYAMOUNT = 'DEAL_REPAYAMOUNT';

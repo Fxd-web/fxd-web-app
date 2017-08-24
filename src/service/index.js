@@ -18,7 +18,8 @@ export {
 export {
   user_login,
   user_logout,
-  user_register
+  user_register,
+  user_find_password_back
 } from './user';
 
 
@@ -37,6 +38,7 @@ export {
   get_apply_status,
   get_product_info,
   create_application,
+  get_commonRepayAmount,
 } from './product';
 
 

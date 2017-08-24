@@ -1,4 +1,6 @@
 import * as types from '../mutation-types/'
+import { Toask } from 'fxd-components-example';
+
 
 export default {
   state: {
@@ -14,18 +16,21 @@ export default {
       state.product = product;
     },
     [types.DEAL_REPAYAMOUNT](state, case_info) {
-      console.log(case_info)
+      if(case_info.apply_flag_=='0004' && (case_info.apply_status_=='7'||case_info.apply_status_=='8')){
+        location.href=`http://192.168.13.250:8000/page/redirect.html?nothing=${localStorage.USERINFO}`;
+        return
+      }
+      Toask('您当前无需还款!');
     },
     [types.DEAL_PRODUCT_CASE](state, case_info) {
-      state.product_case_info = case_info;
+      state.product_case_info = case_info.result || case_info;
       let _store  = require('../store').default;
-      let { Toask } = require('fxd-components-example');
       let apply_flag_arr = [{
         '0000': function () {
           _store.nextPage = 'information';
         },
         '0001': function () {
-          _store.nextPage = 'information';
+          location.href=`http://192.168.13.250:8000/page/redirect.html?nothing=${localStorage.USERINFO}`;
         },
         '0002': function () {
           _store.nextPage = 'information';

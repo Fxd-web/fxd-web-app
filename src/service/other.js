@@ -1,5 +1,6 @@
 import $http from './services';
 import Api from './api/';
+import { Toask } from 'fxd-components-example';
 
 const get_queryLoanRecordList = ()=>{
   return $http('post', Api.queryLoanRecordApi)
@@ -13,16 +14,19 @@ const get_banner = ()=>{
   })
 };
 
-const send_SMS = (mobile_phone_)=>{
-  return $http('post', Api.sendSMS, {
-    mobile_phone_:mobile_phone_,
-    flag:'MSG_LOGIN_'
+const send_SMS = (params)=> {
+  return $http('post', Api.sendSMS, params, true, true).then(json=> {
+    Toask(json.msg);
+    return json
   })
 };
 
 
-const send_SMS_imgCode = (params)=>{
-  return $http('post', Api.sendSMS, params)
+const send_SMS_imgCode = (params)=> {
+  return $http('post', Api.sendSMSH5, params, true, true).then(json=> {
+    Toask(json.msg);
+    return json
+  })
 };
 
 const get_pic_code = ()=>{

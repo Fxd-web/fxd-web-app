@@ -13,7 +13,7 @@ const get_limitProductlistApi = ()=>{
 }
 
 const get_apply_status = (params)=>{
-  return $http('post', Api.getApplyStatus, params)
+  return $http('post', Api.getApplyStatus, params, true, true)
 }
 
 const get_product_info = (params)=>{
@@ -21,12 +21,24 @@ const get_product_info = (params)=>{
 }
 
 const create_application = (params)=>{
-  return $http('post', Api.createApplication, params)
+  return $http('post', Api.createApplication, params, true, true).then(json=> {
+    Toask(json.msg);
+    return json
+  })
 }
+
+const get_commonRepayAmount = ()=>{
+  return $http('post', Api.getCommonRepayAmount, '', true, true).then(json=> {
+    Toask(json.msg);
+    return json
+  })
+}
+
 
 export {
   get_limitProductlistApi,
   get_apply_status,
   get_product_info,
-  create_application
+  create_application,
+  get_commonRepayAmount
 };

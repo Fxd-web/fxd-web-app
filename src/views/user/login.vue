@@ -89,7 +89,7 @@
     data() {
       return {
         showMobeilCode: false,
-        item:{
+        item: {
           verify_code_: '',
           merchant_code_: '',
           last_login_from_: 4,
@@ -107,10 +107,13 @@
         'NEXT_PAGE',
       ]),
       send_code_cb() {
-        send_SMS(this.item.mobile_phone_)
+        send_SMS({
+          mobile_phone_:this.item.mobile_phone_,
+            flag:'MSG_LOGIN_'
+        })
       },
       submit() {
-        this.required([this.$refs.cell1,this.$refs.cell2]).then(()=>{
+        this.required([this.$refs.cell1,this.$refs.cell2]).then(()=> {
           user_login(this.item).then(res => {
             this.USER_LOGIN(res);
             this.NEXT_PAGE('home');
@@ -127,8 +130,6 @@
       forgetPwd() {
         this.NEXT_PAGE('forgetPwd');
       },
-      sendCode() {
-      }
     },
   };
   /*eslint-enable*/

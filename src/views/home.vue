@@ -88,6 +88,7 @@
     get_queryLoanRecordList,
     get_banner,
     get_apply_status,
+    get_commonRepayAmount,
     n_summary
   } from '../service';
   import {
@@ -167,9 +168,11 @@
        * 我要还款
        */
       repayAmount() {
-        get_apply_status().then(res =>{
-          this.DEAL_REPAYAMOUNT(res);
-        })
+        get_commonRepayAmount()
+
+//        get_apply_status().then(res =>{
+//          this.DEAL_REPAYAMOUNT(res);
+//        })
       },
       linkCase(pid) {
         get_apply_status(pid).then(res =>{

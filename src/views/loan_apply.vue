@@ -85,6 +85,7 @@
   } from '../service/';
   import {
     mapGetters,
+    mapMutations
   } from 'vuex';
   import {
     isEmptyValObj,
@@ -132,6 +133,12 @@
       ]),
     },
     methods: {
+      ...mapMutations([
+        'DEAL_REPAYAMOUNT',
+        'SET_PRODUCT',
+        'SET_LOCAL_PRODUCT',
+        'DEAL_PRODUCT_CASE',
+      ]),
       /**
        * 初始化
        **/
@@ -173,7 +180,9 @@
       },
       submit() {
         create_application(this.item).then(res=> {
-            console.log(res)
+          this.DEAL_PRODUCT_CASE({
+            apply_flag_: '0004'
+          })
         });
       }
     },
